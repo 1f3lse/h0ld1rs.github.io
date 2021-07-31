@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LDAP | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对LDAP的一些记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LDAP">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对LDAP的一些记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/image/%20.png">
+<meta property="article:published_time" content="2021-07-31T13:17:25.000Z">
+<meta property="article:modified_time" content="2021-07-31T13:18:42.798Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/image/%20.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 21:18:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/image/%20.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">LDAP</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T13:18:42.798Z" title="更新于 2021-07-31 21:18:42">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/">安全相关</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">742</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h1><blockquote>
+<p>LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，一般都简称为LDAP。它是基于X.500标准的，但是简单得多并且可以根据需要定制。</p>
+</blockquote>
+<ul>
+<li>LDAP是一种通讯协议，LDAP支持TCP/IP。协议就是标准，并且是抽象的，在这套标准下，AD(Active Directory)，是微软出的一套实现。</li>
+<li>AD呢，咱们可以把他理解为数据库。也有很多人直接把LDAP直接说成数据库(<em>可以把LADP理解成储存数据的数据库</em>)。像是其他数据库一样。LADP也是有client端和server端。server端用来存放资源，client端用来增删改查等操作。</li>
+<li>而我们通常说的LDAP是指运行这个数据库的服务器。</li>
+<li>可以简单理解AD=LADP服务器+LADP应用</li>
+</ul>
+<hr>
+<p>那么，LADP这种数据库有什么特殊的呢？</p>
+<ul>
+<li>Mysql数据库，数据都是按记录一条条记录存在表中。而LADP数据库，是数据结构上的，数据储存在叶子节点上的。</li>
+</ul>
+<h2 id="什么是LDAP"><a href="#什么是LDAP" class="headerlink" title="什么是LDAP"></a>什么是LDAP</h2><blockquote>
+<ol>
+<li>目录服务是一个特殊的数据库，用来保存描述性的，基于属性的详细信息。基于属性的详细功能。支持过滤的功能</li>
+<li>是动态的，灵活的，易于扩展的。</li>
+</ol>
+<p>如：人员组织管理，电话簿，地址簿</p>
+</blockquote>
+<h2 id="LDAP介绍"><a href="#LDAP介绍" class="headerlink" title="LDAP介绍"></a>LDAP介绍</h2><p>目录是一个为查询，浏览和搜索而优化的数据库，它成树状结构组织数据。类似文件目录一样。</p>
+<p>目录数据库和关系数据库不同，他有优异的读性能，但写性能差，并且没有事务处理，回滚等复杂的功能，不适于储存修改频繁的数据。所以目录天生是用来查询的，就像他的名字一样。</p>
+<p>LDAP目录服务是由于目录数据库和一套访问协议组成的系统。</p>
+<h2 id="为什么要用"><a href="#为什么要用" class="headerlink" title="为什么要用"></a>为什么要用</h2><p>LDAP是开放的<code>internet</code>标准，支持跨平台的<code>internet</code>协议，在业界种得到广泛认可，并且市场上或者开源社区上的产品都加入了对LDAP的支持，因此对于这类系统，不需要单独定制，只需要LDAP做简单的配置，就可以与服务器做交互认证。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<ol>
+<li><p>目录树：在一个目录服务系统中，整个目录信息集可以表示为一个目录信息树，树中的每个节点是一个条目。</p>
+</li>
+<li><p>条目：每个条目就是一条记录，每个条目有自己的唯一可区别的名称（DN）。</p>
+</li>
+<li><p>对象类：与某个实体类型对应的一组属性，对象类是可以继承的，这样父类的必须属性也会被继承下来。</p>
+</li>
+<li><p>属性：描述条目的某个方面的信息，一个属性由一个属性类型和一个或多个属性值组成，属性有必须属性和非必须属性。</p>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://images2018.cnblogs.com/blog/1062001/201806/1062001-20180612174219851-465284075.png" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/">https://h0ld1rs.github.io/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/image/%20.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/"><img class="prev-cover" src="/img/image/19.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">预编译</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/31/%E5%BC%80%E5%8F%91/SQL%E4%B8%8EORM/"><img class="next-cover" src="/img/image/17.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SQL与ORM</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LDAP"><span class="toc-number">1.</span> <span class="toc-text">LDAP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLDAP"><span class="toc-number">1.1.</span> <span class="toc-text">什么是LDAP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LDAP%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">LDAP介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">为什么要用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.4.</span> <span class="toc-text">基本概念</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/image/%20.png)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

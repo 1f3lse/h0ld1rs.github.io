@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>java_Dao | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="java关系 Dao类的一些基本概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java_Dao">
+<meta property="og:url" content="https://h0ld1rs.github.io/2020/12/31/java/java-Dao/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="java关系 Dao类的一些基本概念">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/12.jpg">
+<meta property="article:published_time" content="2020-12-31T04:09:21.000Z">
+<meta property="article:modified_time" content="2021-01-05T08:14:18.088Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/12.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2020/12/31/java/java-Dao/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-05 16:14:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/12.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">java_Dao</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-31T04:09:21.000Z" title="发表于 2020-12-31 12:09:21">2020-12-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-05T08:14:18.088Z" title="更新于 2021-01-05 16:14:18">2021-01-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">954</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="DAO模式"><a href="#DAO模式" class="headerlink" title="DAO模式"></a>DAO模式</h1><h2 id="jdbc的封装"><a href="#jdbc的封装" class="headerlink" title="jdbc的封装"></a>jdbc的封装</h2><pre><code>  **持久化是将程序中数据在瞬时状态和持久状态间转换的机制。JDBC是一种持久化机制，将程序直接保存成文本文件也是持久化机制的一种实现。
+DAO（DataAccessObjects，数据存取对象）位于业务逻辑和持久化数据之间，实现对持久化数据的访问。通俗来讲，就是将数据库操作都封装起来，对外提供相应的接口。</code></pre>
+<p>   在面向对象设计过程中，有一些”套路”用于解决特定问题，称为模式。DAO模式提供了访问关系型数据系统所需操作的接口，将数据访问和业务逻辑分离，对上层提供面向对象的数据访问接口。DAO模式的优势就在于它实现了两次隔离**</p>
+<p><img src="https://images2015.cnblogs.com/blog/1045506/201612/1045506-20161215140345183-857605636.png" alt="img"></p>
+<h2 id="Dao模式的简介"><a href="#Dao模式的简介" class="headerlink" title="Dao模式的简介"></a>Dao模式的简介</h2><p>dao全称是data access object，数据库访问对象，主要的功能就是用于进行数据操作的，在程序的标准开发架构中属于数据层的操作</p>
+<p>企业分层架构</p>
+<p>客户层：因为现在都采用了B/S开发架构，所以一般都使用浏览器进行访问。</p>
+<p>显示层：使用JSP/Servlet进行页面效果的显示</p>
+<p>业务层：（Business Object，业务对象）：会将多个原子性的DAO操作进行组合，组合成一个完整的业务逻辑。</p>
+<p>数据层（DAO）：提供多个原子性的DAO操作，例如：增加、修改、删除等，都属于原子性的操作。</p>
+<p>资源层主要是数据库的操作层，里面可以进行各种的数据存储，但是这些数据存储操作的时候肯定依靠SQL语句，之前也发现了，如果在一个程序中出现了过多的SQL语句直接操作，则jsp页面变得相当复杂，而且也不便于程序的可重用性。</p>
+<p>可以通过一个专门的数据库的操作组件完成，那么这个就是数据层的功能</p>
+<p>业务层是整个项目的核心。现在我们要学的是DAO数据层。</p>
+<h2 id="Dao模式的优势"><a href="#Dao模式的优势" class="headerlink" title="Dao模式的优势"></a>Dao模式的优势</h2><p><strong>隔离了数据访问代码和业务逻辑代码；隔离了不同数据库实现。</strong></p>
+<p><strong>一个典型的DAO模式主要组成部分：<br>   DAO接口：把对数据库的所有操作定义成抽象方法，可以提供多种实现。<br>   DAO实现类：针对不同数据库给出DAO接口定义方法的具体实现 。<br>   实体类：用于存放与传输对象数据。<br>   数据库连接和关闭数据类：避免了数据库连接和关闭代码的重复使用，方便修改。</strong></p>
+<h2 id="Dao的组成"><a href="#Dao的组成" class="headerlink" title="Dao的组成"></a>Dao的组成</h2><p>在整个DAO中实际上都是以接口为操作标准的，即：客户端依靠DAO实现的接口进行操作，而服务端要将接口进行具体的实现。DAO由以下几个部分组成。</p>
+<p>1.DatabaseConnection：专门负责数据库的打开与关闭操作的类</p>
+<p>2.VO：主要由属性、setter、getter方法组成，VO类中的属性与表中的字段相对应，每一个VO类的对象都表示表中的每一条记录；</p>
+<p>3.DAO：主要定义操作的接口，定义一系列数据库的原子性操作，例如：增加、修改、删除、按ID查询等；</p>
+<p>4.Impl ： DAO接口的真实实现类，完成具体的数据库操作，但是不负责数据库的打开和关闭；</p>
+<p>5  Proxy ：代理实现类，主要完成数据库的打开和关闭，并且调用真实实现类对象的操作</p>
+<p>6  Factory ：工厂类，通过工厂类取得一个DAO的实例化对象</p>
+<p>Dao模式的一般使用</p>
+<p><img src="https://images2015.cnblogs.com/blog/1045506/201612/1045506-20161215140426261-803170972.png" alt="img"></p>
+<p><img src="https://images2015.cnblogs.com/blog/1045506/201612/1045506-20161215140443198-1203466464.png" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2020/12/31/java/java-Dao/">https://h0ld1rs.github.io/2020/12/31/java/java-Dao/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/12.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/03/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/windows%E6%8F%90%E6%9D%83/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/6.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">windows提权</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/29/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/kali%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/11.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">kali网络攻击</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DAO%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">DAO模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jdbc%E7%9A%84%E5%B0%81%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">jdbc的封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dao%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">Dao模式的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dao%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.3.</span> <span class="toc-text">Dao模式的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dao%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">1.4.</span> <span class="toc-text">Dao的组成</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/12.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

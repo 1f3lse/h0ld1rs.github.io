@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>linux | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="linux常用命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux">
+<meta property="og:url" content="https://h0ld1rs.github.io/2020/12/08/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/linux/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="linux常用命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/10.jpg">
+<meta property="article:published_time" content="2020-12-08T11:30:17.000Z">
+<meta property="article:modified_time" content="2021-04-19T01:12:53.524Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/10.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2020/12/08/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/linux/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-19 09:12:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/10.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">linux</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-08T11:30:17.000Z" title="发表于 2020-12-08 19:30:17">2020-12-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-19T01:12:53.524Z" title="更新于 2021-04-19 09:12:53">2021-04-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>[TOC]</p>
+<h1 id="linux命令"><a href="#linux命令" class="headerlink" title="linux命令"></a>linux命令</h1><h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>ls -l 查询所有组，文件创建日期等详细信息，比ls更加详细</p>
+<p><code>ls /dev/ -l</code></p>
+<p><code>ls -lh</code>加入h是可以以人类更加易懂的方式显示文件大小，加上的话是以k，MB等方式显示，不加的话，是以字节的方式显示</p>
+<p><code>ls -lh --sort= time</code></p>
+<p><code>ls -lh --sort= size</code></p>
+<h2 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h2><p>cd 切换目录</p>
+<p>cd ..回退上一级目录</p>
+<p>cd ~ 回退之前所在的目录</p>
+<h2 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h2><p>pwd 查看当前在哪个目录下</p>
+<h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><p>cat /var/log/message (查询系统日志的改动)</p>
+<h2 id="more"><a href="#more" class="headerlink" title="more"></a>more</h2><p>相比较cat显示，more可以进行一些翻页操作</p>
+<p>q 退出 (quit)</p>
+<h2 id="less"><a href="#less" class="headerlink" title="less"></a>less</h2><p>同上，但是是从后往年翻阅</p>
+<h2 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h2><p>tail /var/log/messages  默认显示下面10行的代码</p>
+<p>tail -20 /var/log/messages 显示下面20行的代码，可以根据需要自己进行设置</p>
+<p><code>配合watch进行联动</code> :</p>
+<p>watch  -n # 或–interval  watch缺省每2秒运行一下程序，可以用-n或-interval来指定间隔的时间。</p>
+<p><code>sudo watch -n 2 tail /var/log/messgaes</code></p>
+<p>每隔两秒运行一次<em>tail命令</em>，可以方便的观察记录日志的变动</p>
+<h2 id="rm-cp"><a href="#rm-cp" class="headerlink" title="rm/cp"></a>rm/cp</h2><p>不加任何参数时候，复制或者删除都是文件</p>
+<p>加上参数 -r 的时候，<code>递归处理，将指定目录下的所有文件与子目录一并处理</code></p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p>此系统的内存和各种服务等其他信息(使用情况)</p>
+<p>每隔几秒刷新一次</p>
+<p>可以杀死进程 <code>kill PID</code></p>
+<h2 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h2><p>报告当前系统的进程状态</p>
+<p>一般用法 <code>ps -ef 详细的进程信息</code></p>
+<p>ps aux</p>
+<p><code>ps -aux | grep named # 查看named进程详细信息</code></p>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>筛选输出内容的命令(过滤)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep ssh /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>在/etc/passwd 中筛选出 与ssh有关的信息</p>
+<h2 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h2><p>(kali 2020 需要加上sudo)</p>
+<p>查看网络配置</p>
+<p><code>ifconfig eth0 down</code> 把网卡down掉，(关掉)</p>
+<p>关掉才能进行修改</p>
+<p><code>ifconfig eth0 up</code></p>
+<p>下次重启之后，会还原回原本的mac地址，只有本次生效</p>
+<h2 id="route"><a href="#route" class="headerlink" title="route"></a>route</h2><p>配置网关</p>
+<p>route add default gw xxxxxx</p>
+<p>route add -net xxxxxx/子网掩码位数 gw xxxxx(给多个网段分配静态路由)</p>
+<p>route -n 也是可以查看路由的</p>
+<h2 id="dhclient"><a href="#dhclient" class="headerlink" title="dhclient"></a>dhclient</h2><p>可以动态获取或释放ip地址</p>
+<h2 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h2><p>netstat -pantu(<em>叛徒</em>)</p>
+<p><code>查询哪些服务建立了 tcp或者udp服务的连接</code></p>
+<p>grep -v 输出除之外的所有行 -v 选项</p>
+<p>联动:<code>netstat -pantu | egrep -v&#39;0.0.0.0|:::&#39;</code></p>
+<p><strong>egrep与grep用法大体相同</strong></p>
+<p>但是grep -v 显示未过滤掉相应的东西</p>
+<p><strong>netstat -pantu | grep -v ‘0.0.0.0|:::’|awk’{print $5}’</strong></p>
+<p>输出第五行的信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">and</span><br><span class="line">Address</span><br><span class="line">47.92.21.248:443</span><br><span class="line">47.92.21.240:443</span><br><span class="line">106.11.62.72:443</span><br><span class="line">59.82.31.248:443</span><br><span class="line">106.11.251.19:443</span><br><span class="line">106.11.40.57:443</span><br><span class="line">59.82.33.226:443</span><br><span class="line">106.11.94.61:443</span><br><span class="line">192.168.2.254:67</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>继续联动 <em>cut</em> </p>
+<p> cut -d：指定字段的分隔符，默认的字段分隔符为“TAB”；</p>
+<p>**netstat -pantu | grep -v ‘0.0.0.0|:::’|awk’{print $5} | cut -d ‘:’ -f 1 **</p>
+<p> -d 表示以: 进行分区，-f 表示选取第一块</p>
+<p><strong>netstat -pantu | grep -v ‘0.0.0.0|:::’|awk’{print $5} | cut -d ‘:’ -f 1 | uniq(删除重复ip)|sort</strong></p>
+<p>最后，可以输出</p>
+<p><strong>netstat -pantu | grep -v ‘0.0.0.0|:::’|awk’{print $5} | cut -d ‘:’ -f 1 | uniq(删除重复ip)|sort  &gt; ip.txt</strong></p>
+<p>当需要追加的时候，选择使用两个&gt;&gt;,如果使用一个的话，会造成覆盖</p>
+<p><strong>netstat -pantu | grep -v ‘0.0.0.0|:::’|awk’{print $5} | cut -d ‘:’ -f 1 | uniq(删除重复ip)|sort  &gt;&gt; ip.txt</strong></p>
+<p>netstat -nr   r显示Routing Table</p>
+<p>​                     n 直接显示 IP地址，而不通过域名服务器</p>
+<h2 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h2><p><em>常用命令</em>mount -o loop xxx.iso  /media/cdrom </p>
+<p>将文件挂载到linux下的目录里面</p>
+<h2 id="dmesg"><a href="#dmesg" class="headerlink" title="dmesg"></a>dmesg</h2><p>相当于 <code>cat /var/log/messages</code></p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找</p>
+<p><code>find / -name namp</code> 查找name 为nmap的文件</p>
+<p><code>find / -iname</code>  不区分大小写查找</p>
+<p>可与正则表达式混用</p>
+<p><code>find  -name &quot;ps*&quot;</code>以ps开头的文件都被列举</p>
+<p><code>find   -name  ip.txt  -exec cp &#123;&#125; /tmp/&#123;&#125;.bak \;</code>表示找到ip/txt文件，并复制到tmp文件夹下，重命名为ip.txt.bak</p>
+<h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>whereis 查找的范围比find小一些，所以速度也比较快一些.</p>
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p>输出，显示</p>
+<h2 id="vi-vim"><a href="#vi-vim" class="headerlink" title="vi/vim"></a>vi/vim</h2><p>在:下输入<code>set nu</code>可以显示行号</p>
+<p>:i insert，插入，就可以对文本文件进行编辑</p>
+<p>在命令模式下 w保存 q 退出</p>
+<p>在命令模式下 dd即为删除这一行 o为在光标所在行下一行插入一行</p>
+<p>​                         y是复制,p是粘贴</p>
+<h2 id="amp-amp-和-amp"><a href="#amp-amp-和-amp" class="headerlink" title="&amp;&amp;和&amp;"></a>&amp;&amp;和&amp;</h2><p>&amp;&amp; 只有前面命令执行成功，才会执行后面</p>
+<p>&amp; 前面不成功，也会执行</p>
+<h2 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">&quot; &quot;</span> <span class="comment">#不换行输出</span></span><br><span class="line"><span class="built_in">read</span> IP 读入一个变量IP，并赋值 </span><br></pre></td></tr></table></figure>
+
+<h1 id="配置升级"><a href="#配置升级" class="headerlink" title="配置升级"></a>配置升级</h1><p>apt-get update(升级软件包来源)</p>
+<p>apt-get upgrade(真实升级软件包)</p>
+<p>apt update –fix-missing 把错误的源修复</p>
+<p>apt upgrade</p>
+<p>apt dist-upgrade(大版本的进行更新)</p>
+<h1 id="ulimit"><a href="#ulimit" class="headerlink" title="ulimit"></a>ulimit</h1><p>取消打开资源文件数的配置</p>
+<p>hw期间有一个恶意脚本，内容是<code>ulimit -n 65535</code></p>
+<p>默认的 linux 最多能同时打开1024个文件。这里为了方便恶意命令的执行，他给改掉了</p>
+<h1 id="chattr"><a href="#chattr" class="headerlink" title="chattr"></a>chattr</h1><p><code>改变文件的属性</code></p>
+<p>可改变存放在ext2文件系统上的文件或目录属性</p>
+<p>一共有以下8种模式</p>
+<blockquote>
+<ol>
+<li>a：让文件或目录仅供附加用途。</li>
+<li>b：不更新文件或目录的最后存取时间。</li>
+<li>c：将文件或目录压缩后存放。</li>
+<li>d：将文件或目录排除在倾倒操作之外。</li>
+<li>i：不得任意更动文件或目录。</li>
+<li>s：保密性删除文件或目录。</li>
+<li>S：即时更新文件或目录。</li>
+<li>u：预防意外删除。</li>
+</ol>
+</blockquote>
+<p>对日志文件进行锁定，不发生变动，而且还可以锁定文件的变更时间。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chattr -iua</span><br></pre></td></tr></table></figure>
+
+<h1 id="ufw"><a href="#ufw" class="headerlink" title="ufw"></a>ufw</h1><p>防火墙。</p>
+<p>简单防火墙Uncomplicated FireWall)</p>
+<h1 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h1><p>在网络空间种定义规则使用的</p>
+<blockquote>
+<p> 作者一共在内核空间中选择了5个位置， </p>
+<p>1.内核空间中：从一个网络接口进来，到另一个网络接口去的 </p>
+<p>2.数据包从内核流入用户空间的 </p>
+<p>3.数据包从用户空间流出的</p>
+<p>4.进入/离开本机的外网接口 </p>
+<p>5.进入/离开本机的内网接口</p>
+</blockquote>
+<p><code>-F: FLASH，清空规则链的(注意每个链的管理权限)</code></p>
+<p>-X: 用于删除用户自定义的空链</p>
+<p>-Z：清空链，及链中默认规则的计数器的（有两个计数器，被匹配到多少个数据包，多少个字节）</p>
+<p>注意：一定要慎用，谨慎使用哦    </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2020/12/08/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/linux/">https://h0ld1rs.github.io/2020/12/08/%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/linux/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/10.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/08/%E5%BC%80%E5%8F%91/docker/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/16.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">docker</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/05/CTF%E9%A2%98%E7%9B%AE/ctfshow-web/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/20.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ctfshow_web</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">linux命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.1.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cd"><span class="toc-number">1.2.</span> <span class="toc-text">cd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwd"><span class="toc-number">1.3.</span> <span class="toc-text">pwd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cat"><span class="toc-number">1.4.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#more"><span class="toc-number">1.5.</span> <span class="toc-text">more</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#less"><span class="toc-number">1.6.</span> <span class="toc-text">less</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tail"><span class="toc-number">1.7.</span> <span class="toc-text">tail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-cp"><span class="toc-number">1.8.</span> <span class="toc-text">rm&#x2F;cp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#top"><span class="toc-number">1.9.</span> <span class="toc-text">top</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ps"><span class="toc-number">1.10.</span> <span class="toc-text">ps</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grep"><span class="toc-number">1.11.</span> <span class="toc-text">grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ifconfig"><span class="toc-number">1.12.</span> <span class="toc-text">ifconfig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#route"><span class="toc-number">1.13.</span> <span class="toc-text">route</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dhclient"><span class="toc-number">1.14.</span> <span class="toc-text">dhclient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#netstat"><span class="toc-number">1.15.</span> <span class="toc-text">netstat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount"><span class="toc-number">1.16.</span> <span class="toc-text">mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dmesg"><span class="toc-number">1.17.</span> <span class="toc-text">dmesg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">1.18.</span> <span class="toc-text">find</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#whereis"><span class="toc-number">1.19.</span> <span class="toc-text">whereis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#echo"><span class="toc-number">1.20.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vi-vim"><span class="toc-number">1.21.</span> <span class="toc-text">vi&#x2F;vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#amp-amp-%E5%92%8C-amp"><span class="toc-number">1.22.</span> <span class="toc-text">&amp;&amp;和&amp;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shell"><span class="toc-number">1.23.</span> <span class="toc-text">shell</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8D%87%E7%BA%A7"><span class="toc-number">2.</span> <span class="toc-text">配置升级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ulimit"><span class="toc-number">3.</span> <span class="toc-text">ulimit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chattr"><span class="toc-number">4.</span> <span class="toc-text">chattr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ufw"><span class="toc-number">5.</span> <span class="toc-text">ufw</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iptables"><span class="toc-number">6.</span> <span class="toc-text">iptables</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/10.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

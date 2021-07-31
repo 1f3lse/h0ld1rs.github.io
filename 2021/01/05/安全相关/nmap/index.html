@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nmap | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="nmap的基本使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nmap">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/nmap/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="nmap的基本使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/22.jpg">
+<meta property="article:published_time" content="2021-01-05T08:16:29.000Z">
+<meta property="article:modified_time" content="2021-03-18T13:42:16.830Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/22.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/nmap/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-18 21:42:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/22.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">nmap</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-05T08:16:29.000Z" title="发表于 2021-01-05 16:16:29">2021-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-18T13:42:16.830Z" title="更新于 2021-03-18 21:42:16">2021-03-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="nmap的基本使用"><a href="#nmap的基本使用" class="headerlink" title="nmap的基本使用"></a>nmap的基本使用</h1><p> Nmap是一款开源的网络探测和安全审核工具。它被设计用来快速扫描大型网络，包括主机探测与发现、开放的端口情况、操作系统与应用服务指纹识别、WAF识别以及常见的安全漏洞。</p>
+<p> Nmap的使用参数非常之多，总结的是一些常用到参数。</p>
+<p>大致从网上可以了解到的思维导图有</p>
+<p><img src="https://ewr1.vultrobjects.com/imgspice2/000/006/437/620_bc2_42f.jpg" alt="这里写图片描述"></p>
+<p><img src="https://ewr1.vultrobjects.com/imgspice2/000/006/437/621_aab_220.jpg" alt="这里写图片描述"></p>
+<p><img src="https://ewr1.vultrobjects.com/imgspice2/000/006/437/622_1ee_294.jpg" alt="这里写图片描述"></p>
+<p><img src="https://ewr1.vultrobjects.com/imgspice2/000/006/437/623_242_94a.jpg" alt="这里写图片描述"></p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h4 id="1-描目标地址-ip"><a href="#1-描目标地址-ip" class="headerlink" title="1.描目标地址(ip)"></a>1.描目标地址(ip)</h4><p><code>nmap 192.168.xx</code></p>
+<h4 id="2-扫描域名"><a href="#2-扫描域名" class="headerlink" title="2.扫描域名"></a>2.扫描域名</h4><p><code>nmap goole.com</code></p>
+<p>返回结果</p>
+<blockquote>
+<p>Starting Nmap 7.80 ( <a target="_blank" rel="noopener" href="https://nmap.org/">https://nmap.org</a> ) at 2021-01-05 16:00 CST<br>Stats: 0:00:03 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan<br>Connect Scan Timing: About 0.65% done<br>Stats: 0:00:52 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan<br>Connect Scan Timing: About 57.17% done; ETC: 16:02 (0:00:38 remaining)<br>Nmap scan report for goole.com (217.160.0.201)<br>Host is up (0.26s latency).<br>rDNS record for 217.160.0.201: 217-160-0-201.elastic-ssl.ui-r.com<br>Not shown: 997 filtered ports<br>PORT    STATE SERVICE<br>80/tcp  open  http<br>81/tcp  open  hosts2-ns<br>443/tcp open  https</p>
+</blockquote>
+<p>可以见到，开放了，80，81，443端口。</p>
+<p>以上两种扫描都是直接扫描，直接扫描速度快，可以作为一个简单的收集前扫描</p>
+<h3 id="3-扫描目标地址所在的网段"><a href="#3-扫描目标地址所在的网段" class="headerlink" title="3.扫描目标地址所在的网段"></a>3.扫描目标地址所在的网段</h3><p><code>nmap 192.168.254.0/24</code></p>
+<p>24呢，这里指的是，一个网段 (0-255),   二进制的24个1</p>
+<h3 id="4-指定端口扫描"><a href="#4-指定端口扫描" class="headerlink" title="4.指定端口扫描"></a>4.指定端口扫描</h3><p>nmap 192.168.xxx -p 21,22,23,80,3389</p>
+<h3 id="5-扫描目标地址c段的在线主机状况"><a href="#5-扫描目标地址c段的在线主机状况" class="headerlink" title="5.扫描目标地址c段的在线主机状况"></a>5.扫描目标地址c段的在线主机状况</h3><blockquote>
+<p>-sP : nmap 仅对主机进行ping扫描（并不进行端口探测，还有操作系统识别），这个命令仅仅是列出了这个主机是否存活，或者这一个网段内都有哪些主机是在存活状态。</p>
+</blockquote>
+<p><code>nmap -sP 192.168.254.0/24</code></p>
+<p>对这个C段进行网络扫描</p>
+<h3 id="6-对目标地址进行路由追踪"><a href="#6-对目标地址进行路由追踪" class="headerlink" title="6.对目标地址进行路由追踪"></a>6.对目标地址进行路由追踪</h3><p><code>nmap --traceroute 192.168.254.129</code></p>
+<h3 id="7-识别目标系统指纹"><a href="#7-识别目标系统指纹" class="headerlink" title="7.识别目标系统指纹"></a>7.识别目标系统指纹</h3><p><code>namp -O 192.168.254.129</code></p>
+<p><img src="https://img2020.cnblogs.com/blog/2002312/202004/2002312-20200429110224894-476339627.png" alt="img"></p>
+<h3 id="8-目标开放端口版本检测"><a href="#8-目标开放端口版本检测" class="headerlink" title="8.目标开放端口版本检测"></a>8.目标开放端口版本检测</h3><p><code>nmap -sV 192.168.254.129</code></p>
+<h3 id="9-探测目标防火墙的状态"><a href="#9-探测目标防火墙的状态" class="headerlink" title="9.探测目标防火墙的状态"></a>9.探测目标防火墙的状态</h3><p><code>nmap -sF -T4 192.168.254.129  这是使用扫描级别为T4，一般在网络通信良好的情况下使用T4</code></p>
+<blockquote>
+<p><strong>-T0 偏执的：非常非常慢，用于IDS逃逸</strong></p>
+<p><strong>-T1 猥琐的：相当慢，用于IDS逃逸</strong></p>
+<p><strong>-T2 有礼貌的：降低速度以消耗更小的带宽，比默认慢十倍</strong></p>
+<p><strong>-T3 普通的：默认，根据目标的反应自动调整时间模式</strong></p>
+<p><strong>-T4 野蛮的：假定处在一个很好的网络环境，请求可能会淹没目标</strong></p>
+<p><strong>-T5 疯狂的：非常野蛮，很可能会淹没目标端口或是漏掉一些开放端口</strong></p>
+</blockquote>
+<h3 id="10-扫描文件内容的ip"><a href="#10-扫描文件内容的ip" class="headerlink" title="10.扫描文件内容的ip"></a>10.扫描文件内容的ip</h3><p><code>nmap -iL ip.txt</code></p>
+<h3 id="11-随机选取ip"><a href="#11-随机选取ip" class="headerlink" title="11.随机选取ip"></a>11.随机选取ip</h3><p><code>nmap -iR 3</code> -v(-v输出详细信息)</p>
+<h3 id="12-exclude-排除"><a href="#12-exclude-排除" class="headerlink" title="12.exclude(排除)"></a>12.exclude(排除)</h3><p><code>nmap -iL ip.txt exclude baidu.com</code>  (排除baidu.com，扫描)</p>
+<h3 id="13-excludefile"><a href="#13-excludefile" class="headerlink" title="13.excludefile"></a>13.excludefile</h3><p>排除目标文件</p>
+<h1 id="nmap-的脚本使用"><a href="#nmap-的脚本使用" class="headerlink" title="nmap 的脚本使用"></a>nmap 的脚本使用</h1><h3 id="鉴权扫描-弱口令检测"><a href="#鉴权扫描-弱口令检测" class="headerlink" title="鉴权扫描(弱口令检测)"></a>鉴权扫描(弱口令检测)</h3><p><code>nmap --script=auth 192.168.254.129</code></p>
+<h3 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h3><p><code>nmap --script=brute 192.168.254.129</code></p>
+<h3 id="应用服务扫描"><a href="#应用服务扫描" class="headerlink" title="应用服务扫描"></a>应用服务扫描</h3><p><code>nmap --script=realvnc-auth-bypass 192.168.254.129</code></p>
+<h3 id="局域网服务探测"><a href="#局域网服务探测" class="headerlink" title="局域网服务探测"></a>局域网服务探测</h3><p><code>nmap -n -p 445 --script=broadcast 192.168.254.129  - n参数是不进行DNS解析</code></p>
+<h3 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h3><p><code>nmap -script external baidu.com</code></p>
+<p>常见参数</p>
+<blockquote>
+<p>-sn:ping扫描，只进行主机发现，不进行端口扫描。在新的nmap中sn代替了sP<br>-Pn:穿透防火墙，一般在扫描时都会添加<br>-F:快速扫描<br>-v:显示扫描过程<br>-sS:TCP SYN扫描<br>-A:全面系统扫描<br>-sU:UDP扫描<br>-sT:TCP扫描<br>-n/-R:不进行DNS解析/总是进行DNS解析<br>–script=vuln:漏洞扫描<br>–script=dns-brute +域名:DNS扫描<br>–script=whois-domain +域名 :whois扫描</p>
+</blockquote>
+<p>端口扫描状态</p>
+<blockquote>
+<p>Opend:端口打开<br>Closed：端口关闭<br>Filtered：端口被过滤，数据没有到达主机，返回结果为空，数据被防火墙<br>Unfiltered：未被过滤，数据有到达主机，但是不能识别端口当前状态<br>Open|filtered:开放或者被过滤，端口没有返回值，主要发生在UDP、IP、FIN、NULL和Xmas扫描中<br>Closed|filtered:开放或者被过滤，只发生在IP ID idle扫描</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/nmap/">https://h0ld1rs.github.io/2021/01/05/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/nmap/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/22.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/17/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/centos%E6%90%AD%E5%BB%BAphp%E7%8E%AF%E5%A2%83/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/9.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">centos搭建php环境</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/05/%E5%BC%80%E5%8F%91/GUI%E7%BC%96%E7%A8%8B/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/14.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GUI编程</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nmap%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">nmap的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8F%8F%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80-ip"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">1.描目标地址(ip)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%89%AB%E6%8F%8F%E5%9F%9F%E5%90%8D"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">2.扫描域名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%AB%E6%8F%8F%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80%E6%89%80%E5%9C%A8%E7%9A%84%E7%BD%91%E6%AE%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">3.扫描目标地址所在的网段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%8C%87%E5%AE%9A%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">4.指定端口扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%89%AB%E6%8F%8F%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80c%E6%AE%B5%E7%9A%84%E5%9C%A8%E7%BA%BF%E4%B8%BB%E6%9C%BA%E7%8A%B6%E5%86%B5"><span class="toc-number">1.1.3.</span> <span class="toc-text">5.扫描目标地址c段的在线主机状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AF%B9%E7%9B%AE%E6%A0%87%E5%9C%B0%E5%9D%80%E8%BF%9B%E8%A1%8C%E8%B7%AF%E7%94%B1%E8%BF%BD%E8%B8%AA"><span class="toc-number">1.1.4.</span> <span class="toc-text">6.对目标地址进行路由追踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AF%86%E5%88%AB%E7%9B%AE%E6%A0%87%E7%B3%BB%E7%BB%9F%E6%8C%87%E7%BA%B9"><span class="toc-number">1.1.5.</span> <span class="toc-text">7.识别目标系统指纹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%9B%AE%E6%A0%87%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3%E7%89%88%E6%9C%AC%E6%A3%80%E6%B5%8B"><span class="toc-number">1.1.6.</span> <span class="toc-text">8.目标开放端口版本检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E6%8E%A2%E6%B5%8B%E7%9B%AE%E6%A0%87%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-number">1.1.7.</span> <span class="toc-text">9.探测目标防火墙的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%89%AB%E6%8F%8F%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E7%9A%84ip"><span class="toc-number">1.1.8.</span> <span class="toc-text">10.扫描文件内容的ip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E9%9A%8F%E6%9C%BA%E9%80%89%E5%8F%96ip"><span class="toc-number">1.1.9.</span> <span class="toc-text">11.随机选取ip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-exclude-%E6%8E%92%E9%99%A4"><span class="toc-number">1.1.10.</span> <span class="toc-text">12.exclude(排除)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-excludefile"><span class="toc-number">1.1.11.</span> <span class="toc-text">13.excludefile</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#nmap-%E7%9A%84%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">nmap 的脚本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%89%B4%E6%9D%83%E6%89%AB%E6%8F%8F-%E5%BC%B1%E5%8F%A3%E4%BB%A4%E6%A3%80%E6%B5%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">鉴权扫描(弱口令检测)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-number">2.0.2.</span> <span class="toc-text">暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%89%AB%E6%8F%8F"><span class="toc-number">2.0.3.</span> <span class="toc-text">应用服务扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E6%9C%8D%E5%8A%A1%E6%8E%A2%E6%B5%8B"><span class="toc-number">2.0.4.</span> <span class="toc-text">局域网服务探测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#whois%E6%9F%A5%E8%AF%A2"><span class="toc-number">2.0.5.</span> <span class="toc-text">whois查询</span></a></li></ol></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/22.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

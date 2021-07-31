@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API简单协议 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对API协议的一个简单记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API简单协议">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/07/05/API%E5%AE%89%E5%85%A8/API%E7%AE%80%E5%8D%95%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对API协议的一个简单记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/26.jpg">
+<meta property="article:published_time" content="2021-07-05T09:30:49.000Z">
+<meta property="article:modified_time" content="2021-07-07T06:54:30.471Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/26.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/07/05/API%E5%AE%89%E5%85%A8/API%E7%AE%80%E5%8D%95%E5%8D%8F%E8%AE%AE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-07 14:54:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/26.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">API简单协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-05T09:30:49.000Z" title="发表于 2021-07-05 17:30:49">2021-07-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-07T06:54:30.471Z" title="更新于 2021-07-07 14:54:30">2021-07-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/API%E7%A0%94%E7%A9%B6/">API研究</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="API安全所面临的风险"><a href="#API安全所面临的风险" class="headerlink" title="API安全所面临的风险"></a>API安全所面临的风险</h1><blockquote>
+<p>API（Application Programming Interface，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3/10418844">应用程序接口</a>）是一些预先定义的接口（如函数、HTTP接口），或指<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F/224122">软件系统</a>不同组成部分衔接的约定。 [1] 用来提供<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>与开发人员基于某<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6">软件</a>或硬件得以访问的一组<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BE%8B%E7%A8%8B/2390628">例程</a>，而又无需访问源码，或理解内部<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6/9905789">工作机制</a>的细节。</p>
+</blockquote>
+<p>在当今应用驱动的世界中，创新的一个基本要素是应用程序编程接口（API）。从银行、零 售、运输到物联网、自动驾驶汽车、智能城市，API都是现代移动、SaaS 和 Web应用程序的一个 关键组成部分，并且在面向客户、面向合作伙伴和面向内部的应用中都会使用到。 一般来说，API会公开应用程序的逻辑和敏感数据，如：个人识别信息（PII），正因为如此， API越来越成为攻击者的目标。</p>
+<h2 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h2><p>风险：攻击者可以在发送的请求中改变对象 的ID来攻击存在“失效的对象级授权” 漏洞的API。这将导致敏感数据的未授 权访问。这已经成为最普遍、且影响广泛的API攻击。</p>
+<p>举例：<code>Docker API 未授权访问</code> <a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/45905.html">https://www.secpulse.com/archives/45905.html</a></p>
+<p>造成原因：服务器通常不会完整地 跟踪用户的状态，而是依赖用户请求 参数中的对象ID来决定访问哪些目标对象。</p>
+<p>防范：</p>
+<ol>
+<li>前端调用后端的接口，必须由后端作二次校验，不能只相信前端页面控制；</li>
+<li>系统对系统的接口，需要用身份认证机制（比如，appId和appSecret机制、token机制）</li>
+</ol>
+<blockquote>
+<p>场景 </p>
+<p>一个在线电子商务平台为他们的入驻商户提供了 一个带有利润图表的列表页。通过查看浏览器发出的请求， 攻击者可以识别到为此图表提供数据源的API 端点及其模式 /shops/{shopName}/revenue_data.json。通过另一个API端点， 攻击者可以获取入驻平台的商户名列表，用一个简单的脚 本即可获取到入驻商户名，通过替换URL中的{shopName}， 攻击者获取到数千入驻商户的销售数据。</p>
+</blockquote>
+<h2 id="越权问题"><a href="#越权问题" class="headerlink" title="越权问题"></a>越权问题</h2><p>风险：攻击者试图访问权限范围外，(水平越权或者垂直越权)的数据操作。</p>
+<p>原因：负责认证 的API端点没有区别于普通端点对待，并且没有实现额外的保护。本质上是没有做好身份鉴定。</p>
+<p>举例：API越权  <a target="_blank" rel="noopener" href="http://hackdig.com/09/hack-130415.htm">http://hackdig.com/09/hack-130415.htm</a></p>
+<p>防范：</p>
+<ol>
+<li>不能信任接口调用传入的参数，必须由后端对访问做严格的限制</li>
+<li>前端调用后端的接口，由后端做二次校验</li>
+<li>不相信前端传入的参数，而是后端自动获取当前登录用户的权限相关的信息；</li>
+<li>后端不能只判断用户是否登录，还应该判断用户是否有权限</li>
+<li>当传入id查询或者操作的时候，一定要检测当前用户是否有当前的权限</li>
+</ol>
+<blockquote>
+<p>场景</p>
+<p>攻击者通过向/api/system/verification-codes发起一 个POST请求并在请求体中提供用户名来启动重置密码工作 流。然后一个6位数字的SMS短信验证码发送到受害者的手 机。由于该API没有实现调用频率限制，攻击者可以用多线 程脚本向/api/system/verification-codes/{smsToken}发送请求 来尝试所有可能的验证码组合，从而在几分钟内破解验证 码。</p>
+</blockquote>
+<h2 id="DDOS与资源耗尽攻击"><a href="#DDOS与资源耗尽攻击" class="headerlink" title="DDOS与资源耗尽攻击"></a>DDOS与资源耗尽攻击</h2><p>风险：无法正常服务</p>
+<p>原因：无需身份认证，没有进行速率限制， 即可使用单一的本地计算机或云计算 资源来执行多个并发请求。</p>
+<p>防范：</p>
+<ol>
+<li>采用WAF和防火墙；</li>
+<li>采用流量清洗和黑洞技术；</li>
+<li>设置IP白名单；</li>
+<li>对接口调用频率和调用次数进行限制。</li>
+</ol>
+<blockquote>
+<p>场景：当应用包含一个每页可以显示200个用户的列表界 面时，我们可以使用/api/users?page=1&amp;size=100查询从服务 器中检索用户列表。攻击者可以将size参数篡改至 200 000， 从而导致数据库出现性能问题。同时，API将无法响应该客 户端的其他请求，或其他客户端的请求，形成DoS。</p>
+</blockquote>
+<h2 id="重放攻击"><a href="#重放攻击" class="headerlink" title="重放攻击"></a>重放攻击</h2><p>风险：攻击者获取一段报文后，重复多次请求接口。</p>
+<p>举例：API重放攻击  <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/138febf492f5">https://www.jianshu.com/p/138febf492f5</a></p>
+<p>防范：</p>
+<ol>
+<li>在请求报文中加入随机数（nonce）和签名，如果随机数重复则服务端认为是无效请求；(该方法的不足是需要维护一张随机数的全表记录，如果用Redis来存储可能会占用较大内存)</li>
+<li>在请求报文中加入时间戳（timestamp）和签名，如果请求报文的时间戳与服务端的时间差较大（比如1分钟），则认为是无效请求；（该方法的不足是在允许的时间差内，仍然有被重放攻击的风险）</li>
+<li>结合nonce和timestamp机制（只在允许的时间差内维护随机数的全表记录，比如在Redis中随机数全表记录有效期只保留1分钟，这样就可以节约内存）；</li>
+<li>一次性token机制，token使用一次后就失效。</li>
+</ol>
+<h2 id="注入攻击"><a href="#注入攻击" class="headerlink" title="注入攻击"></a>注入攻击</h2><p>风险：攻击者传入一些畸形数据，让接口执行一些意想不到的操作。</p>
+<p>防范：</p>
+<ol>
+<li>程序和数据分离，不允许调用者来控制如何执行程序；</li>
+<li>使用预编译SQL，而不是动态拼接SQL；</li>
+<li>在接口入参对象中只放必要的属性，且操作时只修改必要的属性。（防止利用JSON字符串和Object自动绑定特性，来传入多余的JSON属性，来更新整个对象）。</li>
+<li>避免使用将客户输入自动绑定到代码变量或 内部对象中的函数</li>
+</ol>
+<blockquote>
+<p>场景</p>
+<p>一个视频共享门户允许用户上传并下载不同格式的内容。 研究API的攻击者发现，端点GET /api/v1/videos/{videoid}/metadata 返回具有视频属性的JSON对象。属性之一是”mp4_conversion_ Params”: ”-v codec h264”，表示应用程序使用shell命令来转换视频。 攻击者还发现端点POST /api/v1/videos/new容易受到批量分配缺陷 的影响，并允许客户端设置视频对象的任何属性。攻击者将恶意 值设置如下：”mp4_conversion_params”:”-v codec h264 &amp;&amp; format C： /”。一旦攻击者将视频下载为MP4，此值将导致注入shell命令。一个视频共享门户允许用户上传并下载不同格式的内容。 研究API的攻击者发现，端点GET /api/v1/videos/{videoid}/metadata 返回具有视频属性的JSON对象。属性之一是”mp4_conversion_ Params”: ”-v codec h264”，表示应用程序使用shell命令来转换视频。 攻击者还发现端点POST /api/v1/videos/new容易受到批量分配缺陷 的影响，并允许客户端设置视频对象的任何属性。攻击者将恶意 值设置如下：”mp4_conversion_params”:”-v codec h264 &amp;&amp; format C： /”。一旦攻击者将视频下载为MP4，此值将导致注入shell命令。</p>
+</blockquote>
+<h2 id="劫持篡改攻击"><a href="#劫持篡改攻击" class="headerlink" title="劫持篡改攻击"></a>劫持篡改攻击</h2><p>风险：攻击者获得一段报文后，篡改报文中的内容，再请求接口。</p>
+<p>举例：<a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3">https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3</a></p>
+<p>防范：</p>
+<ol>
+<li>采用API签名（sign）方式来防止数据被篡改；</li>
+<li>客户端对请求报文进行签名，服务端验签通过后，才响应请求；</li>
+<li>服务端对响应报文进行签名，客户端验签通过后，才相信响应报文；</li>
+<li>常用的签名算法包括SHA256或MD5，推荐使用SHA256（哈希算法，签名不可逆计算出原始值）；</li>
+<li>签名时需要同时考虑防止签名被预测和重放攻击，需要将nonce和timestamp一起签名，保证每次签名（sign）值都不同</li>
+</ol>
+<blockquote>
+<p>场景</p>
+<p>：在仅允许受邀用户加入的应用程序注册过程中， 移动应用程序将触发对GET /api/invites/ {invite_guid}的API调 用。响应包含一个JSON，其中包含有关邀请的详细信息， 包括用户的角色和用户的电子邮件。 攻击者复制了请求，并操纵HTTP方法和端点进行POST /api/invites/new。管理员只能使用管理控制台访问该端点， 该控制台未实现功能级别的授权检查。 攻击者利用此问题并向自己发送邀请以创建管理员帐户： POST /api/invites/new {“email”:”<a href="mailto:&#104;&#117;&#x67;&#x6f;&#64;&#x6d;&#97;&#x6c;&#x69;&#x63;&#x69;&#x6f;&#117;&#115;&#x2e;&#x63;&#x6f;&#x6d;">&#104;&#117;&#x67;&#x6f;&#64;&#x6d;&#97;&#x6c;&#x69;&#x63;&#x69;&#x6f;&#117;&#115;&#x2e;&#x63;&#x6f;&#x6d;</a>”,”role”:”admin”}</p>
+</blockquote>
+<h2 id="代码，数据，URL泄露"><a href="#代码，数据，URL泄露" class="headerlink" title="代码，数据，URL泄露"></a>代码，数据，URL泄露</h2><p>风险：返回或者请求中带有敏感数据</p>
+<p>原因：没有进行脱敏和加密</p>
+<p>防范：</p>
+<ol>
+<li>不要存放敏感信息，即使经过加密</li>
+<li>由后端来对敏感数据进行脱敏，不要依赖于前端进行脱敏。</li>
+<li>尽量使用HTTP POST，来在HTTP Request body中传输参数，再采用HTTPS协议对传输过程加密；</li>
+</ol>
+<blockquote>
+<p>场景</p>
+<p>一个基于物联网的视频监控系统允许管理员创建 具有不同权限的用户。当管理员为一个新的安保人员创建 账户时，应当在站点上只分配特定建筑范围的访问权限。 当安保人员使用手机应用时，API会触发调用/api/sites/111/ cameras 来接收可用摄像头传输的数据，并显示在显示屏上。 这个响应包含了一个基于{“id”:”xxx”,”live_access_token”: “xxxxbbbbb”,“building_id”:“yyy”}格式的摄像头详细列表。因 此，当客户端的图形化界面仅显示安保人员应当可以访问 的界面时，实际上API返回了站点内所有摄像头的完整列表。</p>
+</blockquote>
+<h2 id="API安全注意事项"><a href="#API安全注意事项" class="headerlink" title="API安全注意事项"></a>API安全注意事项</h2><ol>
+<li>互不信任原则：接口提供方不信任接口调用方的请求参数，接口调用方不信任接口提供方的返回数据；</li>
+<li>不信任网络原则：假设网络传输过程是不安全的，网络中的每一个节点都是不安全的；</li>
+<li>采用HTTPS协议，保证传输过程安全；</li>
+<li>作最坏的打算，即使数据被窃听，也无法解密；</li>
+<li>设立网络安全边界，采用WAF、防火墙、网络隔离、IP白名单、流量清洗和黑洞技术来防止DDoS攻击；</li>
+<li>使用API网关，在API网关上实现安全机制和限流，简化API实现；</li>
+<li>采用包含了nonce和timestamp的API签名来防止数据被篡改和重放攻击；</li>
+<li>时刻关注水平越权问题；</li>
+<li>注意编码安全，防止代码泄漏和API URL泄漏</li>
+</ol>
+<p>参考文章 ：<a target="_blank" rel="noopener" href="https://blog.csdn.net/nklinsirui/article/details/107818341?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162547665916780265454204%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162547665916780265454204&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-107818341.first_rank_v2_pc_rank_v29_1&amp;utm_term=API%E5%AE%89%E5%85%A8">https://blog.csdn.net/nklinsirui/article/details/107818341?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162547665916780265454204%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=162547665916780265454204&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-107818341.first_rank_v2_pc_rank_v29_1&amp;utm_term=API%E5%AE%89%E5%85%A8</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.owasp.org.cn/owasp-project/OWASPAPITop102019.pdf#page=6&amp;zoom=100,0,0">http://www.owasp.org.cn/owasp-project/OWASPAPITop102019.pdf#page=6&amp;zoom=100,0,0</a></p>
+<h1 id="API协议"><a href="#API协议" class="headerlink" title="API协议"></a>API协议</h1><h2 id="REST-API-表征状态转移"><a href="#REST-API-表征状态转移" class="headerlink" title="REST API(表征状态转移)"></a>REST API(表征状态转移)</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5365ef83252a">https://www.jianshu.com/p/5365ef83252a</a></p>
+<h2 id="GraphQL-API"><a href="#GraphQL-API" class="headerlink" title="GraphQL API"></a>GraphQL API</h2><blockquote>
+<p>GraphQL 是 Facebook 于 2012 年在内部开发的数据查询语言，在 2015 年开源，旨在提供 RESTful 架构体系的替代方案。<br>GraphQL 既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。</p>
+</blockquote>
+<p>示例：</p>
+<p>一个 GraphQL 服务是通过定义类型和类型上的字段来创建的，然后给每个类型上的每个字段提供解析函数。例如，一个 GraphQL 服务告诉我们当前登录用户是 me，这个用户的名称可能像这样：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type Query &#123;</span><br><span class="line">  me: User</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type User &#123;</span><br><span class="line">  id: ID</span><br><span class="line">  name: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一并的还有每个类型上字段的解析函数</p>
+<blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Query_me(request) &#123;</span><br><span class="line">  return request.auth.user;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function User_name(user) &#123;</span><br><span class="line">  return user.getName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>一旦一个 GraphQL 服务运行起来（通常在 web 服务的一个 URL 上），它就能接收 GraphQL 查询，并验证和执行。接收到的查询首先会被检查确保它只引用了已定义的类型和字段，然后运行指定的解析函数来生成结果。</p>
+<p>例如，这个查询结果</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  me &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>会生成这样的json结果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;me&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Luke Skywalker&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询和变更"><a href="#查询和变更" class="headerlink" title="查询和变更"></a>查询和变更</h4><ul>
+<li>字段（Fields）</li>
+<li>参数（Arguments）</li>
+<li>别名（Aliases）</li>
+<li>片段（Fragments）</li>
+<li>操作名称（Operation Name）</li>
+<li>变量（Variables）</li>
+<li>指令（Directives）</li>
+<li>变更（Mutations）</li>
+<li>内联片段（Inline Fragments）</li>
+</ul>
+<h4 id="Schema和类型"><a href="#Schema和类型" class="headerlink" title="Schema和类型"></a>Schema和类型</h4><ul>
+<li>类型系统（Type System）</li>
+<li>类型语言（Type Language）</li>
+<li>对象类型和字段（Object Types and Fields）</li>
+<li>参数（Arguments）</li>
+<li>查询和变更类型（The Query and Mutation Types）</li>
+<li>标量类型（Scalar Types）</li>
+<li>枚举类型（Enumeration Types）</li>
+<li>列表和非空（Lists and Non-Null）</li>
+<li>接口（Interfaces）</li>
+<li>联合类型（Union Types）</li>
+<li>输入类型（Input Types）</li>
+</ul>
+<h2 id="SOAP-API"><a href="#SOAP-API" class="headerlink" title="SOAP API"></a>SOAP API</h2><blockquote>
+<p>SOAP (Simple Object Access Protocol) 简单对象访问协议是交换数据的一种协议规范，是一种轻量的、简单的、基于XML（标准通用标记语言下的一个子集）的协议，它被设计成在WEB上交换结构化的和固化的信息。</p>
+</blockquote>
+<h3 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h3><ul>
+<li>基于类对象的传输协议。</li>
+<li>SOAP封装（envelop），它定义了一个框架，描述消息中的内容是什么，是谁发送的，谁应当接受并处理它以及如何处理它们；</li>
+<li>SOAP编码规则（encoding rules），它定义了一种序列化机制，用于表示应用程序需要使用的数据类型的实例；</li>
+<li>SOAP RPC表示（RPC representation），它定了一个协定，用于表示远程过程调用和应答；</li>
+<li>SOAP绑定（binding），它定义了SOAP使用哪种协议交换信息。使用HTTP/TCP/UDP协议都可以。</li>
+</ul>
+<p><strong>把SOAP绑定到HTTP提供了同时利用SOAP的样式和分散的灵活性的特点以及HTTP的丰富的特征库的优点。在HTTP上传送SOAP并不是说SOAP会覆盖现有的HTTP语义，而是HTTP上的SOAP语义会自然的映射到HTTP语义。在使用HTTP作为协议绑定的场合中，RPC请求映射到HTTP请求上，而RPC应答映射到HTTP应答。然而，在RPC上使用SOAP并不仅限于HTTP协议绑定。</strong></p>
+<h3 id="协议结构"><a href="#协议结构" class="headerlink" title="协议结构"></a>协议结构</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;SOAP-ENV:Envelope</span><br><span class="line">　各种属性&gt;</span><br><span class="line"> &lt;!--示例--&gt;</span><br><span class="line">　&lt;SOAP:HEADER&gt;</span><br><span class="line">　&lt;/SOAP:HEADER&gt;</span><br><span class="line">　&lt;SOAP:Body&gt;</span><br><span class="line">　&lt;/SOAP:Body&gt;</span><br><span class="line">&lt;/SOAP-ENV:Envelope&gt;</span><br></pre></td></tr></table></figure>
+
+<p>主要在web服务中应用</p>
+<h3 id="构建模块"><a href="#构建模块" class="headerlink" title="构建模块"></a>构建模块</h3><p>一条 SOAP 消息就是一个普通的 XML 文档，包含下列元素：</p>
+<ul>
+<li>必需的 Envelope 元素，可把此 XML 文档标识为一条 SOAP 消息</li>
+<li>可选的 Header 元素，包含头部信息</li>
+<li>必需的 Body 元素，包含所有的调用和响应信息</li>
+<li>可选的 Fault 元素，提供有关在处理此消息所发生错误的信息</li>
+</ul>
+<h3 id="语法规则"><a href="#语法规则" class="headerlink" title="语法规则"></a>语法规则</h3><ul>
+<li>SOAP 消息必须用 XML 来编码</li>
+<li>SOAP 消息必须使用 SOAP Envelope 命名空间</li>
+<li>SOAP 消息必须使用 SOAP Encoding 命名空间</li>
+<li>SOAP 消息不能包含 DTD 引用</li>
+<li>SOAP 消息不能包含 XML 处理指令</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml</span></span><br><span class="line"><span class="meta">　version=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Envelope</span></span></span><br><span class="line"><span class="tag">　<span class="attr">xmlns:soap</span>=<span class="string">&quot;http://www.w3.org/2001/12/soap-envelope&quot;</span></span></span><br><span class="line"><span class="tag">　<span class="attr">soap:encodingStyle</span>=<span class="string">&quot;http://www.w3.org/2001/12/soap-encoding&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Header</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--示例--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Header</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--示例--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Fault</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--示例--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Fault</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="核心技术"><a href="#核心技术" class="headerlink" title="核心技术"></a>核心技术</h3><p>SOAP采用了已经广泛使用的两个协议:HTTP 和XML（标准通用标记语言下的一个子集）。HTTP用于实现 SOAP 的RPC 风格的传输, 而XML 是它的编码模式。采用几行代码和一个XML 解析器, HTTP 服务器( MS 的 IIS 或 Apache) 立刻成为SOAP 的 ORBS。SOAP 通讯协议使用 HTTP 来发送XML 格式的信息。HTTP与RPC 的协议很相似,它简单、 配置广泛,并且对防火墙比其它协议更容易发挥作用。HTTP 请求一般由 Web 服务器软件(如 IIS 和Apache)来处理, 但越来越多的应用服务器产品正在支持HTTP。XML 作为一个更好的网络数据表达方式( NDR)。SOAP 把 XML 的使用代码化为请求和响应参数编码模式, 并用HTTP 作传输。具体地讲, 一个SOAP 方法可以简单地看作遵循SOAP编码规则的HTTP请求和响应, 一个 SOAP终端则可以看作一个基于HTTP 的URL, 它用来识别方法调用的目标。像CORBA/ IIOP一样, SOAP不需要具体的对象绑定到一个给定的终端, 而是由具体实现程序来决定怎样把对象终端标识符映像到服务器端的对象。</p>
+<h2 id="XML-RPC"><a href="#XML-RPC" class="headerlink" title="XML-RPC"></a>XML-RPC</h2><p>XML-RPC (XML Remote Procedure Call) 是一个远程过程调用（远端程序呼叫）（remote procedure call，RPC)的分布式计算协议，通过XML将调用函数封装，并使用HTTP协议作为传送机制。一个XML-RPC消息就是一个请求体为xml的http-post请求，被调用的方法在服务器端执行并将执行结果以xml格式编码后返回。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REQUEST</span><br><span class="line"><span class="meta">&lt;?xmlversion=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">methodCall</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">methodName</span>&gt;</span>examples.getStateName<span class="tag">&lt;/<span class="name">methodName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i4</span>&gt;</span>41<span class="tag">&lt;/<span class="name">i4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">methodCall</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RESPONSE</span><br><span class="line"><span class="meta">&lt;?xmlversion=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">methodResponse</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span></span><br><span class="line">SouthDakota</span><br><span class="line"><span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">params</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">methodResponse</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JSON-RPC"><a href="#JSON-RPC" class="headerlink" title="JSON-RPC"></a>JSON-RPC</h2><p>JSON-RPC，是一个无状态且轻量级的远程过程调用（RPC）传送协议，其传递内容透过 JSON 为主。相较于一般的 REST 透过网址（如 GET /user）调用远程服务器，JSON-RPC 直接在内容中定义了欲调用的函数名称（如 {“method”: “getUser”}），这也令开发者不会陷于该使用 PUT 或者 PATCH 的问题之中。</p>
+<h3 id="约定"><a href="#约定" class="headerlink" title="约定"></a>约定</h3><p>由于 JSON-RPC 使用JSON，它具有与其相同的类型系统。JSON可以表示四个基本类型（String、Numbers、Boolean 和 Null）和两个结构化类型（Objects 和 Array）。任何时候文档涉及JSON数据类型，第一个字母都必须大写：Object、Array、String、Number、Boolean、Null。包括 True 和 False 也要大写。</p>
+<p>在客户端与任何被匹配到的服务端之间交换的所有成员名字应是区分大小写的。 函数、方法、过程都可以认为是可以互换的。客户端被定义为请求对象的来源及响应对象的处理程序。服务端被定义为响应对象的起源和请求对象的处理程序。</p>
+<h3 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h3><p>发送一个请求对象至服务端代表一个RPC调用，一个请求对象包含下列成员：</p>
+<ul>
+<li>jsonrpc</li>
+<li>method</li>
+<li>params</li>
+<li>id</li>
+</ul>
+<p>服务端必须回答相同的值如果包含在响应对象。这个成员用来两个对象之间的关联上下文。在请求对象中不建议使用 NULL 作为 id 值，因为该规范将使用空值认定为未知id的请求。另外，由于JSON-RPC 1.0 的通知使用了空值，这可能引起处理上的混淆。使用小数是不确定性的，因为许多十进制小数不能精准的表达为二进制小数。</p>
+<h2 id="响应对象"><a href="#响应对象" class="headerlink" title="响应对象"></a>响应对象</h2><p>当发起一个RPC调用时，除通知之外，服务端都必须回复响应。响应表示为一个 JSON 对象，使用以下字段：</p>
+<ul>
+<li>jsonrpc</li>
+<li>result</li>
+<li>error</li>
+<li>id</li>
+</ul>
+<p>响应对象必须包含 result 或 error 字段，但两个字段不能同时存在。<br>错误对象<br>当一个RPC调用遇到错误时，返回的响应对象必须包含错误成员参数，并且为带有下列成员参数的对象：</p>
+<ul>
+<li>code</li>
+<li>message</li>
+<li>data</li>
+</ul>
+<h2 id="gRPC-Protobuf"><a href="#gRPC-Protobuf" class="headerlink" title="gRPC-Protobuf"></a>gRPC-Protobuf</h2><blockquote>
+<p>gRPC (gRPC Remote Procedure Calls) 是Google发起的一个开源远程过程调用 (Remote procedure call) 系统。该系统基于 HTTP/2 协议传输，使用Protocol Buffers 作为接口描述语言。</p>
+</blockquote>
+<h3 id="数据编码"><a href="#数据编码" class="headerlink" title="数据编码"></a>数据编码</h3><p>JSON一个缺点是非字符串的编码低效，再一个缺点就是信息冗余。JSON 在可读性和编码效率之间选择了可读性，所以效率方面做了一定的牺牲</p>
+<p>Protobuf 一方面选用了 VarInts 对数字进行编码，解决了效率问题；另一方面给每个字段指定一个整数编号，传输的时候只传字段编号，解决了冗余问题</p>
+<p>在传输的时候只传了字段编号固然可以提高传输效率，但接收方如何知道各个编号对应哪个字段呢？只能事先约定了。就像当年地下工作者一样，一人拿一个密码本。Protobuf 使用 .proto 文件当密码本，记录字段和编号的对应关系</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message Demo &#123;</span><br><span class="line">  int32 i = 1;</span><br><span class="line">  string s = 2;</span><br><span class="line">  bool b = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Protobuf 提供了一系列工具，为 proto 描述的 message 生成各种语言的代码。传输效率提高，但是工具链也更加复杂</p>
+<h3 id="请求映射"><a href="#请求映射" class="headerlink" title="请求映射"></a>请求映射</h3><p>因为有 .proto 作为 IDL，Protobuf 可以做很多 JSON 不方便做的事情。其中最重的就是 RPC 描述因为有 .proto 作为 IDL，Protobuf 可以做很多 JSON 不方便做的事情。其中最重的就是 RPC 描述</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo.hello;</span><br><span class="line"></span><br><span class="line">service Greeter &#123;</span><br><span class="line">  <span class="function">rpc <span class="title">SayHello</span> <span class="params">(HelloRequest)</span> <span class="title">returns</span> <span class="params">(HelloReply)</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloReply &#123;</span><br><span class="line">  string message = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的 .proto 文件定义了一个 Greeter 服务，其中有一个 SayHello 的方法，接受 HelloRequest 消息并返回 HelloReply 消息。如何实现这个 Greeter 则是语方无关的，所以叫 IDL。gRPC 就是用了 Protobuf 的 service 来描述 RPC 接口的。</p>
+<p>可以简单认为一个 gRPC 请求就是一个 HTTP 请求（不严格）。这个 HTTP 请求用的是 POST 方法，对应的资源路径则是根据 .proto 定义确定的。我们前文提到的 Greeter 服务对应的路径是/demo.hello.Greeter/SayHello 。</p>
+<p>一个 gRPC 定义包含三个部分，包名、服务名和接口名，连接规则如下</p>
+<p><code>/$&#123;包名&#125;.$&#123;服务名&#125;/$&#123;接口名&#125;</code></p>
+<p>==SayHello<code>的包名是</code>demo.hello<code>，服务名是</code>Greeter<code>，接口名是</code>SayHello<code>，所以对应的路径就是 </code>/demo.hello.Greeter/SayHello==</p>
+<p>gRPC 协议规定Content-Typeheader 的取值为application/grpc，当然也可以写成application/grpc+proto。如果你想使用 JSON 编码，也可以设成application/grpc+json，只要服务支持都行.</p>
+<ul>
+<li>Path : <code>/Service-Name/&#123;method name&#125;</code></li>
+<li>Service-Name : <code>?( &#123;proto package name&#125; &quot;.&quot; ) &#123;service name&#125;</code></li>
+<li>Message-Type : <code>&#123;fully qualified proto message name&#125;</code></li>
+<li>Content-Type : “application/grpc+proto”</li>
+</ul>
+<p><code>Request</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/demo.hello.Greeter/SayHello</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: grpc.demo.com</span><br><span class="line"><span class="attribute">Content-Type</span>: application/grpc</span><br><span class="line"><span class="attribute">Content-Length</span>: 1234</span><br><span class="line"></span><br><span class="line">&lt;Length-Prefixed Message&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>Response</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Length</span>: 5678</span><br><span class="line"><span class="attribute">Content-Type</span>: application/grpc</span><br><span class="line"></span><br><span class="line">&lt;Length-Prefixed Message&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="API其他基础知识"><a href="#API其他基础知识" class="headerlink" title="API其他基础知识"></a>API其他基础知识</h1><h2 id="API按使用范围分类"><a href="#API按使用范围分类" class="headerlink" title="API按使用范围分类"></a>API按使用范围分类</h2><ul>
+<li>内部API</li>
+<li>企业定制API</li>
+<li>外部API</li>
+</ul>
+<h2 id="API被调用的两种方式"><a href="#API被调用的两种方式" class="headerlink" title="API被调用的两种方式"></a>API被调用的两种方式</h2><ul>
+<li>外部直接调用API</li>
+<li>外部通过SDK调用API</li>
+</ul>
+<blockquote>
+<p>SDK相当于密封饮料，API相当于吸管</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/07/05/API%E5%AE%89%E5%85%A8/API%E7%AE%80%E5%8D%95%E5%8D%8F%E8%AE%AE/">https://h0ld1rs.github.io/2021/07/05/API%E5%AE%89%E5%85%A8/API%E7%AE%80%E5%8D%95%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/26.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/07/API%E5%AE%89%E5%85%A8/GraphQL/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/26.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">GraphQL</div></div></a></div><div class="next-post pull-right"><a href="/2021/07/05/API%E5%AE%89%E5%85%A8/RPC%E4%B8%8EgRPC/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/25.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">RPC与gRPC</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E5%AE%89%E5%85%A8%E6%89%80%E9%9D%A2%E4%B8%B4%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="toc-number">1.</span> <span class="toc-text">API安全所面临的风险</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE"><span class="toc-number">1.1.</span> <span class="toc-text">未授权访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%8A%E6%9D%83%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">越权问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDOS%E4%B8%8E%E8%B5%84%E6%BA%90%E8%80%97%E5%B0%BD%E6%94%BB%E5%87%BB"><span class="toc-number">1.3.</span> <span class="toc-text">DDOS与资源耗尽攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%94%BE%E6%94%BB%E5%87%BB"><span class="toc-number">1.4.</span> <span class="toc-text">重放攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-number">1.5.</span> <span class="toc-text">注入攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%AB%E6%8C%81%E7%AF%A1%E6%94%B9%E6%94%BB%E5%87%BB"><span class="toc-number">1.6.</span> <span class="toc-text">劫持篡改攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%95%B0%E6%8D%AE%EF%BC%8CURL%E6%B3%84%E9%9C%B2"><span class="toc-number">1.7.</span> <span class="toc-text">代码，数据，URL泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E5%AE%89%E5%85%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.8.</span> <span class="toc-text">API安全注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.</span> <span class="toc-text">API协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#REST-API-%E8%A1%A8%E5%BE%81%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB"><span class="toc-number">2.1.</span> <span class="toc-text">REST API(表征状态转移)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GraphQL-API"><span class="toc-number">2.2.</span> <span class="toc-text">GraphQL API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%8F%98%E6%9B%B4"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">查询和变更</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Schema%E5%92%8C%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">Schema和类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SOAP-API"><span class="toc-number">2.3.</span> <span class="toc-text">SOAP API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E4%B9%89"><span class="toc-number">2.3.1.</span> <span class="toc-text">相关定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E7%BB%93%E6%9E%84"><span class="toc-number">2.3.2.</span> <span class="toc-text">协议结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="toc-number">2.3.3.</span> <span class="toc-text">构建模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-number">2.3.4.</span> <span class="toc-text">语法规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF"><span class="toc-number">2.3.5.</span> <span class="toc-text">核心技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XML-RPC"><span class="toc-number">2.4.</span> <span class="toc-text">XML-RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.4.1.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-RPC"><span class="toc-number">2.5.</span> <span class="toc-text">JSON-RPC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A6%E5%AE%9A"><span class="toc-number">2.5.1.</span> <span class="toc-text">约定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.5.2.</span> <span class="toc-text">请求对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.6.</span> <span class="toc-text">响应对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gRPC-Protobuf"><span class="toc-number">2.7.</span> <span class="toc-text">gRPC-Protobuf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81"><span class="toc-number">2.7.1.</span> <span class="toc-text">数据编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%98%A0%E5%B0%84"><span class="toc-number">2.7.2.</span> <span class="toc-text">请求映射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E5%85%B6%E4%BB%96%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">3.</span> <span class="toc-text">API其他基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E6%8C%89%E4%BD%BF%E7%94%A8%E8%8C%83%E5%9B%B4%E5%88%86%E7%B1%BB"><span class="toc-number">3.1.</span> <span class="toc-text">API按使用范围分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API%E8%A2%AB%E8%B0%83%E7%94%A8%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">API被调用的两种方式</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/26.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

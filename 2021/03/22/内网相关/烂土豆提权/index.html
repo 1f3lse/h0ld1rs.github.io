@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>windows_烂土豆提权 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对烂土豆提权的总结和复现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows_烂土豆提权">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/%E7%83%82%E5%9C%9F%E8%B1%86%E6%8F%90%E6%9D%83/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对烂土豆提权的总结和复现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/23.jpg">
+<meta property="article:published_time" content="2021-03-22T03:17:50.000Z">
+<meta property="article:modified_time" content="2021-07-31T08:17:26.651Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/23.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/%E7%83%82%E5%9C%9F%E8%B1%86%E6%8F%90%E6%9D%83/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-07-31 16:17:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/23.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">windows_烂土豆提权</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-22T03:17:50.000Z" title="发表于 2021-03-22 11:17:50">2021-03-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-07-31T08:17:26.651Z" title="更新于 2021-07-31 16:17:26">2021-07-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="烂土豆提权的原理"><a href="#烂土豆提权的原理" class="headerlink" title="烂土豆提权的原理"></a>烂土豆提权的原理</h1><p>所谓烂土豆提权就是俗称的<code>MS16-075</code></p>
+<p>可以将Windows工作站的特权从<code>最低权限</code>提升到<code>NT AUTHORITY \ SYSTEM” – Windows</code>计算机上可用的最高特级权限</p>
+<h2 id="简单的原理"><a href="#简单的原理" class="headerlink" title="简单的原理"></a>简单的原理</h2><p>攻击者可以诱骗用户尝试使用NTLM对他的计算机进行身份验证，则他可以将该身份验证尝试中继到另一台计算机</p>
+<blockquote>
+<p>NTLM是NT LAN <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Manager/16016780">Manager</a>的缩写，这也说明了协议的来源。NTLM 是指 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/telnet/810597">telnet</a> 的一种验证身份方式，即问询/应答<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81/2193233">身份验证</a>协议，是 Windows NT 早期版本的标准安全协议，[Windows 2000](<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows">https://baike.baidu.com/item/Windows</a> 2000/2769068) 支持 NTLM 是为了保持<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9/94553">向后兼容</a>。</p>
+</blockquote>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ol>
+<li><p>使用DCOM的时候，如果以服务方式远程连接，那么权限为<code>SYSTEM</code>权限，例如<code>BITS</code>服务</p>
+<blockquote>
+<p>DCOM（分布式<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BB%84%E4%BB%B6%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B/3351546">组件对象模型</a>,分布式组件对象模式）是一系列微软的概念和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3/150383">程序接口</a>，利用这个接口，客户端程序对象能够请求来自网络中另一台计算机上的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E5%99%A8">服务器</a>程序对象。DCOM基于组件对象模型（COM），COM提供了一套允许同一台计算机上的客户端和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E5%99%A8/100571">服务器</a>之间进行通信的接口（运行在Windows95或者其后的版本上）。</p>
+</blockquote>
+</li>
+<li><p>通过DCOM可以通过<code>TCP</code>连接到本地的一个端口，发起NTLM认证，且此认证可以被重放。</p>
+</li>
+<li><p>LocalService用户默认具有Selmpersonate和SeAssignPrimaryWithToken权限</p>
+</li>
+<li><p>开启Selmpersonate权限后，能够在调用CreateProcessWithToken时候，穿入新的Token创建新的进程。</p>
+</li>
+<li><p>开启SeAssignPrimaryToken权限后，能够在调用CreateProcessAsUser时，传入新的Token创建新的进程</p>
+</li>
+</ol>
+<h1 id="juicypotato理解"><a href="#juicypotato理解" class="headerlink" title="juicypotato理解"></a>juicypotato理解</h1><p>Microsoft通过使用已经进行的质询来禁止同协议NTLM身份验证来对此进行修补。这意味着从一个主机回到自身的SMB-&gt; SMB NTLM中继将不再起作用。但是，跨协议攻击（例如HTTP-&gt; SMB）仍然可以正常使用！</p>
+<p><code>烂土豆(Rotten Potato)提权是一个本地提权，是针对本地用户的，不能用于域用户。</code></p>
+<p>1、所以我们控制HTTP流量大概都流经我们控制的HTTP服务器，做中介人攻击。</p>
+<p>2、可以诱导系统高权用户执行一些操作，例如将它们重定向到需要NTLM身份验证的地方。所有NTLM凭据都将中继到本地SMB侦听器，以创建运行用户定义的命令的新系统服务，例如是Windows Update服务的请求时，就会是一个高权令牌，劫持掉这个令牌</p>
+<p>3、最后模仿这个高权令牌。只有具有“模仿安全令牌权限”的账户才能去模仿别人的令牌<br><code>如果用户拥有SeImpersonate 或拥有SeAssignPrimaryToken 权限，那么你就可以获取到SYSTEM。如果都没有，则无法提权</code></p>
+<p>巧了，我的靶机正好没开，。，算了，先记录一下</p>
+<blockquote>
+<p>补充</p>
+<p>述进程或者线程安全上下文的一个对象。不同的用户登录计算机后， 都会生成一个Access Token，这个Token在用户创建进程或者线程时会被使用，不断的拷贝，这也就解释了A用户创建一个进程而该进程没有B用户的权限。一般用户双击运行一个进程都会拷贝explorer.exe的Access Token。访问令牌分为：</p>
+<p> 授权令牌（Delegation token）：交互式会话登陆（例：本地用户登陆、用户桌面等）<br> 模拟令牌（Impersonation token）：非交互式登陆（例：net use 访问共享文件）<br>两种token只有在系统重启后才会清除；授权令牌在用户注销后，该令牌会变为模拟令牌依旧有效。</p>
+</blockquote>
+<p>可用于令牌窃取的工具有很多，例如cs、msf、empire等等，或者我们也可以直接使用现成的<code>incognito.exe</code>。</p>
+<blockquote>
+<p>incognito(伪装)</p>
+<p>在 meterpreter中 <code>use incognito</code>，然后<code>list_tokens -u</code>就可以查看令牌</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161657.png"></p>
+<p>利用命令<code>impersonate_token &#39;WIN-GD2BO0MQM9L\12451&#39;</code>获取<code>域管令牌</code></p>
+<blockquote>
+<h1 id="impersonate-v-扮演，角色化"><a href="#impersonate-v-扮演，角色化" class="headerlink" title="impersonate v 扮演，角色化"></a>impersonate v 扮演，角色化</h1></blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/h0ld1rs/image/image/20210731161716.png"></p>
+<h1 id="提权步骤"><a href="#提权步骤" class="headerlink" title="提权步骤"></a>提权步骤</h1><h2 id="查看用户权限"><a href="#查看用户权限" class="headerlink" title="查看用户权限"></a>查看用户权限</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">whoami /all </span><br><span class="line">whoami /priv</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果开启SeImpersonate权限，juicypotato的参数可以使用-t t</span><br><span class="line"></span><br><span class="line">如果开启SeAssignPrimaryToken权限，juicypotato的参数可以使用-t u</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果均开启，可以选择<code>-t *</code></p>
+<p>如果均未开启，那么无法提权</p>
+<h2 id="查看RPC默认端口是否为135"><a href="#查看RPC默认端口是否为135" class="headerlink" title="查看RPC默认端口是否为135"></a>查看RPC默认端口是否为135</h2><p>如果被修改(例如为111)，juicypotato的参数可以使用-n 111</p>
+<p>如果系统禁用了RPC，并不是一定无法提权，需要满足如下条件：</p>
+<p>找到另一系统，能够以当前用户的权限进行远程RPC登录，此时juicypotato的参数可以使用-k</p>
+<p>例如Win7、WIn8系统，默认配置下，允许135端口的入站规则即可进行远程RPC登录</p>
+<p>添加防火墙规则允许135端口入站的命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name=&quot;135&quot; protocol=TCP dir=in localport=135 action=allow</span><br></pre></td></tr></table></figure>
+
+<h2 id="根据操作系统选择可用的CLSID"><a href="#根据操作系统选择可用的CLSID" class="headerlink" title="根据操作系统选择可用的CLSID"></a>根据操作系统选择可用的CLSID</h2><h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><p>参考链接:<a target="_blank" rel="noopener" href="https://github.com/ohpe/juicy-potato/blob/master/CLSID/README.md">https://github.com/ohpe/juicy-potato/blob/master/CLSID/README.md</a></p>
+<p>例如测试系统win7 ，选择CLSID为 {555F3418-D99E-4E51-800A-6E89CFD8B1D7}</p>
+<h3 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h3><p>bat下载地址：<a target="_blank" rel="noopener" href="https://github.com/shanfenglan/test/blob/master/juicypotato/1.bat">https://github.com/shanfenglan/test/blob/master/juicypotato/1.bat</a></p>
+<p>powershell下载地址:<a target="_blank" rel="noopener" href="https://github.com/shanfenglan/test/blob/master/juicypotato/clsid.ps1">https://github.com/shanfenglan/test/blob/master/juicypotato/clsid.ps1</a></p>
+<p>输入命令<code>PowerShell.exe -ExecutionPolicy Bypass -File 1.ps1 &gt; CLSID.list</code></p>
+<p><strong>将bat文件与clsid.list文件放在同一目录下执行即可，会生成result.log文件，这里面的clsid即为可用的。</strong></p>
+<h2 id="选择一个系统未占用的端口作为监听端口"><a href="#选择一个系统未占用的端口作为监听端口" class="headerlink" title="选择一个系统未占用的端口作为监听端口"></a>选择一个系统未占用的端口作为监听端口</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JuicyPotato.exe -t t -p c:\windows\system32\cmd.exe -l 1111 -c &#123;8BC3F05E-D86B-11D0-A075-00C04FB68820&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表示开启SeImpersonate权限创建进程，监听端口1111，使用的CLSID为<code>&#123;8BC3F05E-D86B-11D0-A075-00C04FB68820&#125;</code></p>
+<p>之后会弹出CMD命令行</p>
+<p>脚本下载地址:<a target="_blank" rel="noopener" href="https://github.com/shanfenglan/test/tree/master/juicypotato">github工具下载地址</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/%E7%83%82%E5%9C%9F%E8%B1%86%E6%8F%90%E6%9D%83/">https://h0ld1rs.github.io/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/%E7%83%82%E5%9C%9F%E8%B1%86%E6%8F%90%E6%9D%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/23.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/23/%E9%9D%A2%E8%AF%95%E9%A2%98/%E9%9D%92%E8%97%A4%E4%BA%91hw%E9%9D%A2%E8%AF%95%E9%A2%98/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/24.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">青藤云hw面试题</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/22/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/linux-%E8%84%8F%E7%89%9B%E6%8F%90%E6%9D%83/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/29.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux_脏牛提权(CVE-2016-5159)</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%83%82%E5%9C%9F%E8%B1%86%E6%8F%90%E6%9D%83%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">烂土豆提权的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">简单的原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">前置知识</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#juicypotato%E7%90%86%E8%A7%A3"><span class="toc-number">2.</span> <span class="toc-text">juicypotato理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#impersonate-v-%E6%89%AE%E6%BC%94%EF%BC%8C%E8%A7%92%E8%89%B2%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">impersonate v 扮演，角色化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E6%AD%A5%E9%AA%A4"><span class="toc-number">4.</span> <span class="toc-text">提权步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="toc-number">4.1.</span> <span class="toc-text">查看用户权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BRPC%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E4%B8%BA135"><span class="toc-number">4.2.</span> <span class="toc-text">查看RPC默认端口是否为135</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%80%89%E6%8B%A9%E5%8F%AF%E7%94%A8%E7%9A%84CLSID"><span class="toc-number">4.3.</span> <span class="toc-text">根据操作系统选择可用的CLSID</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%951"><span class="toc-number">4.3.1.</span> <span class="toc-text">方法1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%952"><span class="toc-number">4.3.2.</span> <span class="toc-text">方法2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E7%B3%BB%E7%BB%9F%E6%9C%AA%E5%8D%A0%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3%E4%BD%9C%E4%B8%BA%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.4.</span> <span class="toc-text">选择一个系统未占用的端口作为监听端口</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/23.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

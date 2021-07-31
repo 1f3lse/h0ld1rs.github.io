@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>安全设备 | h0ld1rs的随手记</title><meta name="author" content="h0ld1rs"><meta name="copyright" content="h0ld1rs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="对于安全设备的一些总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安全设备">
+<meta property="og:url" content="https://h0ld1rs.github.io/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/index.html">
+<meta property="og:site_name" content="h0ld1rs的随手记">
+<meta property="og:description" content="对于安全设备的一些总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/17.jpg">
+<meta property="article:published_time" content="2021-03-06T11:04:21.000Z">
+<meta property="article:modified_time" content="2021-03-07T04:21:39.951Z">
+<meta property="article:author" content="h0ld1rs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://h0ld1rs.github.io/img/%E5%9B%BE%E5%BA%93/17.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://h0ld1rs.github.io/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-07 12:21:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/1.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/17.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">h0ld1rs的随手记</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">安全设备</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-06T11:04:21.000Z" title="发表于 2021-03-06 19:04:21">2021-03-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-07T04:21:39.951Z" title="更新于 2021-03-07 12:21:39">2021-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">10.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>30分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><blockquote>
+<p>防火墙指的是一个有软件和硬件设备组合而成、在内部网和外部网之间、专用网与公共网之间的界面上构造的保护屏障。它可通过监测、限制、更改跨越防火墙的数据流,尽可能地对外部屏蔽网络内部的信息、结构和运行状况,以此来实现网络的安全保护</p>
+</blockquote>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>过滤进、出网络的数据</li>
+<li>防止不安全的协议和服务</li>
+<li>管理进、出网络的访问行为</li>
+<li>记录通过防火墙的信息内容</li>
+<li>对网络攻击进行检测与警告</li>
+<li>防止外部对内部网络信息的获取</li>
+<li>提供与外部连接的集中管理</li>
+</ol>
+<h2 id="主要类型"><a href="#主要类型" class="headerlink" title="主要类型"></a>主要类型</h2><ul>
+<li>网络层防火墙：一般是基于源地址和目的地址、应用、协议以及每个1P包的端口来作出通过与否的判断。防火墙检查每一条规则直至发现包中的信息与某规则相符。如果没有一条规则能符合,防火墙就会使用默认规则,一般情况下,默认规则就是要求防火墙丢弃该包,其次,通过定义基于TCP或UDP数据包的端口号,防火墙能够判断是否允许建立特定的连接,如Telnet，FTP等连接。</li>
+<li>应用层防火墙：针对特别的网络应用服务协议即数据过滤协议,并且能够数据包分析并形成相关的报告</li>
+</ul>
+<p>主动被动：传统防火墙是主动安全的概念，因为它默认情况下是关闭所有的访问，然后再通过定制策略去开放允许开放的访问。</p>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>防火墙部署于单位或企业内部网络的出口位置</p>
+<h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><ol>
+<li>不能防止源于内部的攻击,不提供对内部的保护</li>
+<li>不能防病毒</li>
+<li>不能根据网络被恶意使用和攻击的情况动态调整自己的策略</li>
+<li>本身的防攻击能力不够,容易成为被攻击的首要目标</li>
+</ol>
+<h1 id="IDS-入侵检测系统"><a href="#IDS-入侵检测系统" class="headerlink" title="IDS(入侵检测系统)"></a>IDS(入侵检测系统)</h1><blockquote>
+<p>定义:入侵检测即通过从网络系统中的弱干个节点进行搜集并分析信息。监控网络中是否违反安全策略的行为或者是否存在入侵行为。入侵，检测系统通常包含3个必要的功能组件：信息来源，分析引擎和相应组件</p>
+</blockquote>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><ol>
+<li>信息收集：信息收集包括收集系统、网络、数据及用户活动的状态和行为。入侵检测利用的信息一般来自:==系统和网络日志文件、非正常的目录和文件改变、非正常的程序执行== 这三个方面</li>
+<li>信号分析：对收集到的==有关系统、网络、数据及用户活动的状态和行为等信息==,是通过模式匹配、统计分析和完整性分析这三种手段进行分析的。前两种用于实时入侵检测,完整性分析用于事后分析</li>
+<li>告警与相应：根据入侵的性质和类型，做出相应的告警与响应。</li>
+</ol>
+<h2 id="主要功能-1"><a href="#主要功能-1" class="headerlink" title="主要功能"></a>主要功能</h2><p><strong>它能够提供安全审计、监视、攻击识别和反攻击等多项功能,对內部攻击、外部攻击和误操作进行实时监控,在网络安全技术中起到了不可替代的作用</strong></p>
+<p>实时监测： 实时地监视、分析网络中所有的数据报文,发现并实时处理所捕获的数据报文<br>安全审计： 对系统记录的网络事件进行统计分析,发现异常现象,得出系统的安全状态,找出所需要的证据<br>主动响应：主动切断连接或与防火墙联动,调用其他程序处理</p>
+<h2 id="主要类型-1"><a href="#主要类型-1" class="headerlink" title="主要类型"></a>主要类型</h2><ul>
+<li><p>基于主机的入侵检测系统(HDS):</p>
+<p>基于主机的入侵检测系统是早期的入侵检测系统结构,通常是软件型的,直接安装在需要保护的主机上。其检测的目标主要是主机系统和系统本地用户,检测原理是根据主机的审计数据和系统，发现可疑事件，这种检测方式的<strong>优点</strong>主要有:==信息更详细、误报率要低部署灵活。==这种方式的<strong>缺点</strong>主要有：==会降低应用系统的性能;依赖于服务器原有的日志与监视能力;代价较大;不能对网络进行监测;需安装多个针对不同系统的检测系统==</p>
+</li>
+</ul>
+<ul>
+<li><p>基于网络的入侵检测系统(NDS):</p>
+<p>基于网络的入侵检测方式是目前一种比较主流的监测方式,这类检测系统需要有一台专门的检测设备。检测设备放置在==比较重要的网段内,不停地监视网段中的各种数据包,而不再是只监测单机。==它对所监测的网络上每一个数据包或可疑的数据包进行特征分析,如果数据包与产品内置的某些规则吻合,入侵检测系统就会发出警报,甚至直接切断网络连接。目前,大部分入侵检测产品是基于网络的<br>这种检测技术的<strong>优点</strong>主要有: ==能够检测那些来自网络的攻击和超过授权的非法访问;不需要改变服务器等主机的配置,也不会影响主机性能;风险低;配置简单。==其<strong>缺点</strong>主要是：==成本髙、检测范围受局限;大量计算,影响系统性能;大量分析数据流影响系统性能;对加密的会话过程处理较难;冈络流速高时可能会丢失许多封包,容易让入侵者有机可乘;无法检测加密的封包;对于直接对主机的入侵无法检测出。==</p>
+</li>
+</ul>
+<h2 id="主动被动"><a href="#主动被动" class="headerlink" title="主动被动"></a>主动被动</h2><p>入侵检测系统是一种对网络传输进行即使监控，在发现可疑传输时发出警报或采取主动反应措施的网络安全设备。绝大多数IDS系统都是被动的，也就是说，在攻击实际发生之前，他们往往无法预先发出警报</p>
+<h2 id="使用方式-1"><a href="#使用方式-1" class="headerlink" title="使用方式"></a>使用方式</h2><p>作为防火墙之后的第二道防线，适应于以旁路接入方式部署在具有重要业务系统或者网络安全性，保密性较高的网络出口处。</p>
+<h2 id="局限性-1"><a href="#局限性-1" class="headerlink" title="局限性"></a>局限性</h2><ul>
+<li>误报率高：主要表现为把<strong>良性流量</strong>误认为恶性流量进行误报。还有些IDS产会对用户不关心事件的进行误报。</li>
+<li>产品适应能力差：传统的IS产品在开发时没有考虑特定网络环境下的需求,适应能力差。入侵检测产品要能适应当前网络技术和设备的发展进行动态调整,以适应不同环境的需求</li>
+<li>大型网络管理能力差：首先,要确保新的产品体系结构能够支持数以百计的IDS传感器：其次,要能够处理传感器产生的告警事件;最后还要解决攻特征库的建立,配置以及更新问题。</li>
+<li>缺少防御功能：大多数IDS产品缺乏主动防御功能</li>
+<li>处理性能差：目前的百兆、千兆IDS产品性能指标与实际要求还存在很大</li>
+</ul>
+<h1 id="IPS-入侵防御系统"><a href="#IPS-入侵防御系统" class="headerlink" title="IPS(入侵防御系统)"></a>IPS(入侵防御系统)</h1><blockquote>
+<p>定义:入侵防御系统是一部能够监视网络或网络设备的网络资料传输行为的计算机网络安全设备，能够即使的中断，调整或者隔离一些不正常或者具有伤害性的网络资料传输行为。</p>
+</blockquote>
+<h2 id="产生背景"><a href="#产生背景" class="headerlink" title="产生背景"></a>产生背景</h2><ol>
+<li>串行部署的防火墙可以拦截底层攻击的行为，但对于应用层的深层攻击行为无能为力。</li>
+<li>旁路部署的IDS可以及时发现那些穿透防火墙的深层攻击行为，作为防火墙的有益补充，但很可惜的是无法实时的阻断。</li>
+<li>IDS和防火墙联动，通过IDS来发现，通过防火墙来阻断，但由于迄今为止，没有统一的接口规范，加上越来越频发的“瞬间攻击”（一个会话就可以达成攻击效果，如sql注入，溢出攻击等），使得IDS与防火墙联动在实际应用中的效果不显著。</li>
+</ol>
+<blockquote>
+<p>入侵检测系统(IDS)对那些异常的，可能是入侵行为的数据进行检测和报警，告知使用者网络中的实时状况，并提供相应的解决，处理办法。是一种侧重于风险管理的安全产品。</p>
+<p>入侵防御系统(IPS)对那些被明确判断为攻击的行为，会对网络，数据造成危害的恶意行为进行检测和防御。降低或者是减免使用者对异常状况的处理资源开销，是一种侧重于风险控制的安全产品。</p>
+<p>IDS与IPS的关系，并非取代和排斥，而是相互协作，没有部署IDS的时候，只能是凭感觉判断，应该在什么地方，部署什么样的安全产品。通过IDS的广泛部署，了解了网络的当前实时状况，根据此状况可以进一步判断应该在何处部署类安全产品(IPS)</p>
+</blockquote>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><ol>
+<li>入侵防护：实时，主动拦截黑客攻击，蠕虫，网络病毒，后门木马，DOS等恶意流量，保护企业信息系统和网络架构免受伤害，防止操作系统和应用程序损坏或宕机。</li>
+<li>web安全：基于互联网web站带你的挂马检测结果，结合url信誉评价技术，保护用户在访问时被植入木马等恶意代码的网站时，并不受侵害，即使，有效的第一时间拦截web威胁。</li>
+<li>流量控制：阻断一切非授权用户流量，管理合法网络资源的利用，有效保证关键应用全天侯畅通无阻，通过保护关键应用带宽来不断提升企业IT产出率和收益率。</li>
+<li>上网监管：全面检测和管理IM即使通讯，P2P下载，网络游戏，以及在线炒股等网络行为，协助企业辨识和限制非授权网络流量，更好的执行企业的安全策略。</li>
+</ol>
+<h2 id="技术特征"><a href="#技术特征" class="headerlink" title="技术特征"></a>技术特征</h2><ul>
+<li><p>嵌入式运行</p>
+<p>只有以嵌入模式运行的IPS设备才能够实现实时的安全防护,实<br>时阻拦所有可疑的数据包,并对该数据流的剩余部分进行拦截<br>深入分析和控制IPS必须具有深入分析能力,以确定哪些恶意流量已经被拦截,根据攻击类型、策略等来确定哪些流量应该被拦截</p>
+</li>
+<li><p>入侵库特征：高质量的入侵特征库是IPS高效运行的必要条件,IPS还应该定期升级入侵特征库,并快速应用到所有传感器</p>
+</li>
+<li><p>高效处理能力：IPS必须具有高效的处理数据包的能力，对整个网络性能的影响保持在最低水平</p>
+</li>
+</ul>
+<h2 id="主要类型-2"><a href="#主要类型-2" class="headerlink" title="主要类型"></a>主要类型</h2><ul>
+<li><p>基于特征的IPS</p>
+<p>这是许多IPS解决方案中最常用的方法。把特征添加到设备中,可识别当前最常见的攻击。也被称为模式匹配特征库可以添加、调整<br>和更新,以应对新的攻击基于异常的IPS也被称为基于行规的IPS。基于异常的方法可以用统计异常，检测和非统计异常检测。</p>
+</li>
+<li><p>基于异常的IPS</p>
+<p>也被称为基于行规的IPS，基于异常的方法可以用统计异常检测和非统计异常检测</p>
+</li>
+<li><p>基于策略的IPS</p>
+<p>他更关心的是，是否执行组织的安保策略，如果监测的活动违反了组织定的安保策略就出发报警。使用这种方式的IPS要把安全策略写入到设备中</p>
+</li>
+<li><p>基于协议分析的IPS</p>
+<p>他与基本特征的方法类似，大多数情况检查常见的特征，但基于协议分析的方法可以做更深入的数据包检查，能更灵活的发现某些类型的攻击。</p>
+</li>
+</ul>
+<h2 id="主动被动-1"><a href="#主动被动-1" class="headerlink" title="主动被动"></a>主动被动</h2><p>IPS倾向于提供主动防护，其设计宗旨是预先对入侵活动和攻击性，网络流量进行拦截，避免其造成损失，而不是简单的在恶意流量传送时，或传送后猜进行警报</p>
+<h2 id="使用方式-2"><a href="#使用方式-2" class="headerlink" title="使用方式"></a>使用方式</h2><p>串联部署在具有重要业务系统或者内部网络安全性，保密性较高的网络出口处</p>
+<h1 id="漏洞扫描设备"><a href="#漏洞扫描设备" class="headerlink" title="漏洞扫描设备"></a>漏洞扫描设备</h1><blockquote>
+<p> 定义：漏洞扫描是指基于漏洞数据库，通过扫描等手段对指定的远程或者本地计算机系统的安全脆弱性进行检测，发现可利用的漏洞的一种安全检测(渗透攻击)</p>
+</blockquote>
+<h2 id="主要功能-2"><a href="#主要功能-2" class="headerlink" title="主要功能"></a>主要功能</h2><blockquote>
+<p>可以对网站，系统，数据库，端口，应用软件等一些网络设备应用进行智能识别扫描检测，并对其检测出的漏洞进行报警提示管理人员进行修复。同时可以对漏洞修复的情况进行监督并自动定时对漏洞进行审计提高漏洞修复效率。</p>
+</blockquote>
+<ol>
+<li><p>定期的网络安全自我检测，评估，安全检测可帮助客户最大可能的消除安全隐患，尽可能早的发现安全漏洞并进行修补，有效的利用已有系统，提高网络的运行效率</p>
+</li>
+<li><p>安装新软件，启动新服务后的检查，由于漏洞和安全隐患的形式多种多样，安装新软件和启动新服务都有可能使得原来隐藏的漏洞暴露出来，因此进行这些操作之后，应该重新扫描系统，才能使得安全得到保证。</p>
+</li>
+<li><p>网络承担重要任务的安全性测试</p>
+</li>
+<li><p>网络安全事故分析调查</p>
+<p><em>网络安全事故后，可以通过网络漏洞扫描/网络评估系统分析确定网络被攻击的漏洞所在，帮助弥补漏洞，尽可能多的提供资料方便调查攻击者来源</em></p>
+</li>
+<li><p>重大网络安全事件前的准备</p>
+<p><em>重大网络安全事件前网络漏洞扫描/网络评估系统能够帮助用户即时的找出网络中存在的隐患和漏洞，帮助用户及时的弥补漏洞</em></p>
+</li>
+</ol>
+<h2 id="主要技术"><a href="#主要技术" class="headerlink" title="主要技术"></a>主要技术</h2><ol>
+<li><strong>主机扫描</strong>：确定在目标网络上的主机是否在线</li>
+<li><strong>端口扫描</strong>：发现远程主机开放的端口以及服务</li>
+<li><strong>OS识别技术</strong>：根据信息和协议栈判别操作系统</li>
+<li><strong>漏洞检测数据采集平台</strong>：按照网络，系统，数据库进行扫描</li>
+<li><strong>智能端口识别、多重服务检测、安全优化扫描、系统渗透扫描</strong></li>
+<li>多种数据库自动化检查技术，数据库实例发现技术。</li>
+</ol>
+<h2 id="主要类型-3"><a href="#主要类型-3" class="headerlink" title="主要类型"></a>主要类型</h2><ol>
+<li><p>针对网络的而扫描器：</p>
+<p>基于网络的扫描器就是通过网络来扫描计算机中的漏洞。价格相对来说比较便宜，在操作过程中，不需要涉及到目标系统的管理员。在检测的过程中，不需要在目标系统上安装任何东西，维护简单。</p>
+</li>
+<li><p>针对主机的扫描器：</p>
+<p>基于主机的扫描器则是在目标系统上，安装了一个代理或者时服务，以便能够访问所有的文件与进程，这也使得基于主机的扫描器能够扫描到更多的漏洞。</p>
+</li>
+<li><p>针对数据库的扫描器：数据库漏扫可以检测数据库中的DBMS漏洞，缺省配置，权限提升漏洞，缓冲区溢出，补丁未升级等自身漏洞</p>
+</li>
+</ol>
+<h2 id="使用方式-3"><a href="#使用方式-3" class="headerlink" title="使用方式"></a>使用方式</h2><ol>
+<li><p>独立部署</p>
+<p><em>在网络中只部署一台漏扫设备，接入网络并进行正确配置即可正常使用，其工作范围通常包含用户企业的整个网络地址。用户可以从任意地址登录漏扫系统并下达扫描业务，检查任务的地址必须在产品和分配给此用户的授权范围内</em></p>
+</li>
+<li><p>多级式部署</p>
+<p>对于一些大规模和分布式的网络用户，建议使用分布式部署方式，在大型网络中采用多台漏扫系统共同工作，可对各系统间的数据共享并汇合，方便用户对分布式网络进行集中管理。</p>
+</li>
+</ol>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>优点:有利于早些发现问题，但不能从根本上解决安全隐患</p>
+<p>缺点：只能针对已知安全问题进行扫描，准确性和指导性有待改善/</p>
+<h1 id="安全隔离网闸"><a href="#安全隔离网闸" class="headerlink" title="安全隔离网闸"></a>安全隔离网闸</h1><blockquote>
+<p>定义: 安全隔离网闸是使用带有多种控制功能的固态开关读写介质连接两个独立网络系统的信息安全设备。由于物理隔离网闸所连接的两个独立网络系统之间,不存在通信的物理连接、逻辑连接、信息传输命令、信息传输协议,不存在依据协议的信息包转发,只有数据文件的无协议“摆渡”,且对固态存储介质只有“读和“写”两个命令。所以,物理隔离网闸从物理上隔离、阻断了具有潜在攻可能的一切连接,使“黑客”无法入侵、无法攻击、无法破坏,实现了真正的安全</p>
+</blockquote>
+<h2 id="功能模块"><a href="#功能模块" class="headerlink" title="功能模块"></a>功能模块</h2><ul>
+<li>安全隔离</li>
+<li>内核防护</li>
+<li>协议转换</li>
+<li>病毒查杀</li>
+<li>访问控制</li>
+<li>安全审计</li>
+<li>身份认证</li>
+</ul>
+<h2 id="主要功能-3"><a href="#主要功能-3" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>阻断网络的直连物理连接：物理隔离网闸在任何时刻都只能与非可信网络和可信网络上之一相连接，而不能同时与两个网络连接</li>
+<li>阻断网络的逻辑连接，物理隔离网闸不依赖操作系统。不支持TCP/IP协议。两个网络之间的信息交换必须将TCP/IP协议剥离，将原始数据通过P2P的非TCP/IP方式，通过储存介质的<strong>“写入”</strong>与<strong>谢读出</strong>完成数据转发</li>
+<li>安全审查：物理隔离网闸具有安全审查功能，即网络在将原始数据<strong>写入</strong>以前，根据需要对原始数据的安全性进行排查。把可能的病毒代码，恶意攻击代码等消灭干净</li>
+<li>原始数据无危害性：物理隔离网闸转发的原始数据，不具有攻击或对网络安全有害的特性。就像txt文本不会有病毒一样，也不会执行命令等。</li>
+<li>管理和控制功能：建立完善的日志系统</li>
+<li>根本需要建立数据特征库：在应用初始化阶段，结合应用要求，提取应用数据的特征。形成用户特有的数据特征库，作为运行过程中，数据校验的基础。当用户请求时，提取用户的应用数据。抽取数据特征和原始数据库特征比较，符合原始数据库特征的，请入请求队列，不符合的返回用户，实现对数据的过滤</li>
+<li>根据需要提供定制的安全策略和传输策略的功能：用户可以自行设定数据的传输策略，如：传输单位：(基于数据还是基于任务)、传输间隔，传输方向，传输时间，启动时间等。</li>
+<li>支持定时/实时文件交换，支持单向/双向文件的交换，支持数字签名，内容过滤，病毒检查等功能。</li>
+</ol>
+<h2 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h2><ol>
+<li><p>内网处理单元：包括内网接口单元与内网数据缓冲区。接口部分负责与内网的连接，并终止内网用户的网络连接。对数据进行病毒检测，防火墙，入侵防护等安全检查后，剥离出”纯数据“，做好交换的准备，也完成来自内网对用户身份的确认，确保数据的安全通道，数据缓冲区是存放并调度剥离后的数据，负责与隔离交换单元的数据交换</p>
+</li>
+<li><p>外网处理单元：与内网处理单元相同，但处理的是外网连接</p>
+</li>
+<li><p>隔离与交换控制单元(隔离硬件)</p>
+<p>是网闸隔离控制的摆渡控制,控制交换通道的开启与关闭。控制单元中包含一个数据交换区,就是数据交换中的摆渡船。对交换通道的控制的方式目前有两种技术,摆渡开关与通道控制。摆渡开关是电子倒换开关,让数据交换区与内外网在任意时刻的不同时连接,形成空间间隔GAP，实现物理隔离。通道方式是在内外网之间改变通讯模式,中断了内外网的直接连接,采用私密的通讯手段形成内外网的物理离。该单元中有一个数据交换区,作为交换数据的中转。<br>其中,三个单元都要求其软件的操作系统是安全的,也就是采用非通用的操作系统,或改造后的专用操作系统。一般为Unix BSD或LINUX的经安全精简版本。或者其他是嵌入式操作系统等,但都要对底层不需要的协议、服务删除,使用的协议优化改造,增加安全特性,同时提高效率。如果针对网络七层协议安全隔离网闸是在硬件链路层上断开</p>
+</li>
+</ol>
+<h2 id="区别比较"><a href="#区别比较" class="headerlink" title="区别比较"></a>区别比较</h2><ol>
+<li><p>与物理隔离卡的区别</p>
+<p>安全隔离网闸与物理隔离卡的最主要的区别是：安全隔离网闸能够实现两个网络间的自动的安全适度的信息交换。而物理隔离卡只能提供一台计算机在两个网之间切换，并且需要手动操作，大部分隔离卡还要求系统重新启动以便切换硬盘</p>
+</li>
+<li><p>网络交换信息的区别</p>
+<p>安全隔离网闸在网络间进行的是安全适度的信息交换是在网络之间不存在链路层连接的情况下进行的。安全隔离网闸直接处理处理网络访问间应用层的数据，利用存储转发的方法进行应用数据的交换。在交换的同时，对应用数据进行的各种安全检查。路由器，交换机保持链路层畅通。在链路层上与IP包等网络数据的直接转发。没有考虑网络安全和数据安全问题。</p>
+</li>
+<li><p>与防火墙的区别</p>
+<p>防火墙一般在进行IP包转发的同时，通过对IP包的处理，实现对TCP会话的控制，但是对应用数据内容不进行检查。这种工作方式无法防止泄密，也无法防止病毒和黑客程序的攻击</p>
+</li>
+</ol>
+<h2 id="使用方式-4"><a href="#使用方式-4" class="headerlink" title="使用方式"></a>使用方式</h2><ol>
+<li>涉密网与非涉密网之间</li>
+<li>局域网与互联网之间(内网与外网之间)</li>
+<li>办公网与业务网之间</li>
+<li>业务网与互联网之间</li>
+</ol>
+<h1 id="VPN设备"><a href="#VPN设备" class="headerlink" title="VPN设备"></a>VPN设备</h1><blockquote>
+<p>定义：虚拟专用网络指的是，在公用网络上建立专用网络的技术，之所以称为虚拟网主要是因为整个VPN网络的任意两个节点之间的连接并没有传统专网所需的端到端的物理链路，而是架在公用网络服务商所提供的网络平台之上的逻辑网络，网络数据在逻辑链路中传输</p>
+</blockquote>
+<h2 id="主要功能-4"><a href="#主要功能-4" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>通过隧道或虚拟电路实现网络互联</li>
+<li>支持用户安全管理</li>
+<li>能够进行网络监控，故障诊断</li>
+</ol>
+<h2 id="工作原理-2"><a href="#工作原理-2" class="headerlink" title="工作原理"></a>工作原理</h2><ol>
+<li>通常情况下，VPN网关采取双网卡结构，外网卡使用公网IP接入Internet</li>
+<li>网络一(假定为公网internet)的终端A访问网络二(假定为公司内网)的终端B，其发出的访问数据包的目标地址为终端B的内部IP地址</li>
+<li>网络一的VPN网关在接受到终端A发出的访问数据包时，对其目标地址进行检查，如果目标地址属于网络二的地址，则将该数据包的地址进行封装，封装的方式根据所采用的VPN技术的不同而不同，同时VPN网关会构建一个新的VPN数据包。并将封装后的原数据包作为VPN数据包的负载，VPN数据包的目标地址为网络二的VPN网关的外部地址</li>
+<li>网络一的VPN网关将VPN数据包发送到Internet，由于VPN数据包的目标地址时网络二的VPN网关的外部地址。所以该数据包将被Internet中的路由正确的发送到网络二VPN的网关</li>
+<li>网络二的VPN网关对接收到的数据包进行检查,如果发现该数据包是从网络一的VPN网关发出的,即可判定该数据包为VPN数据包,并对该数据包进行解包处理。解包的过程主要是先将VPN数据包的包头剥离,再将数据包反向处理还原成原始的数据包。</li>
+<li>网络二的VPN网关将还原后的原始数据包发送至目标终端B,由于原始数据包的目标地址是终端B的IP,所以该数据包能够被正确地发送到终端B。在终端B看来,它收到的数据包就和从终端A直接发过来的一样。</li>
+<li>从终端B返回终端A的数据包处理过程和上述过程一样,这样两个网络内的终端就可以相互通讯了。通过上述说明可以发现,在VPN网关对数据包进行处理时,有两个参数对于VPN通讯十分重要:原始数据包的目标地址(VPN目标地址)和远程VPN网关地址。根据目标地址，VPN网关能够判断对哪些数据包进行VPN处理,对于不需要处理的数据包通常情况下可直接转发到上级路由。远程VPN网关地址则指定了处理后的VPN数据包发送的目标地址,即VPN隧道的另一端VPN网关地址。由于网络通讯是双向的,在进行VPN通讯时,隧道两端的VPN网关都必须知道VPN目标地址和与此对应的远端VPN网关地址</li>
+</ol>
+<h2 id="常用VPN技术"><a href="#常用VPN技术" class="headerlink" title="常用VPN技术"></a>常用VPN技术</h2><ol>
+<li>MPLS VPN是一种基于技术的IP VPN，是在网络路由和交换设备上应用MPLS(多协议标记交换)技术，简化核心路由器的路由选择方式，利用结合传统路由技术的标记实现IP虚拟专用网络(IP VPN)。MPLS的优势在于将二层交换和三层路由技术结合起来，在此解决VPN、服务分类，和流量工程这些IP网络的重大问题时，具有优异的表现成绩。因此，MPLS VPN，在解决企业直连，提供各中新业务方面也越来越被运营商所看好。成为IP网络运营商提供增值业务的重要手段。MPLS VPN又可分为二层 MPLS VPN即MPLS L2 VPN 和三层MPLS VPN (即MPLS L3 VPN)</li>
+<li>SSLVPN：是以Https(Secure  http),安全的HTTP,即支持SSL的HTTP协议)为基础的VPN技术,工作在传输层和应用层之间。SSL VPN充分利用了SSL协议提供的基于证书的身份认证、数据加密和消息完整性验证机制,可以为应用层之间的通信建立安全连接。SSL VPN泛应用于基于Web的远程安全接入，为用户远程访问公司内部网络提供了安全保证。</li>
+<li>IPSEC VPN 时基于IPSEC 协议的VPN技术，由于IPSEC协议提供隧道安全保障，IPSEC是一种由IETF设计的端到端的确保基于IP通讯的数据安全性机制。它为Internet上传输的数据提供了高质量，可操作、基于密码学的安全保证</li>
+</ol>
+<h2 id="主要类型-4"><a href="#主要类型-4" class="headerlink" title="主要类型"></a>主要类型</h2><p>主要分为路由器，交换机，防火墙。</p>
+<ul>
+<li>路由器式VPN：路由器式VPN部署比较容易，只要在路由器上添加VPN服务即可</li>
+<li>交换机式VPN：主要应用于连接用户较少的VPN网络</li>
+<li>防火墙式VPN：防火墙式VPN是最常见的一种VPN的实现方式，许多厂商都是提供这种配置类型</li>
+</ul>
+<p><strong>VPN的隧道协议有三种，PPTP，L2TP,和IPsec</strong>，其中PPTP和L2TP协议工作在OSI模型的第二层，又称为二层隧道协议，IPSec式第三层    隧道协议。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><ol>
+<li>VPN服务器:在大型局域网中,可以通过在网络中心搭建VPN服务器的方法实现VPN</li>
+<li>软件VPN：可以通过专用的软件实现VPN</li>
+<li>硬件VPN：可以通过专用的硬件实现VPN</li>
+<li>集成VPN：某些硬件设备,如路由器、防火墙等,都含有VPN功能,但是<br>一般拥有VPN功能的硬件设备通常都比没有这一功能的要贵</li>
+</ol>
+<h1 id="流量监控设备"><a href="#流量监控设备" class="headerlink" title="流量监控设备"></a>流量监控设备</h1><blockquote>
+<p>定义：网络流量监控是一种利用软件或者硬件的方式来实现对电脑网络流量的控制，他的最主要方法，是引入QoS的概念，从通过为不同类型的网络数据包标记，从而决定数据包通行的优先次序</p>
+</blockquote>
+<blockquote>
+<p>QoS（Quality of Service，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E8%B4%A8%E9%87%8F/9401950">服务质量</a>）指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力，是网络的一种安全机制， 是用来解决<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F/10680325">网络延迟</a>和阻塞等问题的一种技术。QoS的保证对于容量有限的网络来说是十分重要的，特别是对于流多媒体应用，例如<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/VoIP/110300">VoIP</a>和IPTV等，因为这些应用常常需要固定的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BC%A0%E8%BE%93%E7%8E%87/10811244">传输率</a>，对延时也比较敏感。</p>
+</blockquote>
+<h2 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h2><ul>
+<li><p>传统的流控方式</p>
+<p>通过路由器，交换机的QoS模块实现基于源地址，目的地址，源端口、目的端口以及协议类型的流量控制，属于四层流控，路由交换设备也可通过修改路由转发表，实现一定程度的流量控制，但这种传统的IP包流量识别和QoS控制技术，仅对IP包头中的“五元组“信息进行分析，来确定当前流量的基本信息。传统IP路由也正是通过这一系列信息来实现一定程度的流量识别和Qos保障，但其仅仅分析IP包的四层以下内容,包括<strong>源地址、目的地址、源端目的端口以及协议类型</strong>。==随着网上应用类型的不断丰富,仅通过第四层端口信息己经不真正判断流量中的应用类型,更不能应对基于开放端口、随机端口甚至采用加密方式进行传输的应用类型==。例如,P2P类应用会使用跳动端口技术及加密方式进行传输基于交换路由设备进行流量控制的方法对此完全失效</p>
+</li>
+<li><p>智能流控方式：通过专业的流控设备实现基于应用层的流控,属于<br>七层流控</p>
+</li>
+</ul>
+<h2 id="主要功能-5"><a href="#主要功能-5" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>全面透视网络流量,快速发现与定位网络故障</li>
+<li>保障关键应用的稳定运行,确保重要业务顺畅地使用网络</li>
+<li>限制与工作无关的流量,防止对带宽的滥用</li>
+<li>管理员工上网行为,提高员工网上办公的效率</li>
+<li>依照法规要求记录上网日志,避免违法行为</li>
+<li>保障内部信息安全,减少泄密风险</li>
+<li>保障服务器带宽,保护服务器安全</li>
+<li>内置企业级路由器与防火墙,降低安全风险</li>
+<li>专业负载均衡,提升多线路的使用价值</li>
+</ol>
+<h2 id="使用方式-5"><a href="#使用方式-5" class="headerlink" title="使用方式"></a>使用方式</h2><ol>
+<li>网关模式：置于出口网关,所有数据流直接经由设备端口通过</li>
+<li>网桥模式：如同集线器的作用,设备置于网关出口之后,设置简单、透明</li>
+<li>旁路模式：与交换机镜像端口相连,通过对网络岀口的交换机进行镜<br>像映射,设备获得链路中的数据“拷贝”,主要用于监听、审计局域网中的数据流及用户的网络行为</li>
+</ol>
+<h1 id="防病毒网关"><a href="#防病毒网关" class="headerlink" title="防病毒网关"></a>防病毒网关</h1><blockquote>
+<p>防病毒网关是一种网络设备，以保护网络内(一般是局域网)进出数据的安全。主要体现在，病毒删除，关键字过滤(如色情，反动)，垃圾邮件阻止的功能，同时部分设备也具有一定防火墙(划分Vlan)的功能</p>
+</blockquote>
+<h2 id="主要功能-6"><a href="#主要功能-6" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>病毒杀除</li>
+<li>关键字过滤</li>
+<li>垃圾邮件阻止</li>
+<li>部分设备也具有一定的防火墙能够检测进出网站内部的数据，对http，ftp，SMTP，IMAP和POP3五种协议的数据进行病毒扫描，一旦发现病毒就会采用相应的手段进行隔离或者查杀，在病毒防护方面起到非常大的作用</li>
+</ol>
+<h2 id="与防火墙的区别"><a href="#与防火墙的区别" class="headerlink" title="与防火墙的区别"></a>与防火墙的区别</h2><ol>
+<li>防病毒网关：专注病毒过滤，阻断病毒传输，工作协议层为ISO 2—-7层，分析数据包中的传输数据内容，运用病毒分析技术处理病毒体，具有防火墙访问控制功能模块</li>
+<li>防火墙：专注访问控制，控制非法授权访问，工作协议层是ISO 2–4层，分析数据包中源IP目的IP，对比规则控制访问方向，不具有病毒过滤功能。</li>
+</ol>
+<h2 id="与防病毒软件的区别"><a href="#与防病毒软件的区别" class="headerlink" title="与防病毒软件的区别"></a>与防病毒软件的区别</h2><ol>
+<li>防病毒网关：基于网络层过滤病毒，阻断病毒体网络传输，网关阻断病毒传输，主动防御病毒与网络之外，网关配置病毒过滤策略，方便，扼守咽喉，过滤出于网关的数据，与杀毒软件联动建立多层次反病毒体系</li>
+<li>防病毒软件：基于操作系统病毒清除，清除进入操作系统的病毒，病毒对系统核心技术滥用导致病毒清除困难，研究主动防御技术专业性强，普及困难，管理安装杀毒软件终端，病毒发展互联网化需要网关及反病毒技术配合</li>
+</ol>
+<h2 id="查杀方式"><a href="#查杀方式" class="headerlink" title="查杀方式"></a>查杀方式</h2><p><strong>对进出防病毒网关数据检测：以特征码匹配为技术，对检测出病毒数据进行查杀，采取数据包还原成文件的方式进行病毒处理</strong></p>
+<ol>
+<li>基于代理服务器的方式</li>
+<li>基于防火墙墙协议的还原方式</li>
+<li>基于邮件服务器的方式</li>
+</ol>
+<h2 id="使用方式-6"><a href="#使用方式-6" class="headerlink" title="使用方式"></a>使用方式</h2><ol>
+<li>透明模式：串联接入网络出口处，部署简单</li>
+<li>旁路代理模式：强制客户端的流量经过防病毒网关，防病毒网关仅仅需要处理要检测的相关协议。不需要处理其他协议的转发，可以较好的提升设备性能。</li>
+<li>旁路模式：与旁路代理模式部署的拓扑一样，不同的是，旁路模式只能起到检测作用，对于已经检测到的病毒无法做清除。</li>
+</ol>
+<h1 id="WAF-WEB应用防火墙"><a href="#WAF-WEB应用防火墙" class="headerlink" title="WAF(WEB应用防火墙)"></a>WAF(WEB应用防火墙)</h1><blockquote>
+<p>Web应用防火墙是通过执行一系列针对HTTP/HTTPS的安全策略来专门为Web应用提供保护的一种设备</p>
+</blockquote>
+<h2 id="产生背景-1"><a href="#产生背景-1" class="headerlink" title="产生背景"></a>产生背景</h2><p>​    当WEB应用越来越为丰富的同时，服务器以其强大的计算能力、处理<br>性能及蕴含的较高价值逐渐成为主要攻击目标。<br>​    注入、网页篡改、网页挂马等安全事件,频繁发生。企业等用户一般采用防火墙作为安全保障体系的第一道防线。但是,在现实中,他们存在这样那样的问题,由此产生了WAF(web应用防护系统)。</p>
+<p>​    Web应用防护系统用以解决诸如防火墙一类传统设备束手无策的Web应用安全问题。与传统防火墙不同,WAF工作在应用层,因此对Web应用防护具有先天的技术优势。基于对Web应用业务和逻辑的深刻理解,WAF对来自应用程序客户端的各类请求进行内容检测和验证,确保其安全性与合法性,对非法的请求予以实时阻断,从而对各类网站站点进行有效防护。</p>
+<h2 id="主要功能-7"><a href="#主要功能-7" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li>审计设备：用来截获以HTTP数据或者仅仅满足某些规则的会话。</li>
+<li>访问控制设备：用来控制对Web应用的访问，既包括主动安全模式，也包括被动安全模式</li>
+<li>架构/网络设计工具：当运行在反向代理模式，他们被用来分配职能，集中控制，虚拟基础等结构</li>
+<li>Web应用加固工具：这些功能增强被保护Web应用的安全性，他不仅能屏蔽Web应用固有的弱点，而且能保护Web应用编程错误导致的隐患，主要包括，防攻击，防漏洞，防暗链，防爬虫，防挂马，防DDOS等</li>
+</ol>
+<h2 id="使用方式-7"><a href="#使用方式-7" class="headerlink" title="使用方式"></a>使用方式</h2><p>与IPS设备部署方式类似，可以串联部署在Web服务器等关键设备的网络出口处。</p>
+<h1 id="安全审计系统"><a href="#安全审计系统" class="headerlink" title="安全审计系统"></a>安全审计系统</h1><blockquote>
+<p>网络安全审计系统针对互联网行为提供有效的行为审计，内容审计，行为报警，行为控制，以及相关的审计功能。从管理层面来提供互联网的，有效监督的，预防，制止数据泄密。满足对于互联网行为审计备案及安全保护措施的要求，提供完整的上网记录，便于信息追踪，系统安全管理和风险防范。</p>
+</blockquote>
+<h2 id="主要类型-5"><a href="#主要类型-5" class="headerlink" title="主要类型"></a>主要类型</h2><p>根据被审计的对象(主机、设备、网络、数据库、业务、终端、用户)划分,<br>安全审计可以分为:</p>
+<ol>
+<li>主机审计：审计针对主机的各种操作和行为。</li>
+<li>设备审计：对网络设备、安全设备等各种设备的操作和行为进行审计</li>
+<li>网络审计：对网络中各种访问、操作的审计,例如：telnet操作，FTP操作等等</li>
+<li>数据库审计：对数据库行为和操作、甚至操作的内容，进行审计。</li>
+<li>业务审计：对业务操作、行为、内容的审计。</li>
+<li>终端审计：对终端设备(PC、打印机)等的操作和行为进行审计,包括预配置审计。</li>
+<li>用户行为审计：对企业和组织的人进行审计,包括上网行为审计、运维操作审计。有的审计产品针对上述一种对象进行审计,还有的产品综合上述多种审计对象。</li>
+</ol>
+<h2 id="主要功能-8"><a href="#主要功能-8" class="headerlink" title="主要功能"></a>主要功能</h2><ol>
+<li><p><strong>采集多种类型的日志数据</strong></p>
+<p>能采集各种操作系统的日志,防火墙系统日志,入侵检测系统日志,网络交换及路由设备的日志，各种服务和应用系统日志</p>
+</li>
+<li><p><strong>日志管理</strong></p>
+<p>多种日志格式的统一管理。自动将其收集到的各种日志格式转换为统一的日志格式,便于对各种复杂日志信息的统一管理与处理</p>
+</li>
+<li><p><strong>日志查询</strong></p>
+<p>支持以多种方式查询网络中的日志记录信息,以报表的形式显示。</p>
+</li>
+<li><p><strong>入侵检测</strong></p>
+<p>使用多种内置的相关性规则，对分布在网络中的设备产生的日志及报警信息进行相关分析，从而检测出单个系统难以发现的安全事件</p>
+</li>
+<li><p><strong>自动生成安全分析报告</strong></p>
+<p>根据日志数据库记录的日志数据，分析网络或系统的安全性，并输出安全性分析报告，报告的输出可以预先定义的条件自动产生，提交给管理员</p>
+</li>
+<li><p><strong>网络状态实时监听</strong></p>
+<p>可以监听运行有代理的特定设备的状态，网络设备，日志内容，网络行为等情况</p>
+</li>
+<li><p><strong>事件响应机制</strong><br>审计系统遇到安全事件的时候，可以采用响应的方式进行报警</p>
+</li>
+<li><p><strong>集中管理</strong></p>
+<p>审计系统提供一个统一的集中管理平台，实现对日志代理，安全审计中心，日志数据库的集中管理</p>
+</li>
+</ol>
+<h2 id="使用方式-8"><a href="#使用方式-8" class="headerlink" title="使用方式"></a>使用方式</h2><p>安全审计产品在网络中的部署方式主要是旁路部署</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">h0ld1rs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://h0ld1rs.github.io/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/">https://h0ld1rs.github.io/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://h0ld1rs.github.io" target="_blank">h0ld1rs的随手记</a>！</span></div></div><div class="tag_share"><div class="post_share"><div class="social-share" data-image="/img/%E5%9B%BE%E5%BA%93/17.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/03/12/%E5%86%85%E7%BD%91%E7%9B%B8%E5%85%B3/mysql%E6%8F%90%E6%9D%83/"><img class="prev-cover" src="/img/%E5%9B%BE%E5%BA%93/14.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">mysql提权</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/06/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/%E8%9C%9C%E7%BD%90/"><img class="next-cover" src="/img/%E5%9B%BE%E5%BA%93/9.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">蜜罐</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">h0ld1rs</div><div class="author-info__description">博主笨的离谱，希望各位佬们多包含</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/h0ld1rs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/h0ld1rs/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yumeibumei@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">1.</span> <span class="toc-text">防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-number">1.4.</span> <span class="toc-text">局限性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IDS-%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.</span> <span class="toc-text">IDS(入侵检测系统)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-1"><span class="toc-number">2.2.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B-1"><span class="toc-number">2.3.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E8%A2%AB%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">主动被动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-1"><span class="toc-number">2.5.</span> <span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%99%90%E6%80%A7-1"><span class="toc-number">2.6.</span> <span class="toc-text">局限性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IPS-%E5%85%A5%E4%BE%B5%E9%98%B2%E5%BE%A1%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">IPS(入侵防御系统)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E8%83%8C%E6%99%AF"><span class="toc-number">3.1.</span> <span class="toc-text">产生背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">3.2.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E7%89%B9%E5%BE%81"><span class="toc-number">3.3.</span> <span class="toc-text">技术特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B-2"><span class="toc-number">3.4.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E8%A2%AB%E5%8A%A8-1"><span class="toc-number">3.5.</span> <span class="toc-text">主动被动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-2"><span class="toc-number">3.6.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E8%AE%BE%E5%A4%87"><span class="toc-number">4.</span> <span class="toc-text">漏洞扫描设备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-2"><span class="toc-number">4.1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%8A%80%E6%9C%AF"><span class="toc-number">4.2.</span> <span class="toc-text">主要技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B-3"><span class="toc-number">4.3.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-3"><span class="toc-number">4.4.</span> <span class="toc-text">使用方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">4.5.</span> <span class="toc-text">优缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%9A%94%E7%A6%BB%E7%BD%91%E9%97%B8"><span class="toc-number">5.</span> <span class="toc-text">安全隔离网闸</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97"><span class="toc-number">5.1.</span> <span class="toc-text">功能模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-3"><span class="toc-number">5.2.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-1"><span class="toc-number">5.3.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB%E6%AF%94%E8%BE%83"><span class="toc-number">5.4.</span> <span class="toc-text">区别比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-4"><span class="toc-number">5.5.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#VPN%E8%AE%BE%E5%A4%87"><span class="toc-number">6.</span> <span class="toc-text">VPN设备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-4"><span class="toc-number">6.1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-2"><span class="toc-number">6.2.</span> <span class="toc-text">工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8VPN%E6%8A%80%E6%9C%AF"><span class="toc-number">6.3.</span> <span class="toc-text">常用VPN技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B-4"><span class="toc-number">6.4.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">6.5.</span> <span class="toc-text">实现方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7%E8%AE%BE%E5%A4%87"><span class="toc-number">7.</span> <span class="toc-text">流量监控设备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF"><span class="toc-number">7.1.</span> <span class="toc-text">技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-5"><span class="toc-number">7.2.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-5"><span class="toc-number">7.3.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E7%97%85%E6%AF%92%E7%BD%91%E5%85%B3"><span class="toc-number">8.</span> <span class="toc-text">防病毒网关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-6"><span class="toc-number">8.1.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">8.2.</span> <span class="toc-text">与防火墙的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E9%98%B2%E7%97%85%E6%AF%92%E8%BD%AF%E4%BB%B6%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">8.3.</span> <span class="toc-text">与防病毒软件的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">8.4.</span> <span class="toc-text">查杀方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-6"><span class="toc-number">8.5.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WAF-WEB%E5%BA%94%E7%94%A8%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">9.</span> <span class="toc-text">WAF(WEB应用防火墙)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E8%83%8C%E6%99%AF-1"><span class="toc-number">9.1.</span> <span class="toc-text">产生背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-7"><span class="toc-number">9.2.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-7"><span class="toc-number">9.3.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1%E7%B3%BB%E7%BB%9F"><span class="toc-number">10.</span> <span class="toc-text">安全审计系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%B1%BB%E5%9E%8B-5"><span class="toc-number">10.1.</span> <span class="toc-text">主要类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD-8"><span class="toc-number">10.2.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-8"><span class="toc-number">10.3.</span> <span class="toc-text">使用方式</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/07/31/hello-world/" title="Hello World">Hello World</a><time datetime="2021-07-31T14:18:47.559Z" title="发表于 2021-07-31 22:18:47">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="三种xss的区别"/></a><div class="content"><a class="title" href="/2021/07/31/XSS/%E4%B8%89%E7%A7%8Dxss%E7%9A%84%E5%8C%BA%E5%88%AB/" title="三种xss的区别">三种xss的区别</a><time datetime="2021-07-31T13:23:29.000Z" title="发表于 2021-07-31 21:23:29">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie"><img src="/img/image/1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Cookie"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/Cookie/" title="Cookie">Cookie</a><time datetime="2021-07-31T13:22:32.000Z" title="发表于 2021-07-31 21:22:32">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译"><img src="/img/image/19.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="预编译"/></a><div class="content"><a class="title" href="/2021/07/31/SQL%E6%B3%A8%E5%85%A5/%E9%A2%84%E7%BC%96%E8%AF%91/" title="预编译">预编译</a><time datetime="2021-07-31T13:19:28.000Z" title="发表于 2021-07-31 21:19:28">2021-07-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP"><img src="/img/image/%20.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LDAP"/></a><div class="content"><a class="title" href="/2021/07/31/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3/LDAP/" title="LDAP">LDAP</a><time datetime="2021-07-31T13:17:25.000Z" title="发表于 2021-07-31 21:17:25">2021-07-31</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/%E5%9B%BE%E5%BA%93/17.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By h0ld1rs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'VW87gUH9lGz0MqQ26R0dxvzS-gzGzoHsz',
+      appKey: 'hXDx5AOht2WentElxJRM8xnK',
+      placeholder: '来啊，快活啊!',
+      avatar: 'monsterid',
+      meta: 'nick'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
